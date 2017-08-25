@@ -1,0 +1,12 @@
+{
+	"chronostrat": [
+		{ "name": "quaternary", "age": [0, 2.588], "color": "#fff673"},
+		{ "name": "neogene", "age": [2.588, 23.03], "color": "#ffd310"},
+		{ "name": "paleogene", "age": [23.03, 66.0], "color": "#ff8552"},
+		{ "name": "cretaceous", "age": [66.0, 145], "color": "#63ae53"},
+		{ "name": "jurrasic", "age": [145,  201.3], "color": "#0096d5"},
+		{ "name": "triassic", "age": [201.3, 252.2], "color": "#63347c"},
+		{ "name": "permian", "age": [252.2, 298.9], "color": "#dd4530"},
+		{ "name": "carboniferous", "age": [298.9, 358.9], "color": "#218e93"}
+	]
+}
