@@ -1,11 +1,13 @@
 import React from "react";
 
+import Typ16 from "components/Typ16";
+
 export default class App extends React.Component {
   render() {
     return (
-      <h1>
+      <Typ16>
         {"Hello World!"}
-      </h1>
+      </Typ16>
     );
   }
 }
