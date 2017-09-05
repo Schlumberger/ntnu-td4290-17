@@ -1,15 +1,15 @@
-const path = require("path");
-const webpack = require("webpack");
-const HTMLWebpackPlugin = require("html-webpack-plugin");
+const path = require('path');
+const webpack = require('webpack');
+const HTMLWebpackPlugin = require('html-webpack-plugin');
 const isProduction = false;
 
 module.exports = function() {
   return {
-    devtool: isProduction ? "source-map" : "eval-source-map",
-    entry: ["./index.js"],
+    devtool: isProduction ? 'source-map' : 'eval-source-map',
+    entry: ['./index.js'],
     output: {
-      path: path.resolve(__dirname, "dist"),
-      filename: "bundle.js"
+      path: path.resolve(__dirname, 'dist'),
+      filename: 'bundle.js'
     },
     module: {
       rules: [
@@ -18,7 +18,7 @@ module.exports = function() {
           exclude: /node_modules/,
           use: [
             {
-              loader: "babel-loader"
+              loader: 'babel-loader'
             }
           ]
         }
@@ -26,13 +26,13 @@ module.exports = function() {
     },
     plugins: [
       new HTMLWebpackPlugin({
-        template: "./index.html"
+        template: './index.html'
       })
     ],
     devServer: isProduction
       ? {}
       : {
-          contentBase: path.resolve(__dirname, "dist")
+          contentBase: path.resolve(__dirname, 'dist')
         }
   };
 };
