@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import { default as Viz } from 'components/Visualization';
+
 /*
   TODO: Import components and use them instead of divs
   Example:
@@ -37,7 +39,7 @@ export const SideMenu = styled.div`
   height: 100%:
 `;
 
-export const Visualization = styled.div`
+export const Visualization = styled(Viz)`
   grid-area: visualization;
   background-color: blue;
   width: 100%;

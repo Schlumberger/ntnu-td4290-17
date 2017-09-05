@@ -14,7 +14,7 @@ export default class App extends React.Component {
       <Wrapper>
         <HeaderMenu />
         <SideMenu />
-        <Visualization />
+        <Visualization data={['test']} />
         <Footer />
       </Wrapper>
     );
