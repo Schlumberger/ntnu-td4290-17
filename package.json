@@ -2,7 +2,7 @@
   "name": "ntnu-td4290-17",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "client/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack-dev-server",
@@ -20,6 +20,9 @@
   },
   "homepage": "https://github.com/Schlumberger/ntnu-td4290-17#readme",
   "dependencies": {
+    "@cerebral/firebase": "^2.0.0",
+    "@cerebral/router": "^1.1.0",
+    "cerebral": "^2.1.0",
     "d3-scale": "^1.0.6",
     "d3-selection": "^1.1.0",
     "d3-shape": "^1.2.0",
