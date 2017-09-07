@@ -8,11 +8,15 @@ import {
   Footer
 } from './elements';
 
+import Header from './Header'
+
 export default class App extends React.Component {
   render() {
     return (
       <Wrapper>
-        <HeaderMenu />
+        <HeaderMenu>
+          <Header />
+        </HeaderMenu>
         <SideMenu />
         <Visualization data={['test']} />
         <Footer />
