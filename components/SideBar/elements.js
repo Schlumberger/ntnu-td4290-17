@@ -2,34 +2,67 @@ import styled from "styled-components";
 
 export const SidebarContainer = styled.div`
   background: #dddddd;
-  width: 100px;
+  width: 50px;
   position: fixed !important;
   z-index: 1;
   overflow: auto;
   height: 100%;
   line-height: 1.5;
+  transition: width 0.05s linear;
+  :hover {
+    width: 120px;
+  }
 `;
 
-export const SidebarTitle = styled.span`
+export const SidebarHamburgerContainer = styled.div`
   display: block;
-  color: inherit;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  max-height: 50px;
+  overflow: hidden;
+`;
+
+export const SidebarHamburger = styled.span`
+  display: block;
+  width: 33px;
+  height: 4px;
+  margin-top: 3px;
+  margin-bottom: 3px;
+  position: relative;
+  background: #888888;
+  border-radius: 1px;
+  float: left;
+`;
+
+export const SidebarHamburgerText = styled.span`
   font-family: Verdana, sans-serif;
-  font-size: 20px;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  padding-left: 16px;
-  padding-right: 16px;
+  font-size: 10px;
 `;
 
 export const SidebarLink = styled.a`
   display: block;
   color: inherit;
   text-decoration-line: none;
-  font-family: Verdana, sans-serif;
-  font-size: 16px;
   padding-left: 16px;
   padding-right: 16px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  max-height: 40px;
+  overflow: hidden;
   :hover {
     background: #aaaaaa;
   }
+`;
+
+export const SidebarLinkText = styled.span`
+  margin-left: 10px;
+  font-family: Verdana, sans-serif;
+  font-size: 16px;
+`;
+
+export const SidebarImage = styled.img`
+  width: 20px;
+  height: 20px;
 `;

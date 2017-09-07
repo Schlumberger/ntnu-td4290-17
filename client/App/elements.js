@@ -23,7 +23,8 @@ export const Wrapper = styled.div`
     "footer     footer";
   height: 100vh;
   width: 100vw;
-  margin-left: 100px;
+  margin-left: 50px;
+  background-color: red;
 `;
 
 export const HeaderMenu = styled.div`
