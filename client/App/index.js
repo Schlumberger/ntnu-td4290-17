@@ -14,9 +14,7 @@ export default class App extends React.Component {
   render() {
     return (
       <Wrapper>
-        <HeaderMenu>
-          <Header />
-        </HeaderMenu>
+        <HeaderMenu/>
         <SideMenu />
         <Visualization data={['test']} />
         <Footer />

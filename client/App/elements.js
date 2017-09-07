@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-
+import Header from "./Header"
 import { default as Viz } from 'components/Visualization';
 
 /*
@@ -18,16 +18,16 @@ import { default as Viz } from 'components/Visualization';
 export const Wrapper = styled.div`
   display: grid;
   grid-template-columns: 300px 1fr;
-  grid-template-rows: 57px 1fr 50px;
+  grid-template-rows: 70px 1fr 50px;
   grid-template-areas: 'headerMenu headerMenu' 'sideMenu   visualization'
     'footer     footer';
   height: 100vh;
   width: 100vw;
 `;
 
-export const HeaderMenu = styled.div`
+export const HeaderMenu = styled(Header)`
   grid-area: headerMenu;
-  background-color: red;
+
   width: 100%;
   height: 100%:
 `;
