@@ -29,6 +29,8 @@
     "styled-components": "^2.1.2"
   },
   "devDependencies": {
+    "@storybook/addons": "^3.2.6",
+    "@storybook/react": "^3.2.8",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-plugin-module-resolver": "^2.7.1",
