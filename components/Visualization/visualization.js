@@ -12,7 +12,9 @@ export const update = (el, props, state) => {
   const { width, height } = state;
 
   // Select the svg
-  const svg = select(el);
+  const svg = select(el)
+    .attr('width', width)
+    .attr('height', height);
 
   // Bind the data to the 'text'-elements
   const update = svg.selectAll('text').data(data);

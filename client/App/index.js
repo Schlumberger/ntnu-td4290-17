@@ -17,11 +17,13 @@ export default connect(
   },
   class App extends React.Component {
     render() {
+      console.log(this.props.data);
+
       return (
         <Wrapper>
           <HeaderMenu />
           <SideMenu />
-          <Visualization data={this.props.data} />
+          <Visualization data={['this.props.data']} />
           <Footer />
         </Wrapper>
       );
