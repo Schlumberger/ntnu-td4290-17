@@ -1,22 +1,18 @@
-import React from 'react';
+import React from "react";
 
-import {
-  Wrapper,
-  SideMenu,
-  HeaderMenu,
-  Visualization,
-  Footer
-} from './elements';
+import { Wrapper, Visualization } from "./elements";
+
+import SideBar from "components/SideBar";
 
 export default class App extends React.Component {
   render() {
     return (
-      <Wrapper>
-        <HeaderMenu />
-        <SideMenu />
-        <Visualization data={['test']} />
-        <Footer />
-      </Wrapper>
+      <div>
+        <SideBar />
+        <Wrapper>
+          <Visualization data={["test"]} />
+        </Wrapper>
+      </div>
     );
   }
 }
