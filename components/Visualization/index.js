@@ -30,7 +30,6 @@ export default class Visualization extends Component {
   }
 
   updateSize() {
-    console.log(this.wrapper.offsetWidth);
     this.setState({
       width: this.wrapper.offsetWidth,
       height: this.wrapper.offsetHeight

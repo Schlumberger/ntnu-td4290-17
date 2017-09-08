@@ -21,7 +21,7 @@ export default connect(
         <Wrapper>
           <HeaderMenu />
           <SideMenu />
-          <Visualization data={['this.props.data']} />
+          <Visualization data={this.props.data} />
           <Footer />
         </Wrapper>
       );
