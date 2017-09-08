@@ -13,12 +13,16 @@ import {
 
 import SideBar from './SideBar';
 
+// Connect the component to cerebral so that cerebral can manage it
 export default connect(
+  // The first argument is an object that describes what you want to get from cerebral
   {
+    // This assigns this.props.data to the return value of the computed
     data: computeVisualizationData
   },
   class App extends React.Component {
     render() {
+      // Here we now have access to this.props.data as what the computed returned
       return (
         <Wrapper>
           <HeaderMenu />
