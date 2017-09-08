@@ -1,19 +1,7 @@
 import styled from 'styled-components';
 
-import { default as Viz } from 'components/Visualization';
-
-/*
-  TODO: Import components and use them instead of divs
-  Example:
-
-  import Header from './Header';
-  export const HeaderMenu = styled(Header)`
-    grid-area: headerMenu;
-    background-color: red;
-    width: 100%;
-    height: 100%:
-  `;
-*/
+import Viz from 'components/Visualization';
+import Menu from './SideMenu';
 
 export const Wrapper = styled.div`
   display: grid;
@@ -32,7 +20,7 @@ export const HeaderMenu = styled.div`
   height: 100%:
 `;
 
-export const SideMenu = styled.div`
+export const SideMenu = styled(Menu)`
   grid-area: sideMenu;
   background-color: green;
   width: 100%;
