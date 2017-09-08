@@ -3,10 +3,15 @@ import { connect } from 'cerebral/react';
 
 import computeVisualizationData from 'computed/computeVisualizationData';
 
-import { Wrapper, Visualization } from './elements';
+import {
+  Wrapper,
+  Visualization,
+  HeaderMenu,
+  SideMenu,
+  Footer
+} from './elements';
 
 import SideBar from './SideBar';
-
 
 export default connect(
   {
@@ -23,6 +28,5 @@ export default connect(
         </Wrapper>
       );
     }
-
   }
 );

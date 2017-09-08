@@ -1,10 +1,8 @@
-import styled from "styled-components";
-
+import styled from 'styled-components';
 
 import Viz from 'components/Visualization';
 import Menu from './SideMenu';
 import Header from './Header';
-
 
 export const Wrapper = styled.div`
   display: grid;
@@ -16,8 +14,6 @@ export const Wrapper = styled.div`
 
   height: 100vh;
   width: 100vw;
-  margin-left: 50px;
-  background-color: red;
 `;
 
 export const HeaderMenu = styled(Header)`
