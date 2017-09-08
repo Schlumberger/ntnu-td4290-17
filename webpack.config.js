@@ -6,7 +6,7 @@ const isProduction = false;
 module.exports = function() {
   return {
     devtool: isProduction ? 'source-map' : 'eval-source-map',
-    entry: ['./index.js'],
+    entry: ['./client/index.js'],
     output: {
       path: path.resolve(__dirname, 'dist'),
       filename: 'bundle.js'

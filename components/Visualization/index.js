@@ -30,7 +30,6 @@ export default class Visualization extends Component {
   }
 
   updateSize() {
-    console.log(this.wrapper.offsetWidth);
     this.setState({
       width: this.wrapper.offsetWidth,
       height: this.wrapper.offsetHeight
@@ -40,11 +39,7 @@ export default class Visualization extends Component {
   render() {
     return (
       <Wrapper innerRef={wrapper => (this.wrapper = wrapper)}>
-        <svg
-          ref={svg => (this.svg = svg)}
-          width={this.state.width}
-          height={this.state.height}
-        />
+        <svg ref={svg => (this.svg = svg)} />
       </Wrapper>
     );
   }
