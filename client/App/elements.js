@@ -7,7 +7,7 @@ import Header from './Header';
 export const Wrapper = styled.div`
   display: grid;
   grid-template-columns: 300px 1fr;
-  grid-template-rows: 70px 1fr 50px;
+  grid-template-rows: 70px 1fr 0px;
   grid-template-areas: 'headerMenu headerMenu' 'sideMenu   visualization'
     'footer     footer';
   height: 100vh;
