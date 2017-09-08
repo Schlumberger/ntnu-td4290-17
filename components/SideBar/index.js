@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   SidebarContainer,
   SidebarLink,
@@ -7,7 +7,7 @@ import {
   SidebarHamburger,
   SidebarHamburgerContainer,
   SidebarHamburgerText
-} from "./elements";
+} from './elements';
 
 export default function SideBar() {
   return (
@@ -21,6 +21,7 @@ export default function SideBar() {
         <SidebarHamburger />
         <SidebarHamburger />
       </SidebarHamburgerContainer>
+
       <SidebarLink href="#">
         <SidebarImage src="https://www.w3schools.com/html/html5.gif" />
         <SidebarLinkText>Link 1</SidebarLinkText>
