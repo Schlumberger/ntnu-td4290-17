@@ -1,8 +1,8 @@
-import React from "react";
+import React from 'react';
 
-import { Wrapper, Visualization } from "./elements";
+import { Wrapper, Visualization } from './elements';
 
-import SideBar from "components/SideBar";
+import SideBar from './SideBar';
 
 export default class App extends React.Component {
   render() {
@@ -10,7 +10,7 @@ export default class App extends React.Component {
       <div>
         <SideBar />
         <Wrapper>
-          <Visualization data={["test"]} />
+          <Visualization data={['test']} />
         </Wrapper>
       </div>
     );
