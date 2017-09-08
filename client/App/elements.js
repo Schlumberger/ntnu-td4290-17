@@ -23,7 +23,7 @@ export const HeaderMenu = styled(Header)`
 
 export const SideMenu = styled(Menu)`
   grid-area: sideMenu;
-  background-color: green;
+  background-color: #999999;
   width: 100%;
   height: 100%:
 `;

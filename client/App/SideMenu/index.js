@@ -16,13 +16,13 @@ export default connect(
         inactive={!layers[layerID]}
         onClick={() => layerClicked({ layerID })}
       >
-        {layerID}
+        {layerID.split('-').join(' ')}
       </LayerButton>
     ));
 
     return (
       <Wrapper className={className}>
-        <Title>{'Side Menu'}</Title>
+        <Title>{'Layers'}</Title>
         {layerButtons}
       </Wrapper>
     );
