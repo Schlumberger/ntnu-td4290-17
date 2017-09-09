@@ -1,8 +1,10 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const SidebarContainer = styled.div`
+  grid-area: headerMenu;
+
   background: #dddddd;
-  width: 50px;
+  width: 60px;
   position: fixed !important;
   z-index: 1;
   overflow: auto;
@@ -10,7 +12,7 @@ export const SidebarContainer = styled.div`
   line-height: 1.5;
   transition: width 0.05s; /*linear;*/
   :hover {
-    width: 120px;
+    width: 250px;
   }
 `;
 
@@ -62,7 +64,7 @@ export const SidebarLink = styled.a`
 export const SidebarLinkText = styled.span`
   margin-left: 10px;
   font-family: Verdana, sans-serif;
-  font-size: 16px;
+  font-size: 12px;
 
   transition: margin-left 0.1s;
 `;
