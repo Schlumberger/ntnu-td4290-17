@@ -19,7 +19,13 @@ export default Controller({
           host: 'localhost:8787'
         }),
   state: {
-    error: null
+    error: null,
+    settings: {
+      visibility: {
+        layer: true,
+        fault: true
+      }
+    }
   },
   modules: {
     // Sections of logic that are grouped together

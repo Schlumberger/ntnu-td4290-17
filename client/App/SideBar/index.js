@@ -1,6 +1,6 @@
-import React from "react";
-import { connect } from "cerebral/react";
-import { state, signal } from "cerebral/tags";
+import React from 'react';
+import { connect } from 'cerebral/react';
+import { state, signal } from 'cerebral/tags';
 
 import {
   SidebarContainer,
@@ -10,7 +10,7 @@ import {
   SidebarHamburger,
   SidebarHamburgerContainer,
   SidebarHamburgerText
-} from "./elements";
+} from './elements';
 
 export default connect(
   {
@@ -25,7 +25,7 @@ export default connect(
       <SidebarLink href="#">
         <SidebarImage src="https://www.w3schools.com/html/html5.gif" />
         <SidebarLinkText>{layerID}</SidebarLinkText>
-        {layerID.split("-").join(" ")}
+        {layerID.split('-').join(' ')}
       </SidebarLink>
     ));
     return (

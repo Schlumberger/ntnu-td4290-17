@@ -7,17 +7,20 @@ import { state } from 'cerebral/tags';
 export default compute(
   state`dataset`,
   state`chronostrat`,
-  state`layers`,
+  state`settings.visibility`,
   (dataset, chronostrat, layers = {}) => {
     if (!dataset || !chronostrat) return [];
 
-    return dataset.filter(line => layers[line.id]).map(line => {
-      return Object.assign(line, { stroke: getStroke(line.id, chronostrat) });
+    return dataset.filter(line => layers[line.type]).map(line => {
+      return Object.assign(line, {
+        stroke: getStroke(line.category, chronostrat)
+      });
     });
   }
 );
 
-const getStroke = (id, chronostrat) => {
-  const period = id.split('-')[1];
+const getStroke = (period, chronostrat) => {
+  if (!period) return 'black';
+
   return period in chronostrat ? chronostrat[period].color : 'black';
 };
