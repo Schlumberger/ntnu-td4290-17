@@ -11,10 +11,8 @@ export default compute(
   (formattedData, layers = {}, yAxisUnit) => {
     if (!formattedData) return {};
 
-    if (yAxisUnit === 'age') layers.faults = false;
-
     const groups = Object.keys(layers).reduce((acc, layerID) => {
-      if (!layers[layerID]) {
+      if (!layers[layerID] || (yAxisUnit === 'age' && layerID === 'faults')) {
         acc[layerID] = [];
         return acc;
       }

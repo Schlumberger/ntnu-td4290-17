@@ -19,7 +19,12 @@ export const create = (el, props, state) => {
 
 export const update = (el, props, state) => {
   const { width, height } = state;
-  const { maxWidth = 0, maxHeight = 0, groups = {}, yAxisUnit } = props.data;
+  const {
+    maxWidth = 0,
+    maxHeight = 0,
+    groups = { layers: [], faults: [] },
+    yAxisUnit
+  } = props.data;
 
   //Coverts coordinates to d-attribute
   const lineGenerator = line()
@@ -48,31 +53,61 @@ export const update = (el, props, state) => {
     .attr('width', width)
     .attr('height', height);
 
-  Object.keys(groups).forEach(group => {
-    const data = groups[group];
+  // Bind the data to the 'text'-elements
+  const updateFaults = svg
+    .select('g#faults')
+    .selectAll('path')
+    .data(groups.faults, d => d.id);
 
-    // Bind the data to the 'text'-elements
-    const update = svg
-      .select(`g#${group}`)
-      .selectAll('path')
-      .data(data, d => d.id);
+  const updateLayers = svg
+    .select('g#layers')
+    .selectAll('path')
+    .data(groups.layers, d => d.id);
 
-    // Add new text-elements if nessescary
-    const enter = update.enter().append('path');
+  // Add new text-elements if nessescary
+  const enterFaults = updateFaults
+    .enter()
+    .append('path')
+    .attr('opacity', 0);
+  const enterLayers = updateLayers
+    .enter()
+    .append('path')
+    .attr('opacity', 0);
 
-    // Remove if too many
-    const exit = update.exit().remove();
+  // Remove if too many
+  const exitFaults = updateFaults
+    .exit()
+    .transition()
+    .duration(500)
+    .attr('opacity', 0)
+    .remove();
+  const exitLayers = updateLayers
+    .exit()
+    .transition()
+    .duration(500)
+    .attr('opacity', 0)
+    .remove();
 
-    // Update the properties of all elements
-    update
-      .merge(enter)
-      .transition()
-      .duration(2000)
-      .attr('d', d => generators[d.geometryType](d.points))
-      .attr('fill', d => d.fill)
-      .attr('stroke', d => d.stroke)
-      .attr('stroke-width', '2px');
-  });
+  // Update the properties of all elements
+  updateFaults
+    .merge(enterFaults)
+    .transition()
+    .duration(1000)
+    .attr('opacity', 1)
+    .attr('d', d => generators[d.geometryType](d.points))
+    .attr('fill', d => d.fill)
+    .attr('stroke', d => d.stroke)
+    .attr('stroke-width', '2px');
+
+  updateLayers
+    .merge(enterLayers)
+    .transition()
+    .duration(1000)
+    .attr('opacity', 1)
+    .attr('d', d => generators[d.geometryType](d.points))
+    .attr('fill', d => d.fill)
+    .attr('stroke', d => d.stroke)
+    .attr('stroke-width', '2px');
 };
 
 export const destroy = el => {
