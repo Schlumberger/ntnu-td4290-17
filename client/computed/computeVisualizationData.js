@@ -23,10 +23,12 @@ export default compute(
     }, {});
 
     const maxWidth = Math.max(
+      0,
       ...formattedData.map(el => Math.max(...el.points.map(p => p.x || 0)))
     );
 
     const maxHeight = Math.max(
+      0,
       ...formattedData.map(el =>
         Math.max(
           ...el.points.map(p => (yAxisUnit === 'depth' ? p.y : p.maxAge || 0))
