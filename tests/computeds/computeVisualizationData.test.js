@@ -2,7 +2,7 @@ import { props, state } from 'cerebral/tags';
 import { runCompute } from 'cerebral/test';
 import { assert } from 'chai';
 
-import computed from '../../client/computed/computeVisualizationData';
+import computed from 'computed/computeVisualizationData';
 
 describe('Compute correct values', function() {
   it('Should compute empty arrays if false filters', function() {
