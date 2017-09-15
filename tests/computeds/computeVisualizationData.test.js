@@ -28,4 +28,28 @@ describe('Compute correct values', function() {
       yAxisUnit: 'age'
     });
   });
+  it('Should compute with depth and layers:true and faults:true', function() {
+    const result = runCompute(computed, {
+      state: {
+        settings: {
+          visibility: {
+            layers: true,
+            faults: true
+          },
+          yAxisUnit: 'depth'
+        },
+        formattedData: [{ type: 'layer', points: [{ x: 1, y: 2 }] }],
+        yAxisUnit: 'depth'
+      }
+    });
+    assert.deepEqual(result, {
+      groups: {
+        layers: [{ type: 'layer', points: [{ x: 1, y: 2 }] }],
+        faults: []
+      },
+      maxWidth: 1,
+      maxHeight: 2,
+      yAxisUnit: 'depth'
+    });
+  });
 });
