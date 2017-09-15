@@ -10,7 +10,9 @@
     "storybook": "start-storybook -p 6006"
   },
   "babel": {
-    "presets": ["es2015"]
+    "presets": [
+      "es2015"
+    ]
   },
   "repository": {
     "type": "git",
@@ -23,9 +25,10 @@
   },
   "homepage": "https://github.com/Schlumberger/ntnu-td4290-17#readme",
   "dependencies": {
-    "@cerebral/firebase": "^2.0.0",
-    "@cerebral/router": "^1.1.0",
-    "cerebral": "^2.1.0",
+    "@cerebral/firebase": "^3.0.0",
+    "@cerebral/react": "^2.0.0",
+    "@cerebral/router": "^2.0.0",
+    "cerebral": "^3.0.0",
     "d3-scale": "^1.0.6",
     "d3-selection": "^1.1.0",
     "d3-shape": "^1.2.0",
