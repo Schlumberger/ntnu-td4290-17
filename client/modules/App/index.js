@@ -1,5 +1,6 @@
 import routed from './signals/routed';
 import layerClicked from './signals/layerClicked';
+import transitionClicked from './signals/transitionClicked';
 
 // A module contains state and signals(functions)
 export default {
@@ -11,6 +12,7 @@ export default {
   // It is then accessed by signal`app.routed` for example
   signals: {
     routed,
-    layerClicked
+    layerClicked,
+    transitionClicked
   }
 };

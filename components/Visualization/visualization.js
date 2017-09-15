@@ -1,7 +1,9 @@
 import { select } from 'd3-selection';
 import { transition } from 'd3-transition';
 import { line } from 'd3-shape';
-import { scaleLinear } from 'd3-scale';
+import { scaleLinear, scalePow } from 'd3-scale';
+
+const animDuration = 300;
 
 const margins = {
   top: 15,
@@ -20,29 +22,28 @@ export const update = (el, props, state) => {
   const { width, height } = state;
 
   //Find maxWidth
-  const maxWidth = Math.max(
-    ...data.map(el => Math.max(...el.points.map(p => p.x || 0)))
-  );
+  const maxWidth = 100;
 
   //Find maxHeight
-  const maxHeight = Math.max(
-    ...data.map(el => Math.max(...el.points.map(p => p.y || 0)))
-  );
+  const maxHeight = 100;
+
+  //position scale
+  const xScale = scaleLinear()
+    .domain([0, maxWidth])
+    .range([0, width]);
+  const yScale = scaleLinear()
+    .domain([0, maxHeight])
+    .range([0, height]);
+
+  //color scale
+  const colorScale = scaleLinear()
+    .domain([0, maxWidth])
+    .range(['red', 'white', 'green']);
 
   //Coverts coordinates to d-attribute
   const lineGenerator = line()
     .x(d => xScale(d.x))
     .y(d => yScale(d.y));
-
-  // Select how to scale values to x positions
-  const xScale = scaleLinear()
-    .domain([0, maxWidth])
-    .range([margins.left, width - margins.right]);
-
-  // Select how to scale values to y positions
-  const yScale = scaleLinear()
-    .domain([0, maxHeight])
-    .range([margins.top, height - margins.bottom]);
 
   // Select the svg
   const svg = select(el)
@@ -50,7 +51,7 @@ export const update = (el, props, state) => {
     .attr('height', height);
 
   // Bind the data to the 'text'-elements
-  const update = svg.selectAll('path').data(data, d => d.id);
+  const update = svg.selectAll('path').data(data);
 
   // Add new text-elements if nessescary
   const enter = update.enter().append('path');
@@ -62,10 +63,13 @@ export const update = (el, props, state) => {
   update
     .merge(enter)
     .transition()
-    .duration(1000)
+    .duration(animDuration)
     .attr('d', d => lineGenerator(d.points))
-    .attr('fill', 'none')
-    .attr('stroke', d => d.stroke)
+    .attr(
+      'fill',
+      d => colorScale(Math.random() * 100) //d.points.map(p => p.x * 0.25).reduce((a, b) => a + b, 0))
+    )
+    .attr('stroke', 'black')
     .attr('stroke-width', '2px');
 };
 

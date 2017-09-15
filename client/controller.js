@@ -25,7 +25,8 @@ export default Controller({
         layer: true,
         fault: true
       }
-    }
+    },
+    figure: 'rect'
   },
   modules: {
     // Sections of logic that are grouped together
