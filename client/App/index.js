@@ -3,15 +3,7 @@ import { connect } from 'cerebral/react';
 
 import computeVisualizationData from 'computed/computeVisualizationData';
 
-import {
-  Wrapper,
-  Visualization,
-  HeaderMenu,
-  SideMenu,
-  Footer
-} from './elements';
-
-import SideBar from './SideBar';
+import { Wrapper, Visualization, ImmersiveBar } from './elements';
 
 // Connect the component to cerebral so that cerebral can manage it
 export default connect(
@@ -26,10 +18,8 @@ export default connect(
       // Here we now have access to this.props.data as what the computed returned
       return (
         <Wrapper>
-          <HeaderMenu />
-          <SideMenu />
+          <ImmersiveBar />
           <Visualization data={this.props.data} />
-          <Footer />
         </Wrapper>
       );
     }

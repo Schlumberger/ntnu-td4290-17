@@ -1,19 +1,27 @@
 import styled from 'styled-components';
 
 import Viz from 'components/Visualization';
-import Menu from './SideMenu';
+import Menu from './ImmersiveBar';
 import Header from './Header';
 
 export const Wrapper = styled.div`
-  display: grid;
-  grid-template-columns: 300px 1fr;
+  width: 100%;
+  height: 100%;
+`;
 
-  grid-template-rows: 70px 1fr 50px;
-  grid-template-areas: 'headerMenu headerMenu' 'sideMenu   visualization'
-    'footer     footer';
+export const ImmersiveBar = styled(Menu)`
+  //grid-area: sideMenu;
+  //background-color: rgba(0, 0, 0, 0.3);
+  //width: 100%;
+  position: absolute;
+`;
 
-  height: 100vh;
+export const Visualization = styled(Viz)`
+  //grid-area: visualization;
+  background-color: blue;
+  position: absolute;
   width: 100vw;
+  height: 100vh;
 `;
 
 export const HeaderMenu = styled(Header)`
@@ -22,21 +30,6 @@ export const HeaderMenu = styled(Header)`
   width: 100%;
   height: 100%:
 `;
-
-export const SideMenu = styled(Menu)`
-  grid-area: sideMenu;
-  background-color: #999999;
-  width: 100%;
-  height: 100%:
-`;
-
-export const Visualization = styled(Viz)`
-  grid-area: visualization;
-  background-color: blue;
-  width: 100%;
-  height: 100%:
-`;
-
 export const Footer = styled.div`
   grid-area: footer;
   background-color: yellow;

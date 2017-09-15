@@ -34,6 +34,9 @@ export default class Visualization extends Component {
       width: this.wrapper.offsetWidth,
       height: this.wrapper.offsetHeight
     });
+
+    console.log(this.state.width);
+    console.log(this.state.height);
   }
 
   render() {
