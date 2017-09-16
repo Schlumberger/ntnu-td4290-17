@@ -9,5 +9,11 @@
 		{ "name": "triassic", "age": [201.3, 252.2], "color": "#63347c"},
 		{ "name": "permian", "age": [252.2, 298.9], "color": "#dd4530"},
 		{ "name": "carboniferous", "age": [298.9, 358.9], "color": "#218e93"}
+	],
+	"unconformities": [
+		{ "interface": "base-quaternary", "age": 2.30 },
+		{ "interface": "base-paleogene", "age": 32.0 },
+		{ "interface": "base-jurrasic", "age": 180.0 },
+		{ "interface": "base-triassic", "age": 248.2 }
 	]
 }

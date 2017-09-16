@@ -10,6 +10,7 @@ import firebaseConfig from 'configs/firebase';
 
 import AppModule from './modules/App';
 
+// Lot of settings, only modules and router are important
 export default Controller({
   devtools:
     process.env.NODE_ENV === 'production'
@@ -18,13 +19,23 @@ export default Controller({
           host: 'localhost:8787'
         }),
   state: {
-    error: null
+    error: null,
+    settings: {
+      visibility: {
+        layers: true,
+        faults: true
+      },
+      yAxisUnit: 'depth'
+    }
   },
   modules: {
+    // Sections of logic that are grouped together
     app: AppModule,
+    // The router
     router: Router({
       routes: [
         {
+          // When a url path is match, execute this signal
           path: '/',
           signal: 'app.routed'
         }

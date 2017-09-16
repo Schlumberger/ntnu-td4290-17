@@ -1,6 +1,6 @@
 import { select } from 'd3-selection';
 import { transition } from 'd3-transition';
-import { line } from 'd3-shape';
+import { line, area } from 'd3-shape';
 import { scaleLinear } from 'd3-scale';
 
 const margins = {
@@ -11,28 +11,32 @@ const margins = {
 };
 export const create = (el, props, state) => {
   const svg = select(el);
+  svg.append('g').attr('id', 'layers');
+  svg.append('g').attr('id', 'faults');
 
   update(el, props, state);
 };
 
 export const update = (el, props, state) => {
-  const { data = [] } = props;
   const { width, height } = state;
-
-  //Find maxWidth
-  const maxWidth = Math.max(
-    ...data.map(el => Math.max(...el.points.map(p => p.x || 0)))
-  );
-
-  //Find maxHeight
-  const maxHeight = Math.max(
-    ...data.map(el => Math.max(...el.points.map(p => p.y || 0)))
-  );
+  const {
+    maxWidth = 0,
+    maxHeight = 0,
+    groups = { layers: [], faults: [] },
+    yAxisUnit
+  } = props.data;
 
   //Coverts coordinates to d-attribute
   const lineGenerator = line()
     .x(d => xScale(d.x))
     .y(d => yScale(d.y));
+
+  const areaGenerator = area()
+    .x(d => xScale(d.x))
+    .y0(d => yScale(yAxisUnit === 'depth' ? d.y : d.maxAge))
+    .y1(d => yScale(yAxisUnit === 'depth' ? 0 : d.minAge));
+
+  const generators = { line: lineGenerator, area: areaGenerator };
 
   // Select how to scale values to x positions
   const xScale = scaleLinear()
@@ -50,21 +54,58 @@ export const update = (el, props, state) => {
     .attr('height', height);
 
   // Bind the data to the 'text'-elements
-  const update = svg.selectAll('path').data(data, d => d.id);
+  const updateFaults = svg
+    .select('g#faults')
+    .selectAll('path')
+    .data(groups.faults, d => d.id);
+
+  const updateLayers = svg
+    .select('g#layers')
+    .selectAll('path')
+    .data(groups.layers, d => d.id);
 
   // Add new text-elements if nessescary
-  const enter = update.enter().append('path');
+  const enterFaults = updateFaults
+    .enter()
+    .append('path')
+    .attr('opacity', 0);
+  const enterLayers = updateLayers
+    .enter()
+    .append('path')
+    .attr('opacity', 0);
 
   // Remove if too many
-  const exit = update.exit().remove();
+  const exitFaults = updateFaults
+    .exit()
+    .transition()
+    .duration(500)
+    .attr('opacity', 0)
+    .remove();
+  const exitLayers = updateLayers
+    .exit()
+    .transition()
+    .duration(500)
+    .attr('opacity', 0)
+    .remove();
 
   // Update the properties of all elements
-  update
-    .merge(enter)
+  updateFaults
+    .merge(enterFaults)
     .transition()
     .duration(1000)
-    .attr('d', d => lineGenerator(d.points))
-    .attr('fill', 'none')
+    .attr('opacity', 1)
+    .attr('d', d => generators[d.geometryType](d.points))
+    .attr('fill', d => d.fill)
+    .attr('stroke', d => d.stroke)
+    .attr('stroke-width', '2px');
+
+  updateLayers
+    .merge(enterLayers)
+    .transition()
+    .duration(1000)
+    .attr('opacity', 1)
+    .attr('d', d => generators[d.geometryType](d.points))
+    .attr('fill', d => d.fill)
     .attr('stroke', d => d.stroke)
     .attr('stroke-width', '2px');
 };
