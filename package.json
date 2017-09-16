@@ -21,6 +21,9 @@
     }
   },
   "nyc": {
+    "all": true,
+    "include": ["client/**", "components/**", "utils/**"],
+    "exclude": ["**/stories.js"],
     "require": ["babel-core/register"],
     "sourceMap": false,
     "instrument": false
