@@ -24,7 +24,7 @@ export default compute(
 
     const maxWidth = Math.max(
       0,
-      ...formattedData.map(el => Math.max(...el.points.map(p => p.x || 0)))
+      ...formattedData.map(el => Math.max(...el.points.map(p => p.x)))
     );
 
     const maxHeight = Math.max(
