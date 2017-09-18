@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'cerebral/react';
+import { connect } from '@cerebral/react';
 
 import computeVisualizationData from 'computed/computeVisualizationData';
 
@@ -22,7 +22,6 @@ export default connect(
   },
   class App extends React.Component {
     render() {
-      console.log(this.props.data);
       // Here we now have access to this.props.data as what the computed returned
       return (
         <Wrapper>

@@ -9,7 +9,7 @@ module.exports.addAgeToPoints = (type, category, chronostrat, point) => {
   return point;
 };
 
-module.exports.getStroke = (type, period, chronostrat) => {
+module.exports.getStroke = type => {
   switch (type) {
     case 'layer':
       return 'white';
