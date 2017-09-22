@@ -1,7 +1,10 @@
 import React from 'react';
 import { connect } from '@cerebral/react';
+import { state } from 'cerebral/tags';
 
-import computeVisualizationData from 'computed/computeVisualizationData';
+import computeFaults from 'computed/computeFaults';
+import computeLayers from 'computed/computeLayers';
+import computeMaxDimentions from 'computed/computeMaxDimentions';
 
 import {
   Wrapper,
@@ -17,17 +20,26 @@ import SideBar from './SideBar';
 export default connect(
   // The first argument is an object that describes what you want to get from cerebral
   {
-    // This assigns this.props.data to the return value of the computed
-    data: computeVisualizationData
+    // This assigns this.props.* to the return value of the computed
+    faults: computeFaults,
+    layers: computeLayers,
+    dimentions: computeMaxDimentions,
+    yAxisUnit: state`settings.yAxisUnit`
   },
   class App extends React.Component {
     render() {
-      // Here we now have access to this.props.data as what the computed returned
+      // Here we now have access to this.props.* as what the computed returned
       return (
         <Wrapper>
           <HeaderMenu />
           <SideMenu />
-          <Visualization data={this.props.data} />
+          <Visualization
+            faults={this.props.faults}
+            layers={this.props.layers}
+            dimentions={this.props.dimentions}
+            yAxisUnit={this.props.yAxisUnit}
+          />
+
           <Footer />
         </Wrapper>
       );

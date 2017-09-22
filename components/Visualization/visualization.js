@@ -20,11 +20,11 @@ export const create = (el, props, state) => {
 export const update = (el, props, state) => {
   const { width, height } = state;
   const {
-    maxWidth = 0,
-    maxHeight = 0,
-    groups = { layers: [], faults: [] },
-    yAxisUnit
-  } = props.data;
+    faults = [],
+    layers = [],
+    dimentions = { maxWidth: 0, maxHeight: 0 },
+    yAxisUnit = 'depth'
+  } = props;
 
   //Coverts coordinates to d-attribute
   const lineGenerator = line()
@@ -45,12 +45,12 @@ export const update = (el, props, state) => {
 
   // Select how to scale values to x positions
   const xScale = scaleLinear()
-    .domain([0, maxWidth])
+    .domain([0, props.dimentions.maxWidth])
     .range([margins.left, width - margins.right]);
 
   // Select how to scale values to y positions
   const yScale = scaleLinear()
-    .domain([0, maxHeight])
+    .domain([0, props.dimentions.maxHeight])
     .range([margins.top, height - margins.bottom]);
 
   // Select the svg
@@ -62,12 +62,12 @@ export const update = (el, props, state) => {
   const updateFaults = svg
     .select('g#faults')
     .selectAll('path')
-    .data(groups.faults, d => d.id);
+    .data(faults, d => d.id);
 
   const updateLayers = svg
     .select('g#layers')
     .selectAll('path')
-    .data(groups.layers, d => d.id);
+    .data(layers, d => d.id);
 
   // Add new text-elements if nessescary
   const enterFaults = updateFaults
