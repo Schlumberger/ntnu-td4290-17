@@ -30,21 +30,25 @@ describe('<Visualization />', () => {
   it('Should add a svg-element', () => {
     const wrapper = mount(
       <Container controller={Controller()}>
-        <Viz data={{}} />
+        <Viz
+          layers={[]}
+          faults={[]}
+          dimentions={{ maxWidth: 5, maxHeight: 5 }}
+          yAxisUnit={'age'}
+        />
       </Container>
     );
     expect(wrapper.find('svg')).to.have.length(1);
   });
   it('Should update and unmount', done => {
-    const data = {
-      groups: { layers, faults },
-      yAxisUnit: 'depth',
-      maxWidth: 100,
-      maxHeight: 100
-    };
     const wrapper = mount(
       <Container controller={Controller()}>
-        <Viz data={data} />
+        <Viz
+          layers={layers}
+          faults={faults}
+          dimentions={{ maxWidth: 5, maxHeight: 5 }}
+          yAxisUnit={'depth'}
+        />
       </Container>
     );
     wrapper.update();
@@ -52,15 +56,14 @@ describe('<Visualization />', () => {
     done();
   });
   it('Should update and unmount with yAxisUnit age', done => {
-    const data = {
-      groups: { layers, faults },
-      yAxisUnit: 'age',
-      maxWidth: 100,
-      maxHeight: 100
-    };
     const wrapper = mount(
       <Container controller={Controller()}>
-        <Viz data={data} />
+        <Viz
+          layers={[]}
+          faults={[]}
+          dimentions={{ maxWidth: 5, maxHeight: 5 }}
+          yAxisUnit={'age'}
+        />
       </Container>
     );
     wrapper.update();
