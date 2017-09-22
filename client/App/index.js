@@ -18,6 +18,7 @@ export default connect(
     dimentions: computeMaxDimentions,
     yAxisUnit: state`settings.yAxisUnit`,
     info: state`app.info`,
+    infoBoxColor: state`chronostrat.${state`app.info.category`}.color`,
     layerClicked: signal`app.layerClicked`
   },
   class App extends React.Component {
@@ -26,7 +27,7 @@ export default connect(
       return (
         <Wrapper>
           <ImmersiveBar />
-          <InfoBox info={this.props.info} />
+          <InfoBox color={this.props.infoBoxColor} info={this.props.info} />
           <Visualization
             faults={this.props.faults}
             layers={this.props.layers}

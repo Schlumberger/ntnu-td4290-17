@@ -1,7 +1,12 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
-  background: grey;
-  padding: 10px;
+  border-style: solid;
+  border-width: 5px;
+  border-color: ${props => props.color};
+  padding: 5px;
   border-radius: 3px;
+  min-width: 200px;
+  background-color: #d6d6d6;
+  text-transform: capitalize;
 `;
