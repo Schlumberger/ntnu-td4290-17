@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from '@cerebral/react';
 import { state, signal } from 'cerebral/tags';
 
-import { Wrapper, Title, ImmersiveButton } from './elements';
+import { Wrapper, ImmersiveButton } from './elements';
 
 export default connect(
   {
@@ -34,9 +34,7 @@ export default connect(
 
     return (
       <Wrapper className={className}>
-        <Title>{'Layers'}</Title>
         {layerButtons}
-        <Title>{'Y-Axis'}</Title>
         <ImmersiveButton
           onClick={() => yAxisOptionClicked({ unit: 'age' })}
           inactive={yAxisUnit === 'age'}
