@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from '@cerebral/react';
 import { state, signal } from 'cerebral/tags';
 
-import { Wrapper, Title, LayerButton } from './elements';
+import { Wrapper, Title, ImmersiveButton } from './elements';
 
 export default connect(
   {
@@ -22,14 +22,14 @@ export default connect(
   }) {
     // Map data to components
     const layerButtons = Object.keys(layers).map(layerID => (
-      <LayerButton
+      <ImmersiveButton
         key={layerID}
         inactive={!layers[layerID]}
         // use signal as a function
         onClick={() => layerClicked({ layerID })}
       >
         {layerID.split('-').join(' ')}
-      </LayerButton>
+      </ImmersiveButton>
     ));
 
     return (
@@ -37,18 +37,18 @@ export default connect(
         <Title>{'Layers'}</Title>
         {layerButtons}
         <Title>{'Y-Axis'}</Title>
-        <LayerButton
+        <ImmersiveButton
           onClick={() => yAxisOptionClicked({ unit: 'age' })}
           inactive={yAxisUnit === 'age'}
         >
           {'Age'}
-        </LayerButton>
-        <LayerButton
+        </ImmersiveButton>
+        <ImmersiveButton
           onClick={() => yAxisOptionClicked({ unit: 'depth' })}
           inactive={yAxisUnit === 'depth'}
         >
           {'Depth'}
-        </LayerButton>
+        </ImmersiveButton>
       </Wrapper>
     );
   }

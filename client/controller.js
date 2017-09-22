@@ -22,9 +22,10 @@ export default Controller({
     error: null,
     settings: {
       visibility: {
-        layer: true,
-        fault: true
-      }
+        layers: true,
+        faults: true
+      },
+      yAxisUnit: 'depth'
     }
   },
   modules: {
