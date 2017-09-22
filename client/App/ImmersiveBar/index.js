@@ -10,7 +10,7 @@ export default connect(
     layers: state`settings.visibility`,
     yAxisUnit: state`settings.yAxisUnit`,
     // Get the signal in app.layerClicked in the app-module
-    layerClicked: signal`app.layerClicked`,
+    layerClicked: signal`app.layerSettingClicked`,
     yAxisOptionClicked: signal`app.yAxisOptionClicked`
   },
   function SideMenu({

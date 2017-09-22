@@ -1,12 +1,12 @@
 import React from 'react';
 import { connect } from '@cerebral/react';
-import { state } from 'cerebral/tags';
+import { state, signal } from 'cerebral/tags';
 
 import computeFaults from 'computed/computeFaults';
 import computeLayers from 'computed/computeLayers';
 import computeMaxDimentions from 'computed/computeMaxDimentions';
 
-import { Wrapper, Visualization, ImmersiveBar } from './elements';
+import { Wrapper, Visualization, ImmersiveBar, InfoBox } from './elements';
 
 // Connect the component to cerebral so that cerebral can manage it
 export default connect(
@@ -16,7 +16,9 @@ export default connect(
     faults: computeFaults,
     layers: computeLayers,
     dimentions: computeMaxDimentions,
-    yAxisUnit: state`settings.yAxisUnit`
+    yAxisUnit: state`settings.yAxisUnit`,
+    info: state`app.info`,
+    layerClicked: signal`app.layerClicked`
   },
   class App extends React.Component {
     render() {
@@ -24,11 +26,13 @@ export default connect(
       return (
         <Wrapper>
           <ImmersiveBar />
+          <InfoBox info={this.props.info} />
           <Visualization
             faults={this.props.faults}
             layers={this.props.layers}
             dimentions={this.props.dimentions}
             yAxisUnit={this.props.yAxisUnit}
+            onLayerClicked={this.props.layerClicked}
           />
         </Wrapper>
       );

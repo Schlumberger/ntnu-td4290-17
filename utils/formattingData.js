@@ -9,6 +9,14 @@ module.exports.addAgeToPoints = (type, category, chronostrat, point) => {
   return point;
 };
 
+module.exports.getAge = (category, chronostrat) => {
+  const age = category in chronostrat ? chronostrat[category].age : [0, 0];
+
+  const minAge = age[0];
+  const maxAge = age[1];
+  return { minAge, maxAge };
+};
+
 module.exports.getStroke = type => {
   switch (type) {
     case 'layer':
