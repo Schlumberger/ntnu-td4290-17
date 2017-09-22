@@ -1,0 +1,9 @@
+{
+  "places": [
+    { "id": "loppa-high", "text": "Loppa High", "x": "235.25" },
+    { "id": "polheim-sub-platform", "text": "Polheim Sub-platform", "x": "199.25" },
+    { "id": "ringvassoy-loppa-fault-complex", "text": "Ringvassøy-Loppa Fault Complex", "x": "140.25" },
+    { "id": "veslemoy-high", "text": "Veslemøy High", "x": "86.25" },
+    { "id": "sorvestsnaget-basin", "text": "Sørvestsnaget Basin", "x": "3.25" }
+  ]
+}
