@@ -32,6 +32,8 @@ describe('Return correct values', function() {
             fill: 'green',
             stroke: 'white',
             geometryType: 'area',
+            minAge: 1,
+            maxAge: 2,
             category: 'foo',
             points: [{ x: 4, y: 5, minAge: 1, maxAge: 2 }]
           }

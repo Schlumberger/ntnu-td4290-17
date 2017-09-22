@@ -18,7 +18,7 @@ describe('Layer Clicked signal', function() {
         }
       }
     })
-      .runSignal('app.layerClicked', { layerID: 'faults' })
+      .runSignal('app.layerSettingClicked', { layerID: 'faults' })
       .then(({ state }) => {
         assert.equal(state.settings.visibility.faults, false);
       });
@@ -39,11 +39,11 @@ describe('Layer Clicked signal', function() {
     });
 
     return cerebral
-      .runSignal('app.layerClicked', { layerID: 'faults' })
+      .runSignal('app.layerSettingClicked', { layerID: 'faults' })
       .then(({ state }) => {
         assert.equal(state.settings.visibility.faults, false);
         return cerebral
-          .runSignal('app.layerClicked', { layerID: 'faults' })
+          .runSignal('app.layerSettingClicked', { layerID: 'faults' })
           .then(({ state }) => {
             assert.equal(state.settings.visibility.faults, true);
           });
@@ -65,8 +65,8 @@ describe('Layer Clicked signal', function() {
     });
 
     return Promise.all([
-      cerebral.runSignal('app.layerClicked', { layerID: 'faults' }),
-      cerebral.runSignal('app.layerClicked', { layerID: 'faults' })
+      cerebral.runSignal('app.layerSettingClicked', { layerID: 'faults' }),
+      cerebral.runSignal('app.layerSettingClicked', { layerID: 'faults' })
     ]).then(res => {
       assert.equal(res[0].state.settings.visibility.faults, true);
       assert.equal(res[1].state.settings.visibility.faults, true);

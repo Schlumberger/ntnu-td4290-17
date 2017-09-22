@@ -23,7 +23,8 @@ export const update = (el, props, state) => {
     faults = [],
     layers = [],
     dimentions = { maxWidth: 0, maxHeight: 0 },
-    yAxisUnit = 'depth'
+    yAxisUnit = 'depth',
+    onLayerClicked
   } = props;
 
   //Coverts coordinates to d-attribute
@@ -77,7 +78,8 @@ export const update = (el, props, state) => {
   const enterLayers = updateLayers
     .enter()
     .append('path')
-    .attr('opacity', 0);
+    .attr('opacity', 0)
+    .on('click', d => onLayerClicked({ info: d }));
 
   // Remove if too many
   const exitFaults = updateFaults
