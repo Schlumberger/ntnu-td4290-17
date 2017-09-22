@@ -4,12 +4,15 @@ import Typ16 from '../Typ16';
 import Wrapper16 from '../Wrapper16';
 
 export const Wrapper = styled(Wrapper16)`
-  //border: 1px solid gray;
-  padding: 20px;
-  padding-left: 8px;
-  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-  background-color: rgba(55, 55, 55, 0.8);
+  border-radius: 5px;
+  height: 80px;
+  width: 80px;
+
+  background-color: gray;
   transition: background-color 0.5;
   &:hover {
     cursor: pointer;
@@ -17,6 +20,9 @@ export const Wrapper = styled(Wrapper16)`
   }
 `;
 
-export const ActiveText = styled(Typ16)`color: white;`;
+export const ActiveText = styled(Typ16)`
+  color: white;
+  text-align: center;
+`;
 
 export const InactiveText = styled(Typ16)`color: #bbbbbb;`;

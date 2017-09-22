@@ -6,7 +6,13 @@ import computeFaults from 'computed/computeFaults';
 import computeLayers from 'computed/computeLayers';
 import computeMaxDimentions from 'computed/computeMaxDimentions';
 
-import { Wrapper, Visualization, ImmersiveBar, InfoBox } from './elements';
+import {
+  Wrapper,
+  Visualization,
+  ImmersiveBar,
+  InfoBox,
+  GridWrapper
+} from './elements';
 
 // Connect the component to cerebral so that cerebral can manage it
 export default connect(
@@ -26,8 +32,10 @@ export default connect(
       // Here we now have access to this.props.* as what the computed returned
       return (
         <Wrapper>
-          <ImmersiveBar />
-          <InfoBox color={this.props.infoBoxColor} info={this.props.info} />
+          <GridWrapper>
+            <ImmersiveBar />
+            <InfoBox color={this.props.infoBoxColor} info={this.props.info} />
+          </GridWrapper>
           <Visualization
             faults={this.props.faults}
             layers={this.props.layers}
