@@ -9,7 +9,13 @@ import {
 export default function formatData({ state }) {
   const chronostrat = state.get('chronostrat');
   const dataset = state.get('dataset');
-
+  const places = state.get('places');
+  console.log('djesus');
+  const plc = places.map(place => {
+    console.log(place.text);
+    console.log('christ');
+    return true;
+  });
   const data = dataset.map(line => {
     return Object.assign(
       line,
