@@ -1,13 +1,13 @@
 import { select } from 'd3-selection';
 import { transition } from 'd3-transition';
-import { line, area } from 'd3-shape';
+import { line, area, curveCardinal } from 'd3-shape';
 import { scaleLinear } from 'd3-scale';
 
 const margins = {
-  top: 15,
-  bottom: 15,
-  left: 15,
-  right: 15
+  top: 0,
+  bottom: 0,
+  left: 0,
+  right: 0
 };
 export const create = (el, props, state) => {
   const svg = select(el);
@@ -20,11 +20,12 @@ export const create = (el, props, state) => {
 export const update = (el, props, state) => {
   const { width, height } = state;
   const {
-    maxWidth = 0,
-    maxHeight = 0,
-    groups = { layers: [], faults: [] },
-    yAxisUnit
-  } = props.data;
+    faults = [],
+    layers = [],
+    dimentions = { maxWidth: 0, maxHeight: 0 },
+    yAxisUnit = 'depth',
+    onLayerClicked
+  } = props;
 
   //Coverts coordinates to d-attribute
   const lineGenerator = line()
@@ -34,18 +35,23 @@ export const update = (el, props, state) => {
   const areaGenerator = area()
     .x(d => xScale(d.x))
     .y0(d => yScale(yAxisUnit === 'depth' ? d.y : d.maxAge))
-    .y1(d => yScale(yAxisUnit === 'depth' ? 0 : d.minAge));
+    .y1(d => yScale(yAxisUnit === 'depth' ? 0 : d.minAge))
+    //makes interpolate of the form curveCardinal
+    .curve(curveCardinal);
 
-  const generators = { line: lineGenerator, area: areaGenerator };
+  const generators = {
+    line: lineGenerator,
+    area: areaGenerator
+  };
 
   // Select how to scale values to x positions
   const xScale = scaleLinear()
-    .domain([0, maxWidth])
+    .domain([0, props.dimentions.maxWidth])
     .range([margins.left, width - margins.right]);
 
   // Select how to scale values to y positions
   const yScale = scaleLinear()
-    .domain([0, maxHeight])
+    .domain([0, props.dimentions.maxHeight])
     .range([margins.top, height - margins.bottom]);
 
   // Select the svg
@@ -57,12 +63,12 @@ export const update = (el, props, state) => {
   const updateFaults = svg
     .select('g#faults')
     .selectAll('path')
-    .data(groups.faults, d => d.id);
+    .data(faults, d => d.id);
 
   const updateLayers = svg
     .select('g#layers')
     .selectAll('path')
-    .data(groups.layers, d => d.id);
+    .data(layers, d => d.id);
 
   // Add new text-elements if nessescary
   const enterFaults = updateFaults
@@ -72,7 +78,8 @@ export const update = (el, props, state) => {
   const enterLayers = updateLayers
     .enter()
     .append('path')
-    .attr('opacity', 0);
+    .attr('opacity', 0)
+    .on('click', d => onLayerClicked({ info: d }));
 
   // Remove if too many
   const exitFaults = updateFaults

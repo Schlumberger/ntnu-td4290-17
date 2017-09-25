@@ -1,43 +1,44 @@
 import styled from 'styled-components';
 
 import Viz from 'components/Visualization';
-import Menu from './SideMenu';
+import Menu from './ImmersiveBar';
 import Header from './Header';
+import Info from 'components/InfoBox';
 
 export const Wrapper = styled.div`
+  width: 100%;
+  height: 100%;
+`;
+
+export const GridWrapper = styled.div`
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+
   display: grid;
-  grid-template-columns: 300px 1fr;
-  grid-template-rows: 70px 1fr 50px;
-  grid-template-areas: 'headerMenu headerMenu' 'sideMenu   visualization'
-    'footer     footer';
-  height: 100vh;
-  width: 100vw;
+  grid-template-columns: 1fr 250px;
+  grid-template-rows: 1fr 120px 100px 20px;
+  grid-template-areas: 'center right' 'center rightBottom'
+    'centerBottom rightBottom' 'margin margin';
 `;
 
-export const HeaderMenu = styled(Header)`
-  grid-area: headerMenu;
-
-  width: 100%;
-  height: 100%:
-`;
-
-export const SideMenu = styled(Menu)`
-  grid-area: sideMenu;
-  background-color: #999999;
-  width: 100%;
-  height: 100%:
+export const ImmersiveBar = styled(Menu)`
+  pointer-events: all;
+  grid-area: centerBottom;
 `;
 
 export const Visualization = styled(Viz)`
-  grid-area: visualization;
-  background-color: blue;
-  width: 100%;
-  height: 100%:
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  z-index: -10;
 `;
 
-export const Footer = styled.div`
-  grid-area: footer;
-  background-color: yellow;
-  width: 100%;
-  height: 100%:
+export const InfoBox = styled(Info)`
+  grid-area: rightBottom;
+  margin: 10px;
+  pointer-events: all;
 `;

@@ -38,7 +38,10 @@ export default class Visualization extends Component {
 
   render() {
     return (
-      <Wrapper innerRef={wrapper => (this.wrapper = wrapper)}>
+      <Wrapper
+        className={this.props.className}
+        innerRef={wrapper => (this.wrapper = wrapper)}
+      >
         <svg ref={svg => (this.svg = svg)} />
       </Wrapper>
     );

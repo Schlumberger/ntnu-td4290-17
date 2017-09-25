@@ -1,5 +1,10 @@
 {
   "presets": ["es2015", "react"],
+  "env": {
+    "test": {
+      "plugins": ["istanbul"]
+    }
+  },
   "plugins": [
     [
       "module-resolver",
@@ -9,6 +14,7 @@
           "configs": "./configs",
           "computed": "./client/computed",
           "components": "./components",
+          "modules": "./client/modules",
           "utils": "./utils"
         }
       }
