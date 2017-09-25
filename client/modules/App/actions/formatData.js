@@ -11,9 +11,6 @@ export default function formatData({ state }) {
   const dataset = state.get('dataset');
   const places = state.get('places');
 
-  places.map(place => {
-    console.log(place.text);
-  });
   const data = dataset.map(line => {
     return Object.assign(
       line,

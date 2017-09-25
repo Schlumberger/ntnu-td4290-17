@@ -11,7 +11,8 @@ import {
   Visualization,
   ImmersiveBar,
   InfoBox,
-  GridWrapper
+  GridWrapper,
+  PlacesBar
 } from './elements';
 
 // Connect the component to cerebral so that cerebral can manage it
@@ -32,6 +33,7 @@ export default connect(
       // Here we now have access to this.props.* as what the computed returned
       return (
         <Wrapper>
+          <PlacesBar />
           <GridWrapper>
             <ImmersiveBar />
             <InfoBox color={this.props.infoBoxColor} info={this.props.info} />
