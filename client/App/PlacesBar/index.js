@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from '@cerebral/react';
 import { state, signal } from 'cerebral/tags';
 
-import { Wrapper, ImmersiveButton } from './elements';
+import { Wrapper, Note } from './elements';
 
 export default connect(
   {
@@ -29,8 +29,7 @@ export default connect(
       for (let p of places.sort(function (x, y) {
         return x.x - y.x;
       })) {
-        placeNames.push(p.text);
-        placeNames.push(' - ');
+        placeNames.push(<Note>{p.text}</Note>);
       }
     }
     console.log(placeNames);
