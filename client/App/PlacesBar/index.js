@@ -26,8 +26,11 @@ export default connect(
     console.log(places);
     let placeNames = [];
     if (places) {
-      for (let p of places) {
+      for (let p of places.sort(function (x, y) {
+        return x.x - y.x;
+      })) {
         placeNames.push(p.text);
+        placeNames.push(' - ');
       }
     }
     console.log(placeNames);
