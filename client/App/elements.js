@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Viz from 'components/Visualization';
 import Menu from './ImmersiveBar';
 import Header from './Header';
-import Info from 'components/InfoBox';
+import Info from './InfoBox';
 
 export const Wrapper = styled.div`
   width: 100%;
@@ -17,7 +17,7 @@ export const GridWrapper = styled.div`
   bottom: 0;
   right: 0;
   left: 0;
-
+  overflow: hidden;
   display: grid;
   grid-template-columns: 1fr 250px;
   grid-template-rows: 1fr 120px 100px 20px;
@@ -26,7 +26,7 @@ export const GridWrapper = styled.div`
 `;
 
 export const ImmersiveBar = styled(Menu)`
-  pointer-events: none;
+  pointer-events: all;
   grid-area: centerBottom;
 `;
 
@@ -41,4 +41,5 @@ export const InfoBox = styled(Info)`
   grid-area: rightBottom;
   margin: 10px;
   pointer-events: all;
+  cursor: move;
 `;
