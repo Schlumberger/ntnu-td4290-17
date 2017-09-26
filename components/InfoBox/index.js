@@ -5,15 +5,15 @@ export default function InfoBox({ info, className, color }) {
   if (!info) {
     return (
       <Wrapper color={color} className={className}>
-        <h3>{'Click a layer'}</h3>
+        <h4>{'Click a layer'}</h4>
       </Wrapper>
     );
   }
   return (
     <Wrapper color={color} className={className}>
-      <h3>{info.id.split('-').join(' ')}</h3>
-      <h3>{'minAge: ' + info.minAge}</h3>
-      <h3>{'maxAge: ' + info.maxAge}</h3>
+      <h4>{info.id.split('-').join(' ')}</h4>
+      <h4>{'minAge: ' + info.minAge}</h4>
+      <h4>{'maxAge: ' + info.maxAge}</h4>
     </Wrapper>
   );
 }

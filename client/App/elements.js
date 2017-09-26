@@ -26,7 +26,7 @@ export const GridWrapper = styled.div`
 `;
 
 export const ImmersiveBar = styled(Menu)`
-  pointer-events: all;
+  pointer-events: none;
   grid-area: centerBottom;
 `;
 

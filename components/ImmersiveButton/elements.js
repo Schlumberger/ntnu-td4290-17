@@ -14,6 +14,7 @@ export const Wrapper = styled(Wrapper16)`
 
   background-color: gray;
   transition: background-color 0.5;
+  pointer-events: all;
   &:hover {
     cursor: pointer;
     background-color: rgba(55, 55, 55, 1);
