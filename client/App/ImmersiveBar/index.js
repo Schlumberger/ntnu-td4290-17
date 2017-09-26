@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from '@cerebral/react';
 import { state, signal } from 'cerebral/tags';
+import Draggable from 'react-draggable';
 
-import { Wrapper, ImmersiveButton } from './elements';
+import { Wrapper, ImmersiveButton, Handle } from './elements';
 
 export default connect(
   {
@@ -33,21 +34,25 @@ export default connect(
     ));
 
     return (
-      <Wrapper className={className}>
-        {layerButtons}
-        <ImmersiveButton
-          onClick={() => yAxisOptionClicked({ unit: 'age' })}
-          inactive={yAxisUnit === 'age'}
-        >
-          {'Age'}
-        </ImmersiveButton>
-        <ImmersiveButton
-          onClick={() => yAxisOptionClicked({ unit: 'depth' })}
-          inactive={yAxisUnit === 'depth'}
-        >
-          {'Depth'}
-        </ImmersiveButton>
-      </Wrapper>
+      <Draggable>
+        <Wrapper className={className}>
+          <Handle>
+            {layerButtons}
+            <ImmersiveButton
+              onClick={() => yAxisOptionClicked({ unit: 'age' })}
+              inactive={yAxisUnit === 'age'}
+            >
+              {'Age'}
+            </ImmersiveButton>
+            <ImmersiveButton
+              onClick={() => yAxisOptionClicked({ unit: 'depth' })}
+              inactive={yAxisUnit === 'depth'}
+            >
+              {'Depth'}
+            </ImmersiveButton>
+          </Handle>
+        </Wrapper>
+      </Draggable>
     );
   }
 );

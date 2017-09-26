@@ -23,8 +23,6 @@ export default connect(
     layers: computeLayers,
     dimentions: computeMaxDimentions,
     yAxisUnit: state`settings.yAxisUnit`,
-    info: state`app.info`,
-    infoBoxColor: state`chronostrat.${state`app.info.category`}.color`,
     layerClicked: signal`app.layerClicked`
   },
   class App extends React.Component {
