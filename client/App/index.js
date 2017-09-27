@@ -26,14 +26,18 @@ export default connect(
     yAxisUnit: state`settings.yAxisUnit`,
     info: state`app.info`,
     infoBoxColor: state`chronostrat.${state`app.info.category`}.color`,
-    layerClicked: signal`app.layerClicked`
+    layerClicked: signal`app.layerClicked`,
+    places: state`places`
   },
   class App extends React.Component {
     render() {
       // Here we now have access to this.props.* as what the computed returned
       return (
         <Wrapper>
-          <PlacesBar />
+          <PlacesBar
+            places={this.props.places}
+            dimensions={this.props.dimentions}
+          />
           <GridWrapper>
             <ImmersiveBar />
             <InfoBox color={this.props.infoBoxColor} info={this.props.info} />

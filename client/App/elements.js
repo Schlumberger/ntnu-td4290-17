@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 import Viz from 'components/Visualization';
+import PlacesTopBar from 'components/PlacesBar';
 import Menu from './ImmersiveBar';
-import PlacesTopBar from './PlacesBar';
 import Header from './Header';
 import Info from 'components/InfoBox';
 
