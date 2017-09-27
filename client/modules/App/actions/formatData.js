@@ -9,7 +9,6 @@ import {
 export default function formatData({ state }) {
   const chronostrat = state.get('chronostrat');
   const dataset = state.get('dataset');
-  const places = state.get('places');
 
   const data = dataset.map(line => {
     return Object.assign(
