@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 import Viz from 'components/Visualization';
+import PlacesTopBar from 'components/PlacesBar';
 import Menu from './ImmersiveBar';
 import Header from './Header';
 import Info from './InfoBox';
@@ -28,6 +29,11 @@ export const GridWrapper = styled.div`
 export const ImmersiveBar = styled(Menu)`
   pointer-events: all;
   grid-area: centerBottom;
+`;
+
+export const PlacesBar = styled(PlacesTopBar)`
+  pointer-events: all;
+  grid-area: centerTop;
 `;
 
 export const Visualization = styled(Viz)`

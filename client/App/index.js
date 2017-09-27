@@ -11,7 +11,8 @@ import {
   Visualization,
   ImmersiveBar,
   InfoBox,
-  GridWrapper
+  GridWrapper,
+  PlacesBar
 } from './elements';
 
 // Connect the component to cerebral so that cerebral can manage it
@@ -23,13 +24,18 @@ export default connect(
     layers: computeLayers,
     dimentions: computeMaxDimentions,
     yAxisUnit: state`settings.yAxisUnit`,
-    layerClicked: signal`app.layerClicked`
+    layerClicked: signal`app.layerClicked`,
+    places: state`places`
   },
   class App extends React.Component {
     render() {
       // Here we now have access to this.props.* as what the computed returned
       return (
         <Wrapper>
+          <PlacesBar
+            places={this.props.places}
+            dimensions={this.props.dimentions}
+          />
           <GridWrapper>
             <ImmersiveBar />
             <InfoBox color={this.props.infoBoxColor} info={this.props.info} />
