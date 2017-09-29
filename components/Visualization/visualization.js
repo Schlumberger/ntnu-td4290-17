@@ -1,4 +1,4 @@
-import { select } from 'd3-selection';
+import { select, event } from 'd3-selection';
 import { transition } from 'd3-transition';
 import { line, area, curveCardinal } from 'd3-shape';
 import { scaleLinear } from 'd3-scale';
@@ -79,7 +79,10 @@ export const update = (el, props, state) => {
     .enter()
     .append('path')
     .attr('opacity', 0)
-    .on('click', d => onLayerClicked({ info: d }));
+    .on('click', (d, ...args) => {
+      onLayerClicked({ info: d })
+      event.stopPropagation()
+    });
 
   // Remove if too many
   const exitFaults = updateFaults

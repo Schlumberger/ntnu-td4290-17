@@ -25,6 +25,7 @@ export default connect(
     dimentions: computeMaxDimentions,
     yAxisUnit: state`settings.yAxisUnit`,
     layerClicked: signal`app.layerClicked`,
+    emptyClicked: signal`app.emptyClicked`,
     places: state`places`
   },
   class App extends React.Component {
@@ -46,6 +47,7 @@ export default connect(
             dimentions={this.props.dimentions}
             yAxisUnit={this.props.yAxisUnit}
             onLayerClicked={this.props.layerClicked}
+            onEmptyClicked={this.props.emptyClicked}
           />
         </Wrapper>
       );

@@ -2,6 +2,7 @@ import routed from './signals/routed';
 import layerSettingClicked from './signals/layerSettingClicked';
 import yAxisOptionClicked from './signals/yAxisOptionClicked';
 import layerClicked from './signals/layerClicked';
+import emptyClicked from './signals/emptyClicked';
 
 // A module contains state and signals(functions)
 export default {
@@ -17,6 +18,7 @@ export default {
     routed,
     layerSettingClicked,
     yAxisOptionClicked,
-    layerClicked
+    layerClicked,
+    emptyClicked
   }
 };
