@@ -1,10 +1,10 @@
 const svgToJson = require('./svgToJSON');
 const stackLayers = require('./stackLayers');
 
-/*svgToJson(res => {
+svgToJson(res => {
   stackLayers(res);
-});*/
-stackLayers([
+});
+/*stackLayers([
   {
     type: 'surface',
     points: [
@@ -15,7 +15,11 @@ stackLayers([
       {
         x: 2,
         y: 2
+      },
+      {
+        x: 3,
+        y: 2
       }
     ]
   }
-]);
+]);*/

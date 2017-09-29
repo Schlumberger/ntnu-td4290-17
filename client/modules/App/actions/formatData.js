@@ -3,7 +3,8 @@ import {
   getFill,
   getStroke,
   getGeometryType,
-  getAge
+  getAge,
+  getCategory
 } from 'utils/formattingData';
 
 export default function formatData({ state }) {
@@ -11,17 +12,19 @@ export default function formatData({ state }) {
   const dataset = state.get('dataset');
 
   const data = dataset.map(line => {
+    const category = getCategory(line.id, chronostrat);
     return Object.assign(
       line,
       {
-        points: line.points.map(point =>
-          addAgeToPoints(line.type, line.category, chronostrat, point)
+        points: (line.points || []).map(point =>
+          addAgeToPoints(line.type, category, chronostrat, point)
         ),
-        fill: getFill(line.type, line.category, chronostrat),
+        fill: getFill(line.type, category, chronostrat),
         stroke: getStroke(line.type),
-        geometryType: getGeometryType(line.type)
+        geometryType: getGeometryType(line.type),
+        category: category
       },
-      getAge(line.category, chronostrat)
+      getAge(category, chronostrat)
     );
   });
 

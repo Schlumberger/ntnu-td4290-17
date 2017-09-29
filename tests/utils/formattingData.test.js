@@ -28,7 +28,7 @@ describe('Formatting data utils', function() {
           age: [1, 2]
         }
       };
-      const result = addAgeToPoints('layer', 'category', chronostrat, points);
+      const result = addAgeToPoints('surface', 'category', chronostrat, points);
 
       assert.deepEqual(result, {
         x: 4,

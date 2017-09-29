@@ -19,7 +19,7 @@ module.exports.getAge = (category, chronostrat) => {
 
 module.exports.getStroke = type => {
   switch (type) {
-    case 'layer':
+    case 'surface':
       return 'white';
     case 'fault':
       return 'black';
@@ -30,7 +30,7 @@ module.exports.getStroke = type => {
 
 module.exports.getFill = (type, period, chronostrat) => {
   switch (type) {
-    case 'layer':
+    case 'surface':
       return period in chronostrat ? chronostrat[period].color : 'black';
     case 'fault':
       return 'none';
@@ -41,11 +41,21 @@ module.exports.getFill = (type, period, chronostrat) => {
 
 module.exports.getGeometryType = type => {
   switch (type) {
-    case 'layer':
+    case 'surface':
       return 'area';
     case 'fault':
       return 'line';
     default:
       return 'line';
   }
+};
+
+module.exports.getCategory = (id, chronostrat) => {
+  for (let category of Object.keys(chronostrat)) {
+    if (id.indexOf(category) >= 0) {
+      console.log(category);
+      return category;
+    }
+  }
+  return 'seabed';
 };
