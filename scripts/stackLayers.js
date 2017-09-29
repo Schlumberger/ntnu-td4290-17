@@ -1,4 +1,4 @@
-const STEPS = 300;
+const STEPS = 10;
 const MULT = 1000;
 
 const findXDimentions = data => {
@@ -15,7 +15,9 @@ const getPoints = (x, layerIndex, data) => {
   // For every point in the layer
   for (let i = 0; i < data[layerIndex].points.length; i++) {
     // If the x-value of the point is higher than our x-value
-    if (data[layerIndex].points[i].x * MULT > x) {
+    if (data[layerIndex].points[i].x * MULT >= x) {
+      if (data[layerIndex].points[i].x * MULT === x)
+        return { x: x, y: data[layerIndex].points[i].x * MULT };
       if (i === 0) return false;
 
       const after = data[layerIndex].points[i];
@@ -23,7 +25,7 @@ const getPoints = (x, layerIndex, data) => {
       const deltaX = (after.x - before.x) * MULT;
       const deltaY = (after.y - before.y) * MULT;
       const progressX = x - before.x * MULT;
-      const y = before.y + deltaY * (progressX / deltaX);
+      const y = before.y * MULT + deltaY * (progressX / deltaX);
 
       return { x, y };
     }
@@ -44,8 +46,9 @@ module.exports = data => {
     const layer = layers[i];
     const points = [];
 
-    for (let x = min; x < max; x += stepSize) {
+    for (let x = min; x <= max; x += stepSize) {
       points.push(getPoints(x, i, data));
+      console.log(x, max);
     }
 
     newData.push(Object.assign({ newPoints: points.filter(p => p) }, layer));
