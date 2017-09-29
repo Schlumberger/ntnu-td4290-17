@@ -41,6 +41,7 @@ export default class Visualization extends Component {
       <Wrapper
         className={this.props.className}
         innerRef={wrapper => (this.wrapper = wrapper)}
+        onClick={() => this.props.onEmptyClicked()}
       >
         <svg ref={svg => (this.svg = svg)} />
       </Wrapper>

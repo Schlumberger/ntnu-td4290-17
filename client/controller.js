@@ -23,7 +23,8 @@ export default Controller({
     settings: {
       visibility: {
         layers: true,
-        faults: true
+        faults: true,
+        inspector: false
       },
       yAxisUnit: 'depth'
     }
