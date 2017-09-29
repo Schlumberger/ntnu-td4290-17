@@ -22,19 +22,20 @@ describe('Return correct values', function() {
             age: [1, 2]
           }
         },
-        dataset: [{ type: 'layer', category: 'foo', points: [{ x: 4, y: 5 }] }]
+        dataset: [{ type: 'surface', id: 'foo', points: [{ x: 4, y: 5 }] }]
       }
     }).then(({ output }) =>
       assert.deepEqual(output, {
         data: [
           {
-            type: 'layer',
+            type: 'surface',
+            category: 'foo',
             fill: 'green',
             stroke: 'white',
             geometryType: 'area',
             minAge: 1,
             maxAge: 2,
-            category: 'foo',
+            id: 'foo',
             points: [{ x: 4, y: 5, minAge: 1, maxAge: 2 }]
           }
         ]
