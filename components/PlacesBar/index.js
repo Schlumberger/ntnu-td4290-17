@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Wrapper } from './elements';
-import { create, update, destroy } from './visualization';
+import { Wrapper, Note } from './elements';
+// import { create, update, destroy } from './visualization';
 
-export default class Visualization extends Component {
+export default class PlacesBar extends Component {
   constructor(props) {
     super(props);
 
@@ -13,19 +13,11 @@ export default class Visualization extends Component {
     this.updateSize = this.updateSize.bind(this);
   }
   componentDidMount() {
-    create(this.svg, this.props, this.state);
-
     this.updateSize();
     window.addEventListener('resize', this.updateSize);
   }
 
-  componentDidUpdate() {
-    update(this.svg, this.props, this.state);
-  }
-
   componentWillUnmount() {
-    destroy(this.svg);
-
     window.removeEventListener('resize', this.updateWindowDimensions);
   }
 
@@ -37,13 +29,22 @@ export default class Visualization extends Component {
   }
 
   render() {
+    let placeNames = [];
+    if (this.props.places) {
+      let coef = (this.state.width / 1000) / this.props.dimensions.maxWidth;
+
+      for (let p of this.props.places) {
+        let left = p.x * coef;
+        let leftCorr = left - 10 * coef < 0 ? 0 : left - 10 * coef;
+        placeNames.push(<Note key={p.id} left={leftCorr}>{p.text}</Note>);
+      }
+    };
     return (
       <Wrapper
         className={this.props.className}
         innerRef={wrapper => (this.wrapper = wrapper)}
-        onClick={() => this.props.onEmptyClicked()}
       >
-        <svg ref={svg => (this.svg = svg)} />
+        {placeNames}
       </Wrapper>
     );
   }
