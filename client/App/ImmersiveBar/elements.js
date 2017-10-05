@@ -10,7 +10,8 @@ export const Wrapper = styled.div`
 `;
 
 export const Handle = styled.div`
-  background-color: #999;
+  background: rgba(0, 0, 0, .3);
+  border-radius: 5px;
   display: inline-flex;
   justify-content: center;
   margin: auto;
