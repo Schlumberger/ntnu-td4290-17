@@ -27,6 +27,11 @@ export const update = (el, props, state) => {
     onLayerClicked
   } = props;
 
+  if (layers[0].points[0] === undefined) return;
+
+  console.log('visualize layers:');
+  console.log(layers);
+
   //Coverts coordinates to d-attribute
   const lineGenerator = line()
     .x(d => xScale(d.x))
@@ -34,8 +39,8 @@ export const update = (el, props, state) => {
 
   const areaGenerator = area()
     .x(d => xScale(d.x))
-    .y0(d => yScale(yAxisUnit === 'depth' ? d.y : d.maxAge))
-    .y1(d => yScale(yAxisUnit === 'depth' ? 0 : d.minAge))
+    .y0(d => yScale(yAxisUnit === 'depth' ? d.y0 : d.maxAge))
+    .y1(d => yScale(yAxisUnit === 'depth' ? d.y1 : d.minAge))
     //makes interpolate of the form curveCardinal
     .curve(curveCardinal);
 

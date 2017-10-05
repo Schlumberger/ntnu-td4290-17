@@ -39,6 +39,8 @@ export default connect(
           id: 'base-carboniferous',
           maxAge: 358.9,
           minAge: 298.9,
+          stroke: 'white',
+          type: 'layer',
           points: [
             {
               x: 0,
@@ -65,7 +67,33 @@ export default connect(
         }
       ];
 
-      divideAreasByFaults(testLayers, this.props.faults);
+      const testFaults = [
+        {
+          fill: 'none',
+          geometryType: 'line',
+          id: 'fault-14',
+          maxAge: 358.9,
+          minAge: 298.9,
+          stroke: 'black',
+          type: 'fault',
+          points: [
+            {
+              x: 5,
+              y: 0
+            },
+            {
+              x: 17,
+              y: 50
+            }
+          ]
+        }
+      ];
+
+      console.log(this.props.faults);
+
+      //setTimeout(200);
+
+      //divideAreasByFaults(testLayers, this.props.faults);
 
       // Here we now have access to this.props.* as what the computed returned
       return (
@@ -79,7 +107,7 @@ export default connect(
             <InfoBox color={this.props.infoBoxColor} info={this.props.info} />
           </GridWrapper>
           <Visualization
-            faults={this.props.faults}
+            faults={testFaults}
             layers={testLayers} //this.props.layers}
             dimentions={this.props.dimentions}
             yAxisUnit={this.props.yAxisUnit}
