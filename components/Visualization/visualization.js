@@ -4,7 +4,7 @@ import { line, area, curveCardinal } from 'd3-shape';
 import { scaleLinear } from 'd3-scale';
 
 const margins = {
-  top: 0,
+  top: 35,
   bottom: 0,
   left: 0,
   right: 0
