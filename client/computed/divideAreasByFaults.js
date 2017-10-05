@@ -27,7 +27,7 @@ module.exports = (layers, faults) => {
     l.points = l.points.map(p => {
       faults.forEach(f => {
         if (faultCutsLayer(l, f)) {
-          lineSegmentsDivide(p, f);
+          //lineSegmentsDivide(p, f);
         }
       });
     });
