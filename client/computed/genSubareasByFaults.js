@@ -1,14 +1,12 @@
 //areas given with vertically symmetrical points,
 //faults given as two points
 module.exports = (layers, faults) => {
-  // var res = {
-  //   layers: [
+  // var res = [
   //     props..
   //     points: {
   //       points: [{x,y}]
   //     }
   //   ]
-  // }
   //
   // var res = [
   //     props..
@@ -28,6 +26,8 @@ module.exports = (layers, faults) => {
       if (faultCutsLayer(l, f)) {
         const layerPoints = l.points;
         const faultPoints = f.points;
+
+        //the fault has to be intersecting the original line o not get an error
         const { firstPart, secondPart } = lineSegmentsDivide(
           layerPoints,
           faultPoints
@@ -53,11 +53,9 @@ const faultCutsLayer = (layer, fault) => {
   return true;
 };
 
-//returns an object containing the linesegment of the original line before and after the cut.
+//if the cut line doesnt intersect the original line, an error will be thrown
+//returns an object containing the linesegment of the original line before and after the cut
 const lineSegmentsDivide = (origLinePoints, divideLinePoints) => {
-  //console.log(origLinePoints);
-  //console.log(divideLinePoints);
-
   //now splitting on the averaged x-position on the divide line.
   const divideOnX = (divideLinePoints[0].x + divideLinePoints[1].x) / 2;
 

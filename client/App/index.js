@@ -18,6 +18,25 @@ import {
   PlacesBar
 } from './elements';
 
+function divideLayers(testLayers, testFaults) {
+  //testLayers is mutated
+  genSubareasByFaults(testLayers, testFaults);
+
+  console.log('Layers after compution:');
+  console.log(testLayers);
+
+  //convert subareas to actual layers for vizualization
+  testLayers[0].subareas.forEach(s => {
+    //we copy the original layers atributes, but override the points with the subareas points
+    let nLayer = {};
+    for (var k in testLayers[0]) nLayer[k] = testLayers[0][k];
+    nLayer.points = s.points;
+    testLayers.push(nLayer);
+  });
+
+  testLayers.splice(0, 1);
+}
+
 // Connect the component to cerebral so that cerebral can manage it
 export default connect(
   // The first argument is an object that describes what you want to get from cerebral
@@ -35,23 +54,7 @@ export default connect(
       //console.log(this.props.faults);
 
       const { testLayers, testFaults } = genTestData();
-
-      //testLayers is mutated
-      genSubareasByFaults(testLayers, testFaults);
-
-      console.log('Layers after compution:');
-      console.log(testLayers);
-
-      //convert subareas to actual layers for vizualization
-      testLayers[0].subareas.forEach(s => {
-        //we copy the original layers atributes, but override the points with the subareas points
-        let nLayer = {};
-        for (var k in testLayers[0]) nLayer[k] = testLayers[0][k];
-        nLayer.points = s.points;
-        testLayers.push(nLayer);
-      });
-
-      testLayers.splice(0, 1);
+      divideLayers(testLayers, testFaults);
 
       // Here we now have access to this.props.* as what the computed returned
       return (
