@@ -6,7 +6,8 @@ import computeFaults from 'computed/computeFaults';
 import computeLayers from 'computed/computeLayers';
 import computeMaxDimentions from 'computed/computeMaxDimentions';
 
-import divideAreasByFaults from 'computed/divideAreasByFaults';
+import genTestData from 'computed/genTestData';
+import genSubareasByFaults from 'computed/genSubareasByFaults';
 
 import {
   Wrapper,
@@ -31,69 +32,26 @@ export default connect(
   },
   class App extends React.Component {
     render() {
-      const testLayers = [
-        {
-          category: 'carboniferous',
-          fill: '#218e93',
-          geometryType: 'area',
-          id: 'base-carboniferous',
-          maxAge: 358.9,
-          minAge: 298.9,
-          stroke: 'white',
-          type: 'layer',
-          points: [
-            {
-              x: 0,
-              y0: 10,
-              y1: 30,
-              minAge: 30,
-              maxAge: 30
-            },
-            {
-              x: 10,
-              y0: 7,
-              y1: 45,
-              minAge: 40,
-              maxAge: 40
-            },
-            {
-              x: 20,
-              y0: 30,
-              y1: 37,
-              minAge: 50,
-              maxAge: 50
-            }
-          ]
-        }
-      ];
+      //console.log(this.props.faults);
 
-      const testFaults = [
-        {
-          fill: 'none',
-          geometryType: 'line',
-          id: 'fault-14',
-          maxAge: 358.9,
-          minAge: 298.9,
-          stroke: 'black',
-          type: 'fault',
-          points: [
-            {
-              x: 5,
-              y: 0
-            },
-            {
-              x: 17,
-              y: 50
-            }
-          ]
-        }
-      ];
+      const { testLayers, testFaults } = genTestData();
 
-      console.log(this.props.faults);
+      //testLayers is mutated
+      genSubareasByFaults(testLayers, testFaults);
 
-      //setTimeout(200);
+      console.log('Layers after compution:');
+      console.log(testLayers);
 
-      //divideAreasByFaults(testLayers, this.props.faults);
+      //convert subareas to actual layers for vizualization
+      testLayers[0].subareas.forEach(s => {
+        //we copy the original layers atributes, but override the points with the subareas points
+        let nLayer = {};
+        for (var k in testLayers[0]) nLayer[k] = testLayers[0][k];
+        nLayer.points = s.points;
+        testLayers.push(nLayer);
+      });
+
+      testLayers.splice(0, 1);
 
       // Here we now have access to this.props.* as what the computed returned
       return (
