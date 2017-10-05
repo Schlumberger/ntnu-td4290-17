@@ -2,7 +2,7 @@
 //faults given as two points
 module.exports = (layers, faults) => {
   // var res = {
-  //   areas: [
+  //   layers: [
   //     props..
   //     points: {
   //       points: [{x,y}]
@@ -10,15 +10,17 @@ module.exports = (layers, faults) => {
   //   ]
   // }
   //
-  // var res = {
-  //   areas: [
+  // var res = [
   //     props..
-  //     subareas: {
+  //     subareas: [{
   //       subarea_props..
   //       points: []{x,y}]
-  //     }
+  //     }]
   //   ]
-  // }
+
+  console.log('divide by faults script');
+
+  console.log(layers);
 
   //map original areas to
   layers.map(l => {
