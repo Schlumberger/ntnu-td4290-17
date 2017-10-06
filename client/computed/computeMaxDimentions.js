@@ -21,7 +21,6 @@ export default compute(
         )
       )
     );
-    console.log(maxHeight);
     return { maxWidth, maxHeight };
   }
 );
