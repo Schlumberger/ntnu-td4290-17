@@ -1,5 +1,5 @@
 import { select, event } from 'd3-selection';
-import { transition } from 'd3-transition';
+import {  } from 'd3-transition';
 import { line, area, curveBasis } from 'd3-shape';
 import { scaleLinear } from 'd3-scale';
 
@@ -27,7 +27,7 @@ export const update = (el, props, state) => {
     onLayerClicked
   } = props;
 
-  //Coverts coordinates to d-attribute
+  // Coverts coordinates to d-attribute
   const lineGenerator = line()
     .x(d => xScale(d.x))
     .y(d => yScale(d.y));
@@ -46,12 +46,12 @@ export const update = (el, props, state) => {
 
   // Select how to scale values to x positions
   const xScale = scaleLinear()
-    .domain([0, props.dimentions.maxWidth])
+    .domain([0, dimentions.maxWidth])
     .range([margins.left, width - margins.right]);
 
   // Select how to scale values to y positions
   const yScale = scaleLinear()
-    .domain([0, props.dimentions.maxHeight])
+    .domain([0, dimentions.maxHeight])
     .range([margins.top, height - margins.bottom]);
 
   // Select the svg
@@ -81,19 +81,19 @@ export const update = (el, props, state) => {
     .append('path')
     .attr('opacity', 0)
     .on('click', (d, ...args) => {
-      onLayerClicked({ info: d })
-      event.stopPropagation()
+      onLayerClicked({ info: d });
+      event.stopPropagation();
     });
 
   // Remove if too many
-  const exitFaults = updateFaults
+  updateFaults
     .exit()
     .transition()
     .duration(500)
     .attr('opacity', 0)
     .remove();
 
-  const exitLayers = updateLayers
+  updateLayers
     .exit()
     .transition()
     .duration(500)

@@ -1,7 +1,7 @@
 import { compute } from 'cerebral';
 import { state } from 'cerebral/tags';
 
-//Select if faults is going to be rendered
+// Select if faults is going to be rendered
 export default compute(
   state`formattedData`,
   state`settings.visibility.faults`,
