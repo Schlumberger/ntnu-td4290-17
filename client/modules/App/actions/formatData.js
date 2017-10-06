@@ -4,21 +4,19 @@ import {
   getStroke,
   getGeometryType,
   getAge,
-  getCategory
+  getCategory,
+  getMaxHeightByCategory
 } from 'utils/formattingData';
 
 export default function formatData({ state }) {
   const chronostrat = state.get('chronostrat');
   const dataset = state.get('dataset');
 
-  const data = dataset.map(line => {
+  const data = dataset.map((line, index, data) => {
     const category = getCategory(line.id, chronostrat);
     return Object.assign(
       line,
       {
-        points: (line.points || []).map(point =>
-          addAgeToPoints(line.type, category, chronostrat, point)
-        ),
         fill: getFill(line.type, category, chronostrat),
         stroke: getStroke(line.type),
         geometryType: getGeometryType(line.type),
@@ -28,5 +26,20 @@ export default function formatData({ state }) {
     );
   });
 
-  return { data };
+  const withPoints = data.map(line => {
+    return Object.assign(line, {
+      points: (line.points || [])
+        .map(point =>
+          addAgeToPoints(
+            line.type,
+            line.category,
+            chronostrat,
+            point,
+            getMaxHeightByCategory(data, line.category)
+          )
+        )
+    });
+  });
+
+  return { data: withPoints };
 }

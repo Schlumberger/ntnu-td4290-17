@@ -15,10 +15,13 @@ export default compute(
       0,
       ...data.map(el =>
         Math.max(
-          ...el.points.map(p => (yAxis === 'depth' ? p.y : p.maxAge || 0))
+          ...el.points.map(
+            p => (yAxis === 'depth' ? p.y1 || p.y : p.maxAge || 0)
+          )
         )
       )
     );
+    console.log(maxHeight);
     return { maxWidth, maxHeight };
   }
 );

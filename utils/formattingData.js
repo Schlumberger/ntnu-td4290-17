@@ -1,10 +1,22 @@
-module.exports.addAgeToPoints = (type, category, chronostrat, point) => {
+module.exports.addAgeToPoints = (
+  type,
+  category,
+  chronostrat,
+  point,
+  maxHeight
+) => {
   if (type === 'fault') return point;
 
   const age = chronostrat[category].age;
 
   point.minAge = age[0];
   point.maxAge = age[1];
+
+  const ageDiff = age[1] - age[0];
+  const height = Math.abs(point.height);
+
+  point.age0 = age[0];
+  point.age1 = Math.min(age[0] + ageDiff * (height / maxHeight || 1), age[1]);
 
   return point;
 };
@@ -53,9 +65,18 @@ module.exports.getGeometryType = type => {
 module.exports.getCategory = (id, chronostrat) => {
   for (let category of Object.keys(chronostrat)) {
     if (id.indexOf(category) >= 0) {
-      console.log(category);
       return category;
     }
   }
-  return 'seabed';
+  if (id.indexOf('seabed')) return 'seabed';
+  return null;
+};
+
+module.exports.getMaxHeightByCategory = (data, category) => {
+  return Math.max(
+    0,
+    ...(data || [])
+      .filter(d => d.category && d.category === category)
+      .map(data => Math.max(0, ...data.points.map(point => point.height)))
+  );
 };

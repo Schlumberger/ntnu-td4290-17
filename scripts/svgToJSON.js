@@ -63,5 +63,8 @@ const parsePolylinePoints = points => {
       y: Number(pieces[i + 1])
     });
   }
+  if (coords[0].x > coords[coords.length - 1].x) {
+    coords = coords.reverse();
+  }
   return coords;
 };

@@ -1,6 +1,6 @@
 import { select } from 'd3-selection';
 import { transition } from 'd3-transition';
-import { line, area, curveCardinal } from 'd3-shape';
+import { line, area, curveBasis } from 'd3-shape';
 import { scaleLinear } from 'd3-scale';
 
 const margins = {
@@ -34,10 +34,10 @@ export const update = (el, props, state) => {
 
   const areaGenerator = area()
     .x(d => xScale(d.x))
-    .y0(d => yScale(yAxisUnit === 'depth' ? d.y : d.maxAge))
-    .y1(d => yScale(yAxisUnit === 'depth' ? 0 : d.minAge))
+    .y0(d => yScale(yAxisUnit === 'depth' ? d.y0 : d.age0))
+    .y1(d => yScale(yAxisUnit === 'depth' ? d.y1 : d.age1))
     //makes interpolate of the form curveCardinal
-    .curve(curveCardinal);
+    .curve(curveBasis);
 
   const generators = {
     line: lineGenerator,
@@ -75,6 +75,7 @@ export const update = (el, props, state) => {
     .enter()
     .append('path')
     .attr('opacity', 0);
+
   const enterLayers = updateLayers
     .enter()
     .append('path')
@@ -88,6 +89,7 @@ export const update = (el, props, state) => {
     .duration(500)
     .attr('opacity', 0)
     .remove();
+
   const exitLayers = updateLayers
     .exit()
     .transition()

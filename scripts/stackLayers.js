@@ -30,8 +30,50 @@ const getPoints = (x, layerIndex, data) => {
       return { x, y };
     }
   }
-
   return false;
+};
+
+const stack = data => {
+  // Convert point from array to object
+  for (let surface in data) {
+    data[surface].points = data[surface].points.reduce((acc, point) => {
+      acc[point.x] = point;
+      return acc;
+    }, {});
+  }
+  // Lookup the layer beneth
+  for (let surface in data) {
+    for (let point in data[surface].points) {
+      const pointValue = data[surface].points[point];
+      const y0 = getBottomPoint(pointValue.x, surface, data);
+      data[surface].points[point] = {
+        y0: y0,
+        y1: pointValue.y,
+        height: pointValue.y - y0,
+        x: pointValue.x
+      };
+    }
+  }
+  //console.log(data.map(surface => surface.points['1000']));
+  // Convert back to array
+  for (let surface in data) {
+    for (let point in data[surface].points) {
+      data[surface].points = Object.keys(data[surface].points).map(pointKey => {
+        return data[surface].points[pointKey];
+      });
+    }
+  }
+};
+
+const getBottomPoint = (point, dataIndex, data) => {
+  let index = Number(dataIndex);
+  while (index > 0) {
+    index--;
+    if (data[index].points[point]) {
+      return data[index].points[point].y1;
+    }
+  }
+  return data[dataIndex].points[point].y;
 };
 
 module.exports = data => {
@@ -56,10 +98,11 @@ module.exports = data => {
     for (let x = min; x <= max; x += stepSize) {
       points.push(getPoints(Math.floor(x), i, data));
     }
-
     newData.push(Object.assign(layer, { points: points.filter(p => p) }));
   }
 
+  stack(newData);
   console.log(JSON.stringify(newData.concat(faults), null, 2));
+
   return data;
 };
