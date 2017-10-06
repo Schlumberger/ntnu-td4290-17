@@ -9,7 +9,8 @@
     "start": "webpack-dev-server",
     "build": "webpack",
     "storybook": "start-storybook -p 6006",
-    "lint": "eslint client/** components/** test/** utils/**"
+    "lint": "eslint client/** components/** test/** utils/**",
+    "scripts": "node ./scripts/index.js"
   },
   "babel": {
     "env": {

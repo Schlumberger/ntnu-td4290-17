@@ -7,6 +7,6 @@ export default compute(
   state`settings.visibility.layers`,
   (data = [], visibility) => {
     if (!visibility) return [];
-    return data.filter(d => d.type === 'layer').reverse();
+    return data.filter(d => d.type === 'surface').reverse();
   }
 );
