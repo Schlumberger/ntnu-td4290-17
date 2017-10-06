@@ -1,8 +1,7 @@
 /*
  * Returns undefined if intersection not found, otherwise {x, y} of that intersection point
  */
-function lineIntersectionPoint(point, fault) {
-  // {points[0].x: x1, points[1].x: x2, points[0].y: y1, points[1].y: y2} = fault
+function lineIntersectionPoint(id, point, fault) {
   let {x: x1, y: y1} = fault.points[0];
   let {x: x2, y: y2} = fault.points[1];
   let {x: x3, x: x4, y0: y3, y1: y4} = point;
@@ -13,6 +12,7 @@ function lineIntersectionPoint(point, fault) {
     return {
       x: ((x1*y2 - y1*x2)*(x3-x4) - (x1-x2)*(x3*y4 - y3*x4))/((x1-x2)*(y3-y4) - (y1-y2)*(x3-x4)),
       y: y,
+      id: id,
     }
   }
 }
@@ -38,39 +38,45 @@ module.exports = (layers, faults) => {
   //   ]
 
   layers.forEach(layer => {
+    let id = 0;
+    layer.intersections = [];
     layer.points.forEach(point => {
       faults.forEach(fault => {
         //Find intersection
-        console.log(lineIntersectionPoint(point, fault));
+        let intersection = lineIntersectionPoint(id++, point, fault);
+        if (intersection) {
+          layer.intersections.push(intersection);
+        }
       })
     })
+
   })
 
   //map original areas to
-  layers.map(l => {
-    faults.forEach(f => {
-      if (faultCutsLayer(l, f)) {
-        const layerPoints = l.points;
-        const faultPoints = f.points;
-        const { firstPart, secondPart } = lineSegmentsDivide(
-          layerPoints,
-          faultPoints
-        );
-        if (firstPart != null) {
-          l.subareas = [
-            {
-              points: firstPart
-            },
-            {
-              points: secondPart
-            }
-          ];
-        }
-      }
-    });
-
-    return l;
-  });
+  // layers.map(l => {
+  //   faults.forEach(f => {
+  //     if (faultCutsLayer(l, f)) {
+  //       const layerPoints = l.points;
+  //       const faultPoints = f.points;
+  //       const { firstPart, secondPart } = lineSegmentsDivide(
+  //         layerPoints,
+  //         faultPoints
+  //       );
+  //       if (firstPart != null) {
+  //         l.subareas = [
+  //           {
+  //             points: firstPart
+  //           },
+  //           {
+  //             points: secondPart
+  //           }
+  //         ];
+  //       }
+  //     }
+  //   });
+  //
+  //   return l;
+  // });
 };
 
 const faultCutsLayer = (layer, fault) => {
