@@ -34,7 +34,9 @@ describe('Formatting data utils', function() {
         x: 4,
         y: 2,
         minAge: 1,
-        maxAge: 2
+        maxAge: 2,
+        age0: 1,
+        age1: 2
       });
     });
   });

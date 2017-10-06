@@ -36,7 +36,7 @@ describe('Return correct values', function() {
             minAge: 1,
             maxAge: 2,
             id: 'foo',
-            points: [{ x: 4, y: 5, minAge: 1, maxAge: 2 }]
+            points: [{ x: 4, y: 5, age0: 1, age1: 2, minAge: 1, maxAge: 2 }]
           }
         ]
       })
