@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { string, shape, number, arrayOf } from 'prop-types';
+import { string, shape, number, arrayOf, object } from 'prop-types';
 import { Wrapper, Note } from './elements';
 // import { create, update, destroy } from './visualization';
 
@@ -57,7 +57,7 @@ class PlacesBar extends Component {
 
 PlacesBar.propTypes = {
   className: string,
-  places: arrayOf(string),
+  places: arrayOf(object),
   dimensions: shape({
     maxWidth: number
   })
