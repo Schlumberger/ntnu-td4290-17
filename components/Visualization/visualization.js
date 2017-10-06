@@ -1,10 +1,10 @@
-import { select } from 'd3-selection';
+import { select, event } from 'd3-selection';
 import { transition } from 'd3-transition';
 import { line, area, curveBasis } from 'd3-shape';
 import { scaleLinear } from 'd3-scale';
 
 const margins = {
-  top: 0,
+  top: 35,
   bottom: 0,
   left: 0,
   right: 0
@@ -80,7 +80,10 @@ export const update = (el, props, state) => {
     .enter()
     .append('path')
     .attr('opacity', 0)
-    .on('click', d => onLayerClicked({ info: d }));
+    .on('click', (d, ...args) => {
+      onLayerClicked({ info: d })
+      event.stopPropagation()
+    });
 
   // Remove if too many
   const exitFaults = updateFaults

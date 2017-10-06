@@ -31,7 +31,7 @@ export default class PlacesBar extends Component {
   render() {
     let placeNames = [];
     if (this.props.places) {
-      let coef = this.state.width / this.props.dimensions.maxWidth;
+      let coef = (this.state.width / 1000) / this.props.dimensions.maxWidth;
 
       for (let p of this.props.places) {
         let left = p.x * coef;
