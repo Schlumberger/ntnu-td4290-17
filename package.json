@@ -8,7 +8,8 @@
     "coverage": "cross-env NODE_ENV=test nyc mocha --require ./tests/setup.js ./tests/**/*.test.js",
     "start": "webpack-dev-server",
     "build": "webpack",
-    "storybook": "start-storybook -p 6006"
+    "storybook": "start-storybook -p 6006",
+    "scripts": "node ./scripts/index.js"
   },
   "babel": {
     "env": {

@@ -18,7 +18,7 @@ describe('Formatting data utils', function() {
 
       assert.deepEqual(result, points);
     });
-    it('Should add age if layer', function() {
+    it('Should add age if surface', function() {
       const points = {
         x: 4,
         y: 2
@@ -28,18 +28,20 @@ describe('Formatting data utils', function() {
           age: [1, 2]
         }
       };
-      const result = addAgeToPoints('layer', 'category', chronostrat, points);
+      const result = addAgeToPoints('surface', 'category', chronostrat, points);
 
       assert.deepEqual(result, {
         x: 4,
         y: 2,
         minAge: 1,
-        maxAge: 2
+        maxAge: 2,
+        age0: 1,
+        age1: 2
       });
     });
   });
   describe('Get Stroke', function() {
-    ['layer', 'fault', 'foo'].forEach(type => {
+    ['surface', 'fault', 'foo'].forEach(type => {
       it('Should return a string when type is ' + type, function() {
         expect(getStroke(type)).to.be.a('string');
       });
@@ -52,19 +54,22 @@ describe('Formatting data utils', function() {
     it('Should return none if fault', function() {
       assert.equal(getFill('fault'), 'none');
     });
-    it('Should lookup color if layer', function() {
-      assert.equal(getFill('layer', 'per', { per: { color: 'red' } }), 'red');
+    it('Should lookup color if surface', function() {
+      assert.equal(getFill('surface', 'per', { per: { color: 'red' } }), 'red');
     });
-    it('Should lookup color if layer if present, else black', function() {
-      assert.equal(getFill('layer', 'foo', { per: { color: 'red' } }), 'black');
+    it('Should lookup color if surface if present, else black', function() {
+      assert.equal(
+        getFill('surface', 'foo', { per: { color: 'red' } }),
+        'black'
+      );
     });
   });
   describe('Get Geometry Type', function() {
     it('Should return line as default', function() {
       assert.equal(getGeometryType(), 'line');
     });
-    it('Should return area if layer', function() {
-      assert.equal(getGeometryType('layer'), 'area');
+    it('Should return area if surface', function() {
+      assert.equal(getGeometryType('surface'), 'area');
     });
     it('Should return line if fault', function() {
       assert.equal(getGeometryType('fault'), 'line');
