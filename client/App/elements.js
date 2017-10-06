@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import Viz from 'components/Visualization';
 import PlacesTopBar from 'components/PlacesBar';
 import Menu from './ImmersiveBar';
-import Header from './Header';
 import Info from './InfoBox';
 
 export const Wrapper = styled.div`
@@ -27,7 +26,7 @@ export const GridWrapper = styled.div`
 `;
 
 export const ImmersiveBar = styled(Menu)`
-  pointer-events: all;
+  pointer-events: none;
   grid-area: centerBottom;
 `;
 

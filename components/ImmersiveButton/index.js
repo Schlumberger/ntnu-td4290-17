@@ -1,12 +1,8 @@
 import React from 'react';
+import { string, node, bool, func } from 'prop-types';
 import { Wrapper, ActiveText, InactiveText } from './elements';
 
-export default function ImmersiveButton({
-  className,
-  children,
-  inactive,
-  onClick
-}) {
+function ImmersiveButton ({ className, children, inactive, onClick }) {
   const text = inactive ? (
     <InactiveText>{children}</InactiveText>
   ) : (
@@ -19,3 +15,12 @@ export default function ImmersiveButton({
     </Wrapper>
   );
 }
+
+ImmersiveButton.propTypes = {
+  className: string,
+  children: node,
+  inactive: bool,
+  onClick: func
+};
+
+export default ImmersiveButton;

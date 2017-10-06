@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
+  visibility: ${props => (props.visible ? 'visible' : 'hidden')};
   border-style: solid;
   border-width: 5px;
   border-color: ${props => props.color};

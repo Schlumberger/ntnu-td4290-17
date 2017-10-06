@@ -1,10 +1,10 @@
-import { select } from 'd3-selection';
-import { transition } from 'd3-transition';
-import { line, area, curveCardinal } from 'd3-shape';
+import { select, event } from 'd3-selection';
+import {} from 'd3-transition';
+import { line, area, curveBasis } from 'd3-shape';
 import { scaleLinear } from 'd3-scale';
 
 const margins = {
-  top: 0,
+  top: 35,
   bottom: 0,
   left: 0,
   right: 0
@@ -39,10 +39,10 @@ export const update = (el, props, state) => {
 
   const areaGenerator = area()
     .x(d => xScale(d.x))
-    .y0(d => yScale(yAxisUnit === 'depth' ? d.y0 : d.maxAge))
-    .y1(d => yScale(yAxisUnit === 'depth' ? d.y1 : d.minAge))
+    .y0(d => yScale(yAxisUnit === 'depth' ? d.y0 : d.age0))
+    .y1(d => yScale(yAxisUnit === 'depth' ? d.y1 : d.age1))
     //makes interpolate of the form curveCardinal
-    .curve(curveCardinal);
+    .curve(curveBasis);
 
   const generators = {
     line: lineGenerator,
@@ -51,12 +51,12 @@ export const update = (el, props, state) => {
 
   // Select how to scale values to x positions
   const xScale = scaleLinear()
-    .domain([0, props.dimentions.maxWidth])
+    .domain([0, dimentions.maxWidth])
     .range([margins.left, width - margins.right]);
 
   // Select how to scale values to y positions
   const yScale = scaleLinear()
-    .domain([0, props.dimentions.maxHeight])
+    .domain([0, dimentions.maxHeight])
     .range([margins.top, height - margins.bottom]);
 
   // Select the svg
@@ -80,20 +80,25 @@ export const update = (el, props, state) => {
     .enter()
     .append('path')
     .attr('opacity', 0);
+
   const enterLayers = updateLayers
     .enter()
     .append('path')
     .attr('opacity', 0)
-    .on('click', d => onLayerClicked({ info: d }));
+    .on('click', (d, ...args) => {
+      onLayerClicked({ info: d });
+      event.stopPropagation();
+    });
 
   // Remove if too many
-  const exitFaults = updateFaults
+  updateFaults
     .exit()
     .transition()
     .duration(500)
     .attr('opacity', 0)
     .remove();
-  const exitLayers = updateLayers
+
+  updateLayers
     .exit()
     .transition()
     .duration(500)

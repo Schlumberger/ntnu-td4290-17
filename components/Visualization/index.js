@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+import { func, string } from 'prop-types';
 import { Wrapper } from './elements';
 import { create, update, destroy } from './visualization';
 
-export default class Visualization extends Component {
-  constructor(props) {
+class Visualization extends Component {
+  constructor (props) {
     super(props);
 
     this.state = {
@@ -12,38 +13,46 @@ export default class Visualization extends Component {
     };
     this.updateSize = this.updateSize.bind(this);
   }
-  componentDidMount() {
+  componentDidMount () {
     create(this.svg, this.props, this.state);
 
     this.updateSize();
     window.addEventListener('resize', this.updateSize);
   }
 
-  componentDidUpdate() {
+  componentDidUpdate () {
     update(this.svg, this.props, this.state);
   }
 
-  componentWillUnmount() {
+  componentWillUnmount () {
     destroy(this.svg);
 
     window.removeEventListener('resize', this.updateWindowDimensions);
   }
 
-  updateSize() {
+  updateSize () {
     this.setState({
       width: this.wrapper.offsetWidth,
       height: this.wrapper.offsetHeight
     });
   }
 
-  render() {
+  render () {
     return (
       <Wrapper
         className={this.props.className}
         innerRef={wrapper => (this.wrapper = wrapper)}
+        onClick={() => this.props.onEmptyClicked()}
       >
         <svg ref={svg => (this.svg = svg)} />
       </Wrapper>
     );
   }
 }
+
+Visualization.propTypes = {
+  className: string,
+  onEmptyClicked: func
+};
+
+export default Visualization;
