@@ -23,4 +23,18 @@ describe('Compute correct values', function() {
     });
     assert.deepEqual(result, []);
   });
+  it('Should filter faults', function() {
+    const result = runCompute(computed, {
+      state: {
+        settings: {
+          visibility: {
+            faults: true
+          },
+          yAxisUnit: 'depth'
+        },
+        formattedData: [{ type: 'fault' }, { type: 'groijdgoijrdg' }]
+      }
+    });
+    assert.deepEqual(result, [{ type: 'fault' }]);
+  });
 });
