@@ -16,8 +16,8 @@ export default Controller({
     process.env.NODE_ENV === 'production'
       ? null
       : Devtools({
-          host: 'localhost:8787'
-        }),
+        host: 'localhost:8787'
+      }),
   state: {
     error: null,
     settings: {

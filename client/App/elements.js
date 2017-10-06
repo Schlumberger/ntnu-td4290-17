@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import Viz from 'components/Visualization';
 import PlacesTopBar from 'components/PlacesBar';
 import Menu from './ImmersiveBar';
-import Header from './Header';
 import Info from './InfoBox';
 
 export const Wrapper = styled.div`

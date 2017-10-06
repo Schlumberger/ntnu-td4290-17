@@ -6,7 +6,7 @@ import {
   getAge
 } from 'utils/formattingData';
 
-export default function formatData({ state }) {
+export default function formatData ({ state }) {
   const chronostrat = state.get('chronostrat');
   const dataset = state.get('dataset');
 

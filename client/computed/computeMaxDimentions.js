@@ -1,7 +1,7 @@
 import { compute } from 'cerebral';
 import { state } from 'cerebral/tags';
 
-//finds maxWidth and maxHeight
+// Finds maxWidth and maxHeight
 export default compute(
   state`formattedData`,
   state`settings.yAxisUnit`,

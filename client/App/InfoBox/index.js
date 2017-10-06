@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from '@cerebral/react';
-import { state, signal } from 'cerebral/tags';
+import { state } from 'cerebral/tags';
 import Draggable from 'react-draggable';
 import { Wrapper } from './elements';
 
@@ -10,7 +10,7 @@ export default connect(
     color: state`chronostrat.${state`app.info.category`}.color`,
     visible: state`settings.visibility.inspector`
   },
-  function InfoBox({ info, className, color, visible }) {
+  function InfoBox ({ info, className, color, visible }) {
     if (!info) {
       return (
         <Draggable>
