@@ -88,8 +88,6 @@ export const update = (el, props, state) => {
     .selectAll('circle')
     .data(intsctns, d => d.id);
 
-  console.log(updateIntersections);
-
   // Add new text-elements if nessescary
   const enterFaults = updateFaults
     .enter()
@@ -152,13 +150,6 @@ export const update = (el, props, state) => {
     .attr('fill', d => d.fill)
     .attr('stroke', d => d.stroke)
     .attr('stroke-width', '2px');
-
-
-  intsctns.forEach( d => {
-    // console.log("X: "+d.x+" sX: "+xScale(d.x));
-    // console.log("Y: "+d.y+" sY: "+yScale(d.y));
-    console.log(width);
-  })
 
   updateIntersections
     .merge(enterIntersections)

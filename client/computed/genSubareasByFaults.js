@@ -4,9 +4,10 @@
 function lineIntersectionPoint(id, point, fault) {
   let {x: x1, y: y1} = fault.points[0];
   let {x: x2, y: y2} = fault.points[1];
-  let {x: x3, x: x4, y0: y3, y1: y4} = point;
+  // let {x: x3, x: x4, y0: y3, y1: y4} = point;
+  let {x3, x4, y3, y4} = point;
   let y = ((x1*y2 - y1*x2)*(y3-y4) - (y1-y2)*(x3*y4 - y3*x4))/((x1-x2)*(y3-y4) - (y1-y2)*(x3-x4));
-  if (y > y4 || y < y3) {
+  if (y > Math.max(y3, y4) || y < Math.min(y3, y4)) {
     return undefined;
   } else {
     return {
@@ -15,6 +16,12 @@ function lineIntersectionPoint(id, point, fault) {
       id: id,
     }
   }
+}
+
+function pairwise(arr, func) {
+    for(var i=0;i<arr.length-1;i++){
+        func(arr[i], arr[i+1])
+    }
 }
 
 //areas given with vertically symmetrical points,
@@ -40,15 +47,34 @@ module.exports = (layers, faults) => {
   layers.forEach(layer => {
     let id = 0;
     layer.intersections = [];
-    layer.points.forEach(point => {
+    pairwise(layer.points, (first, next) => {
+      let lines = [
+        {x3: first.x, y3: first.y0, x4: first.x, y4: first.y1},
+        {x3: next.x, y3: next.y0, x4: next.x, y4: next.y1},
+        {x3: first.x, y3: first.y0, x4: next.x, y4: next.y0},
+        {x3: first.x, y3: first.y1, x4: next.x, y4: next.y1}
+      ];
+      // console.log(lines);
       faults.forEach(fault => {
-        //Find intersection
-        let intersection = lineIntersectionPoint(id++, point, fault);
-        if (intersection) {
-          layer.intersections.push(intersection);
-        }
-      })
+        lines.forEach(line => {
+          let intersection = lineIntersectionPoint(id, line, fault);
+          if (intersection) {
+            layer.intersections.push(intersection);
+            id++;
+          }
+        });
+      });
+      // console.log(layer.intersections);
     })
+    // layer.points.forEach(point => {
+    //   faults.forEach(fault => {
+    //     //Find intersection
+    //     let intersection = lineIntersectionPoint(id++, point, fault);
+    //     if (intersection) {
+    //       layer.intersections.push(intersection);
+    //     }
+    //   })
+    // })
 
   })
 
