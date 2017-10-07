@@ -3,10 +3,10 @@ const MULT = 1000;
 
 const findXDimentions = data => {
   const max = Math.max(
-    ...data.map(layer => Math.max(...layer.points.map(point => point.x)))
+    ...data.map(layer => Math.max(...layer.points.map(point => point.x))),
   );
   const min = Math.min(
-    ...data.map(layer => Math.min(...layer.points.map(point => point.x)))
+    ...data.map(layer => Math.min(...layer.points.map(point => point.x))),
   );
   return { min: min * MULT, max: max * MULT, span: max * MULT - min * MULT };
 };
@@ -49,7 +49,7 @@ const stack = data => {
         y0: y0,
         y1: pointValue.y,
         height: pointValue.y - y0,
-        x: pointValue.x
+        x: pointValue.x,
       };
     }
   }
@@ -81,7 +81,7 @@ module.exports = data => {
     return Object.assign(fault, {
       points: fault.points.map(point => {
         return { x: Math.floor(point.x * MULT), y: Math.floor(point.y * MULT) };
-      })
+      }),
     });
   });
 
