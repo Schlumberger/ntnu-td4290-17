@@ -24,6 +24,16 @@ function pairwise(arr, func) {
     }
 }
 
+function faultDirection(fault) {
+  let x1 = fault.points[0].x;
+  let x2 = fault.points[1].x;
+  if (x1 === x2) {
+    return 'straight';
+  } else {
+    return x1 < x2 ? 'left' : 'right';
+  }
+}
+
 //areas given with vertically symmetrical points,
 //faults given as two points
 module.exports = (layers, faults) => {
@@ -47,23 +57,33 @@ module.exports = (layers, faults) => {
   layers.forEach(layer => {
     let id = 0;
     layer.intersections = [];
-    pairwise(layer.points, (first, next) => {
-      let lines = [
-        {x3: first.x, y3: first.y0, x4: first.x, y4: first.y1},
-        {x3: next.x, y3: next.y0, x4: next.x, y4: next.y1},
-        {x3: first.x, y3: first.y0, x4: next.x, y4: next.y0},
-        {x3: first.x, y3: first.y1, x4: next.x, y4: next.y1}
-      ];
-      // console.log(lines);
+
+    // Iterating over layer by small pieces
+    // Pieces that intersect with faults get divided
+    pairwise(layer.points, (act, next) => {
+      let lines = {
+        left: {x3: act.x, y3: act.y0, x4: act.x, y4: act.y1},
+        right: {x3: next.x, y3: next.y0, x4: next.x, y4: next.y1},
+        top: {x3: act.x, y3: act.y0, x4: next.x, y4: next.y0},
+        bottom: {x3: act.x, y3: act.y1, x4: next.x, y4: next.y1}
+      };
+      let lineCuts = {};
+
       faults.forEach(fault => {
-        lines.forEach(line => {
-          let intersection = lineIntersectionPoint(id, line, fault);
+        for (var key in lines) {
+          let intersection = lineIntersectionPoint(id, lines[key], fault);
           if (intersection) {
             layer.intersections.push(intersection);
+            lineCuts[key] = intersection;
             id++;
           }
-        });
+        };
       });
+      if (Object.keys(lineCuts).length !== 0) {
+        console.log(lineCuts);
+      } else {
+        console.log('no intersections');
+      }
       // console.log(layer.intersections);
     })
     // layer.points.forEach(point => {

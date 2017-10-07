@@ -34,7 +34,21 @@ module.exports = () => {
         {
           x: 30,
           y0: 26,
-          y1: 50,
+          y1: 40,
+          minAge: 50,
+          maxAge: 50
+        },
+        {
+          x: 40,
+          y0: 18,
+          y1: 45,
+          minAge: 50,
+          maxAge: 50
+        },
+        {
+          x: 50,
+          y0: 26,
+          y1: 40,
           minAge: 50,
           maxAge: 50
         }
