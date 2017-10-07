@@ -1,9 +1,23 @@
+const firebase = require('firebase');
+const firebaseConfig = require('../configs/firebase');
+
 const svgToJson = require('./svgToJSON');
 const stackLayers = require('./stackLayers');
 
-svgToJson(res => {
-  stackLayers(res);
-});
+firebase.initializeApp(firebaseConfig);
+
+// script that updates the database with new points
+svgToJson()
+  .then(json => stackLayers(json))
+  .then(res => {
+    let updates = {};
+    updates['/datasets/newStacked'] = res;
+    firebase
+      .database()
+      .ref()
+      .update(updates);
+  });
+
 /*
 stackLayers([
   {

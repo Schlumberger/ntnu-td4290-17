@@ -5,7 +5,7 @@ import { state, props } from 'cerebral/tags';
 
 export default sequence('Get Dataset', [
   // Get the path 'dataset' from firebase
-  value('datasets.stacked'),
+  value('datasets.newStacked'),
   {
     // If there was an error, do nothing
     error: [],
