@@ -58,36 +58,83 @@ module.exports = (layers, faults) => {
     let id = 0;
     layer.intersections = [];
 
+    // init first subarea, then divide it on coliding faults
+    if (!layer.hasOwnProperty('subareas')) {
+      layer.subareas = [
+        {id: 'subarea-0', points: layer.points},
+      ]
+    };
+    console.log(layer);
+
+
+    faults.forEach(fault => {
+      // Subareas that area divided area stored as temp
+      let tempSubareas = []
+      layer.subareas.forEach(subarea => {
+        pairwise(subarea.points, (act, next) => {
+          let lines = {
+            left: {x3: act.x, y3: act.y0, x4: act.x, y4: act.y1},
+            right: {x3: next.x, y3: next.y0, x4: next.x, y4: next.y1},
+            top: {x3: act.x, y3: act.y0, x4: next.x, y4: next.y0},
+            bottom: {x3: act.x, y3: act.y1, x4: next.x, y4: next.y1}
+          };
+
+          let lineCuts = {};
+          for (var key in lines) {
+            let intersection = lineIntersectionPoint(id, lines[key], fault);
+            if (intersection) {
+              layer.intersections.push(intersection);
+              lineCuts[key] = intersection;
+              id++;
+            };
+          };
+
+          if (Object.keys(lineCuts).length !== 0) {
+            console.log(Object.keys(lineCuts));
+            // TODO Detect new subareas based on intersections
+          } else {
+            console.log('no intersections');
+          };
+          console.log('dong');
+        });
+      })
+
+      //layer.subareas = tempSubareas // maybe some condition?
+    });
+
     // Iterating over layer by small pieces
     // Pieces that intersect with faults get divided
-    pairwise(layer.points, (act, next) => {
-      let lines = {
-        left: {x3: act.x, y3: act.y0, x4: act.x, y4: act.y1},
-        right: {x3: next.x, y3: next.y0, x4: next.x, y4: next.y1},
-        top: {x3: act.x, y3: act.y0, x4: next.x, y4: next.y0},
-        bottom: {x3: act.x, y3: act.y1, x4: next.x, y4: next.y1}
-      };
+    // pairwise(layer.points, (act, next) => {
+    //   let lines = {
+    //     left: {x3: act.x, y3: act.y0, x4: act.x, y4: act.y1},
+    //     right: {x3: next.x, y3: next.y0, x4: next.x, y4: next.y1},
+    //     top: {x3: act.x, y3: act.y0, x4: next.x, y4: next.y0},
+    //     bottom: {x3: act.x, y3: act.y1, x4: next.x, y4: next.y1}
+    //   };
+    //
+    //   faults.forEach(fault => {
+    //     let lineCuts = {};
+    //     for (var key in lines) {
+    //       let intersection = lineIntersectionPoint(id, lines[key], fault);
+    //       if (intersection) {
+    //         layer.intersections.push(intersection);
+    //         lineCuts[key] = intersection;
+    //         id++;
+    //       }
+    //     };
+    //
+    //     if (Object.keys(lineCuts).length !== 0) {
+    //       console.log(Object.keys(lineCuts));
+    //     } else {
+    //       console.log('no intersections');
+    //     }
+    //   });
+    //
+    //   // console.log(layer.intersections);
+    // })
 
-      faults.forEach(fault => {
-        let lineCuts = {};
-        for (var key in lines) {
-          let intersection = lineIntersectionPoint(id, lines[key], fault);
-          if (intersection) {
-            layer.intersections.push(intersection);
-            lineCuts[key] = intersection;
-            id++;
-          }
-        };
 
-        if (Object.keys(lineCuts).length !== 0) {
-          console.log(Object.keys(lineCuts));
-        } else {
-          console.log('no intersections');
-        }
-      });
 
-      // console.log(layer.intersections);
-    })
     // layer.points.forEach(point => {
     //   faults.forEach(fault => {
     //     //Find intersection
