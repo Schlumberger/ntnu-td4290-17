@@ -12,7 +12,7 @@ describe('Compute max dimensions', function () {
       maxHeight: 0
     });
   });
-  it('Should find the correct maxHeigh', function () {
+  it('Should find the correct maxWidth', function () {
     const result = runCompute(computed, {
       state: {
         formattedData: [{ points: [{ x: 10 }, { x: 20 }, { x: 5 }] }]
