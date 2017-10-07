@@ -6,10 +6,13 @@ const parser = new xml2js.Parser();
 
 const filepath = path.join(__dirname, '..', 'data', 'geometry.svg');
 
-module.exports = cb => {
-  fs.readFile(filepath, function(err, data) {
-    parser.parseString(data, function(err, result) {
-      cb(parseSVG(result.svg.g));
+module.exports = () => {
+  return new Promise((resolve, reject) => {
+    fs.readFile(filepath, function (err, data) {
+      parser.parseString(data, function (err, result) {
+        if (err) reject(err);
+        resolve(parseSVG(result.svg.g));
+      });
     });
   });
 };
