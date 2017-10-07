@@ -80,7 +80,7 @@ module.exports = (layers, faults) => {
         };
 
         if (Object.keys(lineCuts).length !== 0) {
-          console.log(lineCuts);
+          console.log(Object.keys(lineCuts));
         } else {
           console.log('no intersections');
         }
