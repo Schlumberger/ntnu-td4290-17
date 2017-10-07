@@ -16,8 +16,7 @@ const getPoints = (x, layerIndex, data) => {
   for (let i = 0; i < data[layerIndex].points.length; i++) {
     // If the x-value of the point is higher than our x-value
     if (data[layerIndex].points[i].x * MULT >= x) {
-      if (data[layerIndex].points[i].x * MULT === x)
-        return { x: x, y: Math.floor(data[layerIndex].points[i].y * MULT) };
+      if (data[layerIndex].points[i].x * MULT === x) { return { x: x, y: Math.floor(data[layerIndex].points[i].y * MULT) }; }
       if (i === 0) return false;
 
       const after = data[layerIndex].points[i];
@@ -54,7 +53,7 @@ const stack = data => {
       };
     }
   }
-  //console.log(data.map(surface => surface.points['1000']));
+  // console.log(data.map(surface => surface.points['1000']));
   // Convert back to array
   for (let surface in data) {
     for (let point in data[surface].points) {
@@ -102,7 +101,6 @@ module.exports = data => {
   }
 
   stack(newData);
-  console.log(JSON.stringify(newData.concat(faults), null, 2));
 
-  return data;
+  return newData.concat(faults);
 };
