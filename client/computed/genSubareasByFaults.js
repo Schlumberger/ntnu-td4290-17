@@ -67,9 +67,9 @@ module.exports = (layers, faults) => {
         top: {x3: act.x, y3: act.y0, x4: next.x, y4: next.y0},
         bottom: {x3: act.x, y3: act.y1, x4: next.x, y4: next.y1}
       };
-      let lineCuts = {};
 
       faults.forEach(fault => {
+        let lineCuts = {};
         for (var key in lines) {
           let intersection = lineIntersectionPoint(id, lines[key], fault);
           if (intersection) {
@@ -78,12 +78,14 @@ module.exports = (layers, faults) => {
             id++;
           }
         };
+
+        if (Object.keys(lineCuts).length !== 0) {
+          console.log(lineCuts);
+        } else {
+          console.log('no intersections');
+        }
       });
-      if (Object.keys(lineCuts).length !== 0) {
-        console.log(lineCuts);
-      } else {
-        console.log('no intersections');
-      }
+
       // console.log(layer.intersections);
     })
     // layer.points.forEach(point => {
