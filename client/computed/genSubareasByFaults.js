@@ -68,21 +68,24 @@ module.exports = (layers, faults) => {
     if (!layer.hasOwnProperty('subareas')) {
       layer.subareas = [
         {id: 'subarea-0', points: layer.points},
-      ]
+      ];
     };
-    console.log(layer);
+    // console.log(layer.points);
+
 
 
     faults.forEach(fault => {
       // Subareas that area divided area stored as temp
-      let tempSubareas = []
-      let subCount = layer.subareas.length;  // ?!
+      // let tempArea;
+      // let subCount = layer.subareas.length;  // ?!
       let faultDirection = getFaultDirection(fault);
 
       layer.subareas.forEach(subarea => {
         let leftArea = [];
         let rightArea = [];
         let wasCut = false; // if area was cut, other subareas will be pushed to the rightArea
+
+        console.log(subarea);
         pairwise(subarea.points, (act, next) => {
           let lines = {
             left: {x3: act.x, y3: act.y0, x4: act.x, y4: act.y1},
@@ -151,6 +154,12 @@ module.exports = (layers, faults) => {
                   // one additional point
                   break;
               };
+              if (!wasCut) {
+                leftArea.push(act);
+              } else {
+                // where do we push
+                rightArea.push(act);
+              }
             } else if (lineCuts.hasOwnProperty('top') && lineCuts.hasOwnProperty('bottom')) {
               switch (faultDirection) {
                 case 'left':
@@ -163,10 +172,16 @@ module.exports = (layers, faults) => {
                   // one additional point
                   break;
               };
+              if (!wasCut) {
+                leftArea.push(act);
+              } else {
+                // where do we push
+                rightArea.push(act);
+              }
             }
             wasCut = true;
 
-            console.log(Object.keys(lineCuts));
+            // console.log(Object.keys(lineCuts));
             // TODO Detect new subareas based on intersections
 
           } else {
@@ -178,15 +193,35 @@ module.exports = (layers, faults) => {
               rightArea.push(act);
             }
           };
-        });
 
-        console.log(leftArea);
-        console.log(rightArea);
+          // tempArea = subarea;
+        });
+        if (!wasCut) {
+          leftArea.push(subarea.points[subarea.points.length-1]);
+        } else {
+          // where do we push
+          rightArea.push(subarea.points[subarea.points.length-1]);
+        }
+        // tempSubareas
+        // console.log(leftArea);
+        // console.log(rightArea);
+        // console.log(layer.subareas);
+        if (rightArea.length > 0) {
+          layer.subareas.splice(
+            layer.subareas.indexOf(subarea),
+            1,
+            {id: subarea.id+'0', points: leftArea},
+            {id: subarea.id+'1', points: rightArea}
+          );
+        } else {
+          layer.subareas.splice(layer.subareas.indexOf(subarea),  1, {id: subarea.id, points: leftArea});
+        }
       })
 
       // TODO layer.subareas = tempSubareas // maybe some condition?
     });
-
+    console.log(layer.subareas);
+  })
     // Iterating over layer by small pieces
     // Pieces that intersect with faults get divided
     // pairwise(layer.points, (act, next) => {
@@ -230,7 +265,6 @@ module.exports = (layers, faults) => {
     //   })
     // })
 
-  })
 
   //map original areas to
   // layers.map(l => {

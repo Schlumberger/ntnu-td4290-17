@@ -75,6 +75,25 @@ module.exports = () => {
           y: 50
         }
       ]
+    },
+    {
+      fill: 'none',
+      geometryType: 'line',
+      id: 'fault-15',
+      maxAge: 358.9,
+      minAge: 298.9,
+      stroke: 'black',
+      type: 'fault',
+      points: [
+        {
+          x: 32,
+          y: 0
+        },
+        {
+          x: 30,
+          y: 55
+        }
+      ]
     }
   ];
 
