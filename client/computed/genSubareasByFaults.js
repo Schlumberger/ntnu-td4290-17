@@ -24,7 +24,7 @@ function pairwise(arr, func) {
     }
 }
 
-function faultDirection(fault) {
+function getFaultDirection(fault) {
   let x1 = fault.points[0].x;
   let x2 = fault.points[1].x;
   if (x1 === x2) {
@@ -32,6 +32,12 @@ function faultDirection(fault) {
   } else {
     return x1 < x2 ? 'left' : 'right';
   }
+}
+
+function directionCheck(value, cond) {
+  if (value !== cond) {
+    console.log('ERROR: wrong activity detected.');
+  };
 }
 
 //areas given with vertically symmetrical points,
@@ -70,7 +76,13 @@ module.exports = (layers, faults) => {
     faults.forEach(fault => {
       // Subareas that area divided area stored as temp
       let tempSubareas = []
+      let subCount = layer.subareas.length;  // ?!
+      let faultDirection = getFaultDirection(fault);
+
       layer.subareas.forEach(subarea => {
+        let leftArea = [];
+        let rightArea = [];
+        let wasCut = false; // if area was cut, other subareas will be pushed to the rightArea
         pairwise(subarea.points, (act, next) => {
           let lines = {
             left: {x3: act.x, y3: act.y0, x4: act.x, y4: act.y1},
@@ -90,16 +102,89 @@ module.exports = (layers, faults) => {
           };
 
           if (Object.keys(lineCuts).length !== 0) {
+            // Straight fault cutting the layer directly over area line should be tested
+            if (lineCuts.hasOwnProperty('left') && lineCuts.hasOwnProperty('top')) {
+              directionCheck(faultDirection, 'right');
+
+              if (!wasCut) {
+                leftArea.push(act);
+              } else {
+                // where do we push
+                rightArea.push(act);
+              }
+            } else if (lineCuts.hasOwnProperty('left') && lineCuts.hasOwnProperty('bottom')) {
+              directionCheck(faultDirection, 'left');
+
+              if (!wasCut) {
+                leftArea.push(act);
+              } else {
+                // where do we push
+                rightArea.push(act);
+              }
+            } else if (lineCuts.hasOwnProperty('right') && lineCuts.hasOwnProperty('top')) {
+              directionCheck(faultDirection, 'left');
+
+              if (!wasCut) {
+                leftArea.push(act);
+              } else {
+                // where do we push
+                rightArea.push(act);
+              }
+            } else if (lineCuts.hasOwnProperty('right') && lineCuts.hasOwnProperty('bottom')) {
+              directionCheck(faultDirection, 'right');
+
+              if (!wasCut) {
+                leftArea.push(act);
+              } else {
+                // where do we push
+                rightArea.push(act);
+              }
+            } else if (lineCuts.hasOwnProperty('left') && lineCuts.hasOwnProperty('right')) {
+              switch (faultDirection) {
+                case 'left':
+                  // Two additional points
+                  break;
+                case 'right':
+                  // Two additional points
+                  break;
+                case 'straight':
+                  // one additional point
+                  break;
+              };
+            } else if (lineCuts.hasOwnProperty('top') && lineCuts.hasOwnProperty('bottom')) {
+              switch (faultDirection) {
+                case 'left':
+                  // Two additional points
+                  break;
+                case 'right':
+                  // Two additional points
+                  break;
+                case 'straight':
+                  // one additional point
+                  break;
+              };
+            }
+            wasCut = true;
+
             console.log(Object.keys(lineCuts));
             // TODO Detect new subareas based on intersections
+
           } else {
             console.log('no intersections');
+            if (!wasCut) {
+              leftArea.push(act);
+            } else {
+              // where do we push
+              rightArea.push(act);
+            }
           };
-          console.log('dong');
         });
+
+        console.log(leftArea);
+        console.log(rightArea);
       })
 
-      //layer.subareas = tempSubareas // maybe some condition?
+      // TODO layer.subareas = tempSubareas // maybe some condition?
     });
 
     // Iterating over layer by small pieces
