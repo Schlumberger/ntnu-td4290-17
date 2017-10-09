@@ -67,10 +67,10 @@ module.exports = (layers, faults) => {
     // init first subarea, then divide it on coliding faults
     if (!layer.hasOwnProperty('subareas')) {
       layer.subareas = [
-        {id: 'subarea-0', points: layer.points},
+        {id: layer.id+'-0', points: layer.points},
       ];
     };
-    // console.log(layer.points);
+    console.log(layer);
 
 
 
