@@ -1,5 +1,4 @@
 const firebaseConfig = require('../configs/firebase');
-
 const svgToJson = require('./svgToJSON');
 const stackLayers = require('./stackLayers');
 const admin = require('firebase-admin');
@@ -12,54 +11,18 @@ admin.initializeApp({
 // script that updates the database with new points
 svgToJson()
   .then(json => stackLayers(json))
-  .then(res => {
-    let updates = {};
-    updates['/datasets/newStacked'] = res;
-    admin
-      .database()
-      .ref()
-      .update(updates)
-      .then(d => console.log(d));
-  });
-/*
-stackLayers([
-  {
-    type: 'surface',
-    points: [
-      {
-        x: 10,
-        y: 10
-      },
-      {
-        x: 200,
-        y: 10
-      }
-    ]
-  },
-  {
-    type: 'surface',
-    points: [
-      {
-        x: 10,
-        y: 20
-      },
-      {
-        x: 200,
-        y: 20
-      }
-    ]
-  },
-  {
-    type: 'surface',
-    points: [
-      {
-        x: 10,
-        y: 30
-      },
-      {
-        x: 100,
-        y: 30
-      }
-    ]
-  }
-]); */
+  .then(
+    res =>
+      new Promise((resolve, reject) => {
+        let updates = {};
+
+        updates['/datasets/mykey'] = res;
+        admin
+          .database()
+          .ref()
+          .update(updates)
+          .then(resolve)
+          .catch(reject);
+      })
+  )
+  .then(process.exit);
