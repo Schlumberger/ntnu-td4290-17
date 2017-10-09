@@ -4,9 +4,10 @@ const MULT = 1000;
 const findXDimentions = data => {
   const max = Math.max(
     ...data.map(layer => Math.max(...layer.points.map(point => point.x))),
+    0
   );
   const min = Math.min(
-    ...data.map(layer => Math.min(...layer.points.map(point => point.x))),
+    ...data.map(layer => Math.min(...layer.points.map(point => point.x)))
   );
   return { min: min * MULT, max: max * MULT, span: max * MULT - min * MULT };
 };
@@ -16,7 +17,9 @@ const getPoints = (x, layerIndex, data) => {
   for (let i = 0; i < data[layerIndex].points.length; i++) {
     // If the x-value of the point is higher than our x-value
     if (data[layerIndex].points[i].x * MULT >= x) {
-      if (data[layerIndex].points[i].x * MULT === x) { return { x: x, y: Math.floor(data[layerIndex].points[i].y * MULT) }; }
+      if (data[layerIndex].points[i].x * MULT === x) {
+        return { x: x, y: Math.floor(data[layerIndex].points[i].y * MULT) };
+      }
       if (i === 0) return false;
 
       const after = data[layerIndex].points[i];
@@ -49,7 +52,7 @@ const stack = data => {
         y0: y0,
         y1: pointValue.y,
         height: pointValue.y - y0,
-        x: pointValue.x,
+        x: pointValue.x
       };
     }
   }
@@ -81,7 +84,7 @@ module.exports = data => {
     return Object.assign(fault, {
       points: fault.points.map(point => {
         return { x: Math.floor(point.x * MULT), y: Math.floor(point.y * MULT) };
-      }),
+      })
     });
   });
 
