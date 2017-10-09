@@ -1,62 +1,28 @@
-const firebase = require('firebase');
 const firebaseConfig = require('../configs/firebase');
-
 const svgToJson = require('./svgToJSON');
 const stackLayers = require('./stackLayers');
+const admin = require('firebase-admin');
+const serviceAccount = require('../configs/serviceAccount.json');
 
-firebase.initializeApp(firebaseConfig);
-
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: 'https://ntnu-td4290-17.firebaseio.com'
+});
 // script that updates the database with new points
 svgToJson()
   .then(json => stackLayers(json))
-  .then(res => {
-    let updates = {};
-    updates['/datasets/newStacked'] = res;
-    firebase
-      .database()
-      .ref()
-      .update(updates);
-  });
+  .then(
+    res =>
+      new Promise((resolve, reject) => {
+        let updates = {};
 
-/*
-stackLayers([
-  {
-    type: 'surface',
-    points: [
-      {
-        x: 10,
-        y: 10
-      },
-      {
-        x: 200,
-        y: 10
-      }
-    ]
-  },
-  {
-    type: 'surface',
-    points: [
-      {
-        x: 10,
-        y: 20
-      },
-      {
-        x: 200,
-        y: 20
-      }
-    ]
-  },
-  {
-    type: 'surface',
-    points: [
-      {
-        x: 10,
-        y: 30
-      },
-      {
-        x: 100,
-        y: 30
-      }
-    ]
-  }
-]);*/
+        updates['/datasets/mykey'] = res;
+        admin
+          .database()
+          .ref()
+          .update(updates)
+          .then(resolve)
+          .catch(reject);
+      })
+  )
+  .then(process.exit);
