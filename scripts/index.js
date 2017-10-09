@@ -1,23 +1,26 @@
-const firebase = require('firebase');
 const firebaseConfig = require('../configs/firebase');
 
 const svgToJson = require('./svgToJSON');
 const stackLayers = require('./stackLayers');
+const admin = require('firebase-admin');
+const serviceAccount = require('../configs/serviceAccount.json');
 
-firebase.initializeApp(firebaseConfig);
-
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: 'https://ntnu-td4290-17.firebaseio.com'
+});
 // script that updates the database with new points
 svgToJson()
   .then(json => stackLayers(json))
   .then(res => {
     let updates = {};
     updates['/datasets/newStacked'] = res;
-    firebase
+    admin
       .database()
       .ref()
-      .update(updates);
+      .update(updates)
+      .then(d => console.log(d));
   });
-
 /*
 stackLayers([
   {
@@ -59,4 +62,4 @@ stackLayers([
       }
     ]
   }
-]);*/
+]); */
