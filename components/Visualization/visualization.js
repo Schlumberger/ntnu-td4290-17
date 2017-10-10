@@ -30,12 +30,15 @@ export const update = (el, props, state) => {
 
   let intsctns = []
   if (layers) {
-    intsctns = [].concat.apply([],layers.map(x => x.intersections));
-    // console.log('intersections');
-    // console.log(intsctns);
+    intsctns = [].concat.apply([],layers.map(x => {
+      return x.hasOwnProperty('intersections') ? x.intersections : []
+    }));
+    console.log('intersections');
+    console.log(intsctns);
   }
 
-  if (layers[0].points[0] === undefined) return;
+  // console.log(layers[0].points);
+  if (layers[0] && layers[0].points[0] === undefined) return;
 
   // console.log('visualize layers:');
   // console.log(layers);
