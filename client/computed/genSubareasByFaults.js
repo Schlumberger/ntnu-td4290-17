@@ -7,7 +7,8 @@ function lineIntersectionPoint(id, point, fault) {
   // let {x: x3, x: x4, y0: y3, y1: y4} = point;
   let {x3, x4, y3, y4} = point;
   let y = ((x1*y2 - y1*x2)*(y3-y4) - (y1-y2)*(x3*y4 - y3*x4))/((x1-x2)*(y3-y4) - (y1-y2)*(x3-x4));
-  if (y > Math.max(y3, y4) || y < Math.min(y3, y4)) {
+  // if (y > Math.max(y3, y4) || y < Math.min(y3, y4)) {
+  if (y > Math.max(y1, y2) || y < Math.min(y1, y2) || y > Math.max(y3, y4) || y < Math.min(y3, y4)) {
     return undefined;
   } else {
     return {
