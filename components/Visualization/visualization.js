@@ -33,8 +33,8 @@ export const update = (el, props, state) => {
     intsctns = [].concat.apply([],layers.map(x => {
       return x.hasOwnProperty('intersections') ? x.intersections : []
     }));
-    console.log('intersections');
-    console.log(intsctns);
+    // console.log('intersections');
+    // console.log(intsctns);
   }
 
   // console.log(layers[0].points);

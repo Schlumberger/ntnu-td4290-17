@@ -148,7 +148,7 @@ module.exports = () => {
         },
         {
           x: 90 * mul,
-          y: 40 * mul
+          y: 45 * mul
         }
       ]
     }
