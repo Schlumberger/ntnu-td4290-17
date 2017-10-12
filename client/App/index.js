@@ -7,8 +7,8 @@ import computeFaults from 'computed/computeFaults';
 import computeLayers from 'computed/computeLayers';
 import computeMaxDimentions from 'computed/computeMaxDimentions';
 
-import genTestData from 'computed/genTestData';
-import genSubareasByFaults from 'computed/genSubareasByFaults';
+// import genTestData from 'computed/genTestData';
+// import genSubareasByFaults from 'computed/genSubareasByFaults';
 
 import {
   Wrapper,
@@ -21,9 +21,9 @@ import {
 
 class App extends React.Component {
   render () {
-    const { testLayers, testFaults } = genTestData();
+    // const { testLayers, testFaults } = genTestData();
 
-    genSubareasByFaults(testLayers, testFaults);
+    // genSubareasByFaults(testLayers, testFaults);
 
     // console.log('Layers after compution:');
     // console.log(testLayers);
@@ -51,8 +51,8 @@ class App extends React.Component {
           <InfoBox />
         </GridWrapper>
         <Visualization
-          faults={testFaults}
-          layers={testLayers}
+          faults={this.props.faults}
+          layers={this.props.layers}
           dimentions={this.props.dimentions}
           yAxisUnit={this.props.yAxisUnit}
           onLayerClicked={this.props.layerClicked}
