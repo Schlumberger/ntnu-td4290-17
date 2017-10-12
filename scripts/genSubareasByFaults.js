@@ -4,10 +4,9 @@
 function lineIntersectionPoint(id, point, fault, force=false) {
   const {x: x1, y: y1} = fault.points[0];
   const {x: x2, y: y2} = fault.points[1];
-  // let {x: x3, x: x4, y0: y3, y1: y4} = point;
   const {x3, x4, y3, y4} = point;
   const y = ((x1*y2 - y1*x2)*(y3-y4) - (y1-y2)*(x3*y4 - y3*x4))/((x1-x2)*(y3-y4) - (y1-y2)*(x3-x4));
-  // if (y > Math.max(y3, y4) || y < Math.min(y3, y4)) {
+
   if ((y > Math.max(y1, y2) || y < Math.min(y1, y2) || y > Math.max(y3, y4) || y < Math.min(y3, y4)) && !force) {
     return undefined;
   } else {
@@ -77,10 +76,8 @@ function getNewPoint(point, x0, y0, y1) {
 //faults given as two points
 module.exports = (stack) => {
 
-  const layers = [];
-  const faults = [];
+  stack.filter(x => x.type == 'surface').map(layer => {
 
-  layers.forEach(layer => {
     let id = 0;
     layer.intersections = [];
 
@@ -90,11 +87,10 @@ module.exports = (stack) => {
         {id: layer.id+'-0', points: layer.points},
       ];
     };
-    // console.log(layer);
 
+    // stack.filter(x => x.type == 'fault').slice(0, 2).forEach(fault => {
+    stack.filter(x => x.type == 'fault').forEach(fault => {
 
-
-    faults.forEach(fault => {
       // Subareas that area divided area stored as temp
       // let tempArea;
       // let subCount = layer.subareas.length;  // ?!
@@ -130,9 +126,6 @@ module.exports = (stack) => {
               const edgePoint = getNewPoint(act, lineCuts['top'].x, lineCuts['top'].y, lineCuts['top'].y + 1);
               const {top, bottom} = getPointSplit(act, lineCuts['left']);
 
-              // console.log('cepe');
-              // console.log(cuttingPoint);
-
               leftArea.push(top);
               leftArea.push(edgePoint);
               rightArea.push(bottom);
@@ -147,7 +140,6 @@ module.exports = (stack) => {
               const {top, bottom} = getPointSplit(act, lineCuts['left']);
 
               leftArea.push(bottom);
-              // console.log(edgePoint);
               leftArea.push(edgePoint);
               rightArea.push(top);
               rightArea.push(cuttingPoint);
@@ -252,17 +244,18 @@ module.exports = (stack) => {
           layer.subareas.splice(layer.subareas.indexOf(subarea),  1, {id: subarea.id, points: leftArea});
         }
       })
-
+      console.log(layer.subareas.length);
       // TODO layer.subareas = tempSubareas // maybe some condition?
     });
-    console.log(layer);
-  })
 
-  stack.forEach(x => {
-    if (x.type == 'surface') {
-      console.log(x);
+  });
+
+  // console.log(stack);
+  stack.filter(x => x.type == 'surface').map(layer => {
+    if (layer.intersections.length > 0) {
+      console.log(layer);
     }
-  })
+  });
 
   return stack;
 };
