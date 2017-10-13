@@ -41,13 +41,20 @@ function directionCheck(value, cond) {
 }
 
 function generateLinesForArea(act, next) {
-  // console.log(next);
-  return {
-    left: {x3: act.x, y3: act.y0, x4: act.x, y4: act.y1},
-    right: {x3: next.x, y3: next.y0, x4: next.x, y4: next.y1},
+  if (act.y0 == act.y1 && next.y0 == next.y1) {
+    return {};
+  }
+  const ret = {
     top: {x3: act.x, y3: act.y0, x4: next.x, y4: next.y0},
     bottom: {x3: act.x, y3: act.y1, x4: next.x, y4: next.y1}
   };
+  if (act.y0 != act.y1) {
+    ret.left = {x3: act.x, y3: act.y0, x4: act.x, y4: act.y1};
+  }
+  if (next.y0 != next.y1) {
+    ret.right = {x3: next.x, y3: next.y0, x4: next.x, y4: next.y1};
+  }
+  return ret;
 }
 
 function getOppositeYPoint(isect, line) {
@@ -104,11 +111,20 @@ module.exports = (stack) => {
         // console.log(subarea);
         pairwise(subarea.points, (act, next) => {
           let lines = generateLinesForArea(act, next);
-
           let lineCuts = {};
+
           for (var key in lines) {
             let intersection = lineIntersectionPoint(id, lines[key], fault);
             if (intersection) {
+              if (isNaN(intersection.x) || isNaN(intersection.y)) {
+                console.log('ERROR');
+                console.log(intersection);
+                console.log(lines[key]);
+                console.log(fault);
+                console.log(act);
+                console.log(next);
+                throw new Error('An error occurred');
+              }
               layer.intersections.push(intersection);
               lineCuts[key] = intersection;
               id++;
@@ -229,14 +245,10 @@ module.exports = (stack) => {
           // where do we push
           rightArea.push(subarea.points[subarea.points.length-1]);
         }
-        // tempSubareas
-        // console.log(leftArea);
-        // console.log(rightArea);
-        // console.log(layer.subareas);
+
         if (rightArea.length > 0) {
           layer.subareas.splice(
-            layer.subareas.indexOf(subarea),
-            1,
+            layer.subareas.indexOf(subarea), 1,
             {id: subarea.id+'0', points: leftArea},
             {id: subarea.id+'1', points: rightArea}
           );
@@ -251,11 +263,11 @@ module.exports = (stack) => {
   });
 
   // console.log(stack);
-  stack.filter(x => x.type == 'surface').map(layer => {
-    if (layer.intersections.length > 0) {
-      console.log(layer);
-    }
-  });
+  // stack.filter(x => x.type == 'surface').map(layer => {
+  //   if (layer.intersections && layer.intersections.length > 0) {
+  //     console.log(layer);
+  //   }
+  // });
 
   return stack;
 };
