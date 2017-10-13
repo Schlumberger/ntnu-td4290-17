@@ -13,18 +13,18 @@ admin.initializeApp({
 svgToJson()
   .then(json => stackLayers(json))
   .then(json => genSubareas(json))
-  // .then(
-  //   res =>
-  //     new Promise((resolve, reject) => {
-  //       let updates = {};
-  //
-  //       updates['/datasets/mykey'] = res;
-  //       admin
-  //         .database()
-  //         .ref()
-  //         .update(updates)
-  //         .then(resolve)
-  //         .catch(reject);
-  //     })
-  // )
+  .then(
+    res =>
+      new Promise((resolve, reject) => {
+        let updates = {};
+
+        updates['/datasets/mykey'] = res;
+        admin
+          .database()
+          .ref()
+          .update(updates)
+          .then(resolve)
+          .catch(reject);
+      })
+  )
   .then(process.exit);

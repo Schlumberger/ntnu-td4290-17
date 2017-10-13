@@ -1,3 +1,11 @@
+const debug = false;
+
+function log(msg) {
+  if (debug) {
+    console.log(msg);
+  }
+}
+
 /*
  * Returns undefined if intersection not found, otherwise {x, y} of that intersection point
  */
@@ -40,7 +48,7 @@ function getFaultDirection(fault) {
 
 function directionCheck(value, cond) {
   if (value !== cond) {
-    console.log('ERROR: wrong activity detected.');
+    //console.log('ERROR: wrong activity detected.');
   };
 }
 
@@ -71,8 +79,8 @@ function getOppositeYPoint(isect, line) {
 
 function getPointSplit(point, isect) {
   return {
-    top: {x: point.x, y0: point.y0, y1: isect.y, age0: point.age0, age1: point.age1},
-    bottom: {x: point.x, y0: isect.y, y1: point.y1, age0: point.age0, age1: point.age1}
+    top: {x: point.x, y0: point.y0, y1: isect.y},
+    bottom: {x: point.x, y0: isect.y, y1: point.y1}
   }
 }
 
@@ -80,9 +88,7 @@ function getNewPoint(point, x0, y0, y1) {
   return {
     x: x0,
     y0: Math.min(y0, y1),
-    y1: Math.max(y0, y1),
-    age0: point.age0,
-    age1: point.age1
+    y1: Math.max(y0, y1)
   }
 }
 
@@ -121,15 +127,6 @@ function computeSubareas(stack) {
           for (var key in lines) {
             let intersection = lineIntersectionPoint(id, lines[key], fault);
             if (intersection) {
-              if (isNaN(intersection.x) || isNaN(intersection.y)) {
-                console.log('ERROR');
-                console.log(intersection);
-                console.log(lines[key]);
-                console.log(fault);
-                console.log(act);
-                console.log(next);
-                throw new Error('An error occurred');
-              }
               layer.intersections.push(intersection);
               lineCuts[key] = intersection;
               id++;
@@ -156,20 +153,7 @@ function computeSubareas(stack) {
 
               const oppositeYPoint = getOppositeYPoint(lineCuts['bottom'], lines['top']);
               layer.intersections.push(oppositeYPoint);
-              let cuttingPoint;
-              try {
-                cuttingPoint = getNewPoint(
-                  act,
-                  lineCuts['bottom'].x,
-                  lineCuts['bottom'].y,
-                  oppositeYPoint.y
-                );
-              } catch (e) {
-                console.log(oppositeYPoint);
-                console.log(lineCuts['bottom']);
-                console.log(lines['top']);
-                console.error(e);
-              }
+              const cuttingPoint = getNewPoint(act, lineCuts['bottom'].x, lineCuts['bottom'].y, oppositeYPoint.y);
 
               const edgePoint = getNewPoint(act, lineCuts['bottom'].x, lineCuts['bottom'].y, lineCuts['bottom'].y + 1);
               const {top, bottom} = getPointSplit(act, lineCuts['left']);
@@ -258,12 +242,15 @@ function computeSubareas(stack) {
           // tempArea = subarea;
         });
         // TODO check the last fro cuts
-        if (!wasCut) {
-          leftArea.push(subarea.points[subarea.points.length-1]);
-        } else {
-          // where do we push
-          rightArea.push(subarea.points[subarea.points.length-1]);
-        }
+        const lastPoint = subarea.points[subarea.points.length-1];
+        if (lastPoint) {
+          if (!wasCut) {
+            leftArea.push(lastPoint);
+          } else {
+            // where do we push
+            rightArea.push(lastPoint);
+          }
+        };
 
         if (rightArea.length > 0) {
           layer.subareas.splice(
@@ -275,19 +262,19 @@ function computeSubareas(stack) {
           layer.subareas.splice(layer.subareas.indexOf(subarea),  1, {id: subarea.id, points: leftArea});
         }
       })
-      console.log(layer.subareas.length);
+      // log(layer.subareas.length);
       // TODO layer.subareas = tempSubareas // maybe some condition?
     });
-    console.log(layer.id);
+    log(layer.intersections);
   });
 
-  // console.log(stack);
+  // log(stack);
   // stack.filter(x => x.type == 'surface').map(layer => {
   //   if (layer.intersections && layer.intersections.length > 0) {
-  //     console.log(layer);
+  //     log(layer);
   //   }
   // });
-  console.log('done that');
+  // log('done that');
   return stack;
 }
 
