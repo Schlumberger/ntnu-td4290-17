@@ -3,17 +3,21 @@
  */
 function lineIntersectionPoint(point, fault) {
   // {points[0].x: x1, points[1].x: x2, points[0].y: y1, points[1].y: y2} = fault
-  let {x: x1, y: y1} = fault.points[0];
-  let {x: x2, y: y2} = fault.points[1];
-  let {x: x3, x: x4, y0: y3, y1: y4} = point;
-  let y = ((x1*y2 - y1*x2)*(y3-y4) - (y1-y2)*(x3*y4 - y3*x4))/((x1-x2)*(y3-y4) - (y1-y2)*(x3-x4));
+  let { x: x1, y: y1 } = fault.points[0];
+  let { x: x2, y: y2 } = fault.points[1];
+  let { x: x3, x: x4, y0: y3, y1: y4 } = point;
+  let y =
+    ((x1 * y2 - y1 * x2) * (y3 - y4) - (y1 - y2) * (x3 * y4 - y3 * x4)) /
+    ((x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4));
   if (y > y4 || y < y3) {
     return undefined;
   } else {
     return {
-      x: ((x1*y2 - y1*x2)*(x3-x4) - (x1-x2)*(x3*y4 - y3*x4))/((x1-x2)*(y3-y4) - (y1-y2)*(x3-x4)),
-      y: y,
-    }
+      x:
+        ((x1 * y2 - y1 * x2) * (x3 - x4) - (x1 - x2) * (x3 * y4 - y3 * x4)) /
+        ((x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4)),
+      y: y
+    };
   }
 }
 
@@ -35,14 +39,14 @@ module.exports = (layers, faults) => {
   //     }]
   //   ]
 
-  layers.forEach(layer => {
-    layer.points.forEach(point => {
-      faults.forEach(fault => {
-        //Find intersection
-        console.log(lineIntersectionPoint(point, fault));
-      })
-    })
-  })
+  // layers.forEach(layer => {
+  //   layer.points.forEach(point => {
+  //     faults.forEach(fault => {
+  //       //Find intersection
+  //       console.log(lineIntersectionPoint(point, fault));
+  //     });
+  //   });
+  // });
 
   //map original areas to
   layers.map(l => {
@@ -71,6 +75,8 @@ module.exports = (layers, faults) => {
 
     return l;
   });
+
+  //console.log(layers);
 };
 
 const faultCutsLayer = (layer, fault) => {
@@ -84,7 +90,7 @@ const lineSegmentsDivide = (origLinePoints, divideLinePoints) => {
   const divideOnX = (divideLinePoints[0].x + divideLinePoints[1].x) / 2;
 
   for (let i = 0; i < origLinePoints.length; i++) {
-    console.log('divideX, lineX: ' + divideOnX + ' ' + origLinePoints[i].x);
+    //console.log('divideX, lineX: ' + divideOnX + ' ' + origLinePoints[i].x);
 
     if (origLinePoints[i].x > divideOnX) {
       //we are now at a point after our fault cut.

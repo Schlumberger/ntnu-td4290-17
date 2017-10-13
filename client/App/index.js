@@ -8,7 +8,7 @@ import computeLayers from 'computed/computeLayers';
 import computeMaxDimentions from 'computed/computeMaxDimentions';
 
 import genTestData from 'computed/genTestData';
-import genSubareasByFaults from 'computed/genSubareasByFaults';
+import genSublayersByFaults from 'computed/genSublayersByFaults';
 
 import {
   Wrapper,
@@ -21,25 +21,36 @@ import {
 
 function divideLayers(testLayers, testFaults) {
   //testLayers is mutated
-  genSubareasByFaults(testLayers, testFaults);
+  genSublayersByFaults(testLayers, testFaults);
 
-  console.log('Layers after compution:');
-  console.log(testLayers);
+  // console.log('Layers after compution:');
+  // console.log(testLayers);
 
   //convert subareas to actual layers for vizualization
-  testLayers[0].subareas.forEach(s => {
-    //we copy the original layers atributes, but override the points with the subareas points
-    let nLayer = {};
-    for (var k in testLayers[0]) nLayer[k] = testLayers[0][k];
-    nLayer.points = s.points;
-    testLayers.push(nLayer);
+  const preLayersLen = testLayers.length;
+  testLayers.forEach(l => {
+    l.subareas.forEach(s => {
+      //we copy the original layers atributes, but override the points with the subareas points
+      let nLayer = {};
+      for (var k in l) nLayer[k] = l[k];
+      nLayer.points = s.points;
+      testLayers.push(nLayer);
+    });
   });
 
-  testLayers.splice(0, 1);
+  //remove old layers
+  testLayers.splice(0, preLayersLen);
+
+  console.log('Layers after adding sublayers:');
+  console.log(testLayers);
 }
 
 class App extends React.Component {
   render() {
+    //try splitting by faults
+    divideLayers(this.props.layers, this.props.faults);
+    //genSublayersByFaults(this.props.layers, this.props.faults);
+
     // Here we now have access to this.props.* as what the computed returned
     return (
       <Wrapper>

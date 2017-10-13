@@ -27,10 +27,10 @@ export const update = (el, props, state) => {
     onLayerClicked
   } = props;
 
-  if (layers[0].points[0] === undefined) return;
-
-  console.log('visualize layers:');
-  console.log(layers);
+  // if (layers[0].points[0] === undefined) return;
+  //
+  // console.log('visualize layers:');
+  // console.log(layers);
 
   //Coverts coordinates to d-attribute
   const lineGenerator = line()
