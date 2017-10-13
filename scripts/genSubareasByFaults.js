@@ -5,13 +5,17 @@ function lineIntersectionPoint(id, point, fault, force=false) {
   const {x: x1, y: y1} = fault.points[0];
   const {x: x2, y: y2} = fault.points[1];
   const {x3, x4, y3, y4} = point;
-  const y = ((x1*y2 - y1*x2)*(y3-y4) - (y1-y2)*(x3*y4 - y3*x4))/((x1-x2)*(y3-y4) - (y1-y2)*(x3-x4));
-
+  const divisor = (x1-x2)*(y3-y4) - (y1-y2)*(x3-x4);
+  if (divisor == 0) {
+    return undefined;
+  };
+  const y = ((x1*y2 - y1*x2)*(y3-y4) - (y1-y2)*(x3*y4 - y3*x4))/divisor;
+  // Check if intersection is within line segments, force allows to ignore check and get line i. not just segment
   if ((y > Math.max(y1, y2) || y < Math.min(y1, y2) || y > Math.max(y3, y4) || y < Math.min(y3, y4)) && !force) {
     return undefined;
   } else {
     return {
-      x: ((x1*y2 - y1*x2)*(x3-x4) - (x1-x2)*(x3*y4 - y3*x4))/((x1-x2)*(y3-y4) - (y1-y2)*(x3-x4)),
+      x: ((x1*y2 - y1*x2)*(x3-x4) - (x1-x2)*(x3*y4 - y3*x4))/divisor,
       y: y,
       id: id,
     }
@@ -58,6 +62,9 @@ function generateLinesForArea(act, next) {
 }
 
 function getOppositeYPoint(isect, line) {
+  if (line.x3 == line.x4 && line.y3 == line.y4 && line.x3 == isect.x && line.y3 == isect.y) {
+    return isect;
+  }
   const fline = {points: [{x: isect.x, y: isect.y}, {x: isect.x, y: isect.y+10}]};
   return lineIntersectionPoint(9, line, fline, true);
 }
@@ -79,9 +86,7 @@ function getNewPoint(point, x0, y0, y1) {
   }
 }
 
-//areas given with vertically symmetrical points,
-//faults given as two points
-module.exports = (stack) => {
+function computeSubareas(stack) {
 
   stack.filter(x => x.type == 'surface').map(layer => {
 
@@ -151,7 +156,21 @@ module.exports = (stack) => {
 
               const oppositeYPoint = getOppositeYPoint(lineCuts['bottom'], lines['top']);
               layer.intersections.push(oppositeYPoint);
-              const cuttingPoint = getNewPoint(act, lineCuts['bottom'].x, lineCuts['bottom'].y, oppositeYPoint.y);
+              let cuttingPoint;
+              try {
+                cuttingPoint = getNewPoint(
+                  act,
+                  lineCuts['bottom'].x,
+                  lineCuts['bottom'].y,
+                  oppositeYPoint.y
+                );
+              } catch (e) {
+                console.log(oppositeYPoint);
+                console.log(lineCuts['bottom']);
+                console.log(lines['top']);
+                console.error(e);
+              }
+
               const edgePoint = getNewPoint(act, lineCuts['bottom'].x, lineCuts['bottom'].y, lineCuts['bottom'].y + 1);
               const {top, bottom} = getPointSplit(act, lineCuts['left']);
 
@@ -259,7 +278,7 @@ module.exports = (stack) => {
       console.log(layer.subareas.length);
       // TODO layer.subareas = tempSubareas // maybe some condition?
     });
-
+    console.log(layer.id);
   });
 
   // console.log(stack);
@@ -268,6 +287,18 @@ module.exports = (stack) => {
   //     console.log(layer);
   //   }
   // });
-
+  console.log('done that');
   return stack;
+}
+
+//areas given with vertically symmetrical points,
+//faults given as two points
+module.exports = (stack) => {
+
+  // return computeSubareas(stack);
+  try {
+    return computeSubareas(stack);
+  } catch (e) {
+    console.error(e);
+  }
 };
