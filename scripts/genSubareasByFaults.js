@@ -1,4 +1,4 @@
-const debug = true;
+const debug = false;
 
 function log(msg) {
   if (debug) {
@@ -104,11 +104,7 @@ function computeSubareas(stack) {
       layer.subareas = [{
         id: layer.id+'-0',
         points: layer.points,
-        minAge: layer.minAge,
-        maxAge: layer.maxAge,
-        geometryType: layer.geometryType,
-        type: layer.type,
-        stroke: layer.stroke
+        type: layer.type
       }];
     };
 
@@ -264,41 +260,25 @@ function computeSubareas(stack) {
             {
               id: subarea.id+'0',
               points: leftArea,
-              minAge: subarea.minAge,
-              maxAge: subarea.maxAge,
-              geometryType: subarea.geometryType,
-              type: subarea.type,
-              stroke: subarea.stroke
+              type: subarea.type
             },
             {
               id: subarea.id+'1',
               points: rightArea,
-              minAge: subarea.minAge,
-              maxAge: subarea.maxAge,
-              geometryType: subarea.geometryType,
-              type: subarea.type,
-              stroke: subarea.stroke
+              type: subarea.type
             }
           );
         } else if (leftArea.length > 0) {
           layer.subareas.splice(layer.subareas.indexOf(subarea),  1, {
             id: subarea.id,
             points: leftArea,
-            minAge: subarea.minAge,
-            maxAge: subarea.maxAge,
-            geometryType: subarea.geometryType,
-            type: subarea.type,
-            stroke: subarea.stroke
+            type: subarea.type
           });
         } else if (rightArea.length > 0) {
           layer.subareas.splice(layer.subareas.indexOf(subarea),  1, {
             id: subarea.id,
             points: rightArea,
-            minAge: subarea.minAge,
-            maxAge: subarea.maxAge,
-            geometryType: subarea.geometryType,
-            type: subarea.type,
-            stroke: subarea.stroke
+            type: subarea.type
           });
         }
       })
@@ -308,7 +288,7 @@ function computeSubareas(stack) {
 
   // stack.filter(x => x.type == 'surface').map(layer => {
   //   layer.subareas.map(subarea => {
-  //     console.log(Object.keys(layer));
+  //     console.log(subarea);
   //   });
   // })
 
