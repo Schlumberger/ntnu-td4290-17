@@ -7,6 +7,9 @@ import computeFaults from 'computed/computeFaults';
 import computeLayers from 'computed/computeLayers';
 import computeMaxDimentions from 'computed/computeMaxDimentions';
 
+import computeSubareas from 'computed/computeSubareas';
+import computeIntersections from 'computed/computeIntersections';
+
 import {
   Wrapper,
   Visualization,
@@ -32,6 +35,8 @@ class App extends React.Component {
         <Visualization
           faults={this.props.faults}
           layers={this.props.layers}
+          subareas={this.props.subareas}
+          intsctns={this.props.intersections}
           dimentions={this.props.dimentions}
           yAxisUnit={this.props.yAxisUnit}
           onLayerClicked={this.props.layerClicked}
@@ -45,6 +50,8 @@ class App extends React.Component {
 App.propTypes = {
   faults: array,
   layers: array,
+  subareas: array,
+  intersections: array,
   dimentions: object,
   yAxisUnit: string,
   layerClicked: func,
@@ -59,6 +66,8 @@ export default connect(
     // This assigns this.props.* to the return value of the computed
     faults: computeFaults,
     layers: computeLayers,
+    subareas: computeSubareas,
+    intersections: computeIntersections,
     dimentions: computeMaxDimentions,
     yAxisUnit: state`settings.yAxisUnit`,
     layerClicked: signal`app.layerClicked`,
