@@ -132,4 +132,10 @@ export const destroy = el => {
   select(el)
     .selectAll('path')
     .remove();
+<<<<<<< HEAD
+=======
+  select(el)
+    .selectAll('circle')
+    .remove();
+>>>>>>> [Feature] remove unnecessary logging
 };
