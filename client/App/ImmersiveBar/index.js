@@ -22,6 +22,7 @@ export default connect(
     yAxisUnit
   }) {
     // Map data to components
+    console.log(layers);
     const layerButtons = Object.keys(layers).map(layerID => (
       <ImmersiveButton
         key={layerID}
