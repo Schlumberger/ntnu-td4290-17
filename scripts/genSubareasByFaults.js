@@ -1,4 +1,4 @@
-const debug = false;
+const debug = true;
 
 function log(msg) {
   if (debug) {
@@ -101,9 +101,15 @@ function computeSubareas(stack) {
 
     // init first subarea, then divide it on coliding faults
     if (!layer.hasOwnProperty('subareas')) {
-      layer.subareas = [
-        {id: layer.id+'-0', points: layer.points},
-      ];
+      layer.subareas = [{
+        id: layer.id+'-0',
+        points: layer.points,
+        minAge: layer.minAge,
+        maxAge: layer.maxAge,
+        geometryType: layer.geometryType,
+        type: layer.type,
+        stroke: layer.stroke
+      }];
     };
 
     // stack.filter(x => x.type == 'fault').slice(0, 2).forEach(fault => {
@@ -252,34 +258,64 @@ function computeSubareas(stack) {
           }
         };
 
-        if (rightArea.length > 0) {
+        if (leftArea.length > 0 && rightArea.length > 0) {
           layer.subareas.splice(
             layer.subareas.indexOf(subarea), 1,
-            {id: subarea.id+'0', points: leftArea},
-            {id: subarea.id+'1', points: rightArea}
+            {
+              id: subarea.id+'0',
+              points: leftArea,
+              minAge: subarea.minAge,
+              maxAge: subarea.maxAge,
+              geometryType: subarea.geometryType,
+              type: subarea.type,
+              stroke: subarea.stroke
+            },
+            {
+              id: subarea.id+'1',
+              points: rightArea,
+              minAge: subarea.minAge,
+              maxAge: subarea.maxAge,
+              geometryType: subarea.geometryType,
+              type: subarea.type,
+              stroke: subarea.stroke
+            }
           );
-        } else {
-          layer.subareas.splice(layer.subareas.indexOf(subarea),  1, {id: subarea.id, points: leftArea});
+        } else if (leftArea.length > 0) {
+          layer.subareas.splice(layer.subareas.indexOf(subarea),  1, {
+            id: subarea.id,
+            points: leftArea,
+            minAge: subarea.minAge,
+            maxAge: subarea.maxAge,
+            geometryType: subarea.geometryType,
+            type: subarea.type,
+            stroke: subarea.stroke
+          });
+        } else if (rightArea.length > 0) {
+          layer.subareas.splice(layer.subareas.indexOf(subarea),  1, {
+            id: subarea.id,
+            points: rightArea,
+            minAge: subarea.minAge,
+            maxAge: subarea.maxAge,
+            geometryType: subarea.geometryType,
+            type: subarea.type,
+            stroke: subarea.stroke
+          });
         }
       })
-      // log(layer.subareas.length);
-      // TODO layer.subareas = tempSubareas // maybe some condition?
     });
-    log(layer.intersections);
+    // log(layer.intersections);
   });
 
-  // log(stack);
   // stack.filter(x => x.type == 'surface').map(layer => {
-  //   if (layer.intersections && layer.intersections.length > 0) {
-  //     log(layer);
-  //   }
-  // });
-  // log('done that');
+  //   layer.subareas.map(subarea => {
+  //     console.log(Object.keys(layer));
+  //   });
+  // })
+
+  log('done that');
   return stack;
 }
 
-//areas given with vertically symmetrical points,
-//faults given as two points
 module.exports = (stack) => {
 
   // return computeSubareas(stack);
