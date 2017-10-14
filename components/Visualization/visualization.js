@@ -68,7 +68,8 @@ export const update = (el, props, state) => {
   const updateLayers = svg
     .select('g#layers')
     .selectAll('path')
-    .data(layers, d => d.id);
+    .data(subareas, d => d.id);
+    // .data(layers, d => d.id);
 
   // Add new text-elements if nessescary
   const enterFaults = updateFaults
@@ -116,7 +117,12 @@ export const update = (el, props, state) => {
     .transition()
     .duration(1000)
     .attr('opacity', 1)
-    .attr('d', d => generators[d.geometryType](d.points))
+    .attr('d', d => {
+      console.log(d.id);
+      console.log(d.geometryType);
+      console.log(d.points);
+      return generators[d.geometryType](d.points)
+    })
     .attr('fill', d => d.fill)
     .attr('stroke', d => d.stroke)
     .attr('stroke-width', '2px');
