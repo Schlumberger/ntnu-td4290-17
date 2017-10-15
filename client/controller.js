@@ -22,8 +22,8 @@ export default Controller({
     error: null,
     settings: {
       visibility: {
-        layers: true,
-        faults: true,
+        layers: false,
+        faults: false,
         inspector: false,
         subareas: true,
         intersects: true
