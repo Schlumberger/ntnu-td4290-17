@@ -24,7 +24,9 @@ export default Controller({
       visibility: {
         layers: true,
         faults: true,
-        inspector: false
+        inspector: false,
+        subareas: true,
+        intersects: true
       },
       yAxisUnit: 'depth'
     }
