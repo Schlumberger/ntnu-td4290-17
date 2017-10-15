@@ -21,7 +21,6 @@ import {
 
 class App extends React.Component {
   render () {
-    console.log(this.props.layers);
     // const { testLayers, testFaults } = genTestData();
 
     // genSubareasByFaults(testLayers, testFaults);
