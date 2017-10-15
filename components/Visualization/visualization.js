@@ -12,6 +12,7 @@ const margins = {
 export const create = (el, props, state) => {
   const svg = select(el);
   svg.append('g').attr('id', 'layers');
+  svg.append('g').attr('id', 'subareas');
   svg.append('g').attr('id', 'faults');
 
   update(el, props, state);
@@ -70,8 +71,17 @@ export const update = (el, props, state) => {
   const updateLayers = svg
     .select('g#layers')
     .selectAll('path')
-    // .data(subareas, d => d.id);
     .data(layers, d => d.id);
+
+  const updateSubareas = svg
+    .select('g#subareas')
+    .selectAll('path')
+    .data(subareas, d => d.id);
+
+  const updateIntersections = svg
+    .select('g#intersections')
+    .selectAll('circle')
+    .data(intsctns, d => d.id);
 
   // Add new text-elements if nessescary
   const enterFaults = updateFaults
@@ -88,6 +98,20 @@ export const update = (el, props, state) => {
       event.stopPropagation();
     });
 
+  const enterSubareas = updateSubareas
+    .enter()
+    .append('path')
+    .attr('opacity', 0)
+    // .on('click', (d, ...args) => {
+    //   onLayerClicked({ info: d });
+    //   event.stopPropagation();
+    // });
+
+  const enterIntersections = updateIntersections
+    .enter()
+    .append('circle')
+    .attr('opacity', 0)
+
   // Remove if too many
   updateFaults
     .exit()
@@ -97,6 +121,20 @@ export const update = (el, props, state) => {
     .remove();
 
   updateLayers
+    .exit()
+    .transition()
+    .duration(500)
+    .attr('opacity', 0)
+    .remove();
+
+  updateSubareas
+    .exit()
+    .transition()
+    .duration(500)
+    .attr('opacity', 0)
+    .remove();
+
+  const exitIntersections = updateIntersections
     .exit()
     .transition()
     .duration(500)
@@ -128,16 +166,42 @@ export const update = (el, props, state) => {
     .attr('fill', d => d.fill)
     .attr('stroke', d => d.stroke)
     .attr('stroke-width', '2px');
+
+  updateSubareas
+    .merge(enterSubareas)
+    .transition()
+    .duration(1000)
+    .attr('opacity', 1)
+    .attr('d', d => {
+      // console.log(d.id);
+      // console.log(d.geometryType);
+      // console.log(d.points);
+      return generators[d.geometryType](d.points)
+    })
+    .attr('fill', d => d.fill)
+    .attr('stroke', d => d.stroke)
+    .attr('stroke-width', '2px');
+
+  updateIntersections
+    .merge(enterIntersections)
+    .attr('opacity', 0)
+    .transition()
+    .duration(1000)
+    .attr('opacity', 1)
+    .attr("cx", d => xScale(d.x))
+    .attr("cy", d => yScale(d.y))
+    .attr("r", 4)
+    .attr('fill', d => d.fill)
+    .attr('stroke', d => d.stroke)
+    .attr('stroke-width', '2px')
+    .attr("stroke", "white");
 };
 
 export const destroy = el => {
   select(el)
     .selectAll('path')
     .remove();
-<<<<<<< HEAD
-=======
   select(el)
     .selectAll('circle')
     .remove();
->>>>>>> [Feature] remove unnecessary logging
 };
