@@ -102,10 +102,10 @@ export const update = (el, props, state) => {
     .enter()
     .append('path')
     .attr('opacity', 0)
-    // .on('click', (d, ...args) => {
-    //   onLayerClicked({ info: d });
-    //   event.stopPropagation();
-    // });
+    .on('click', (d, ...args) => {
+      onLayerClicked({ info: d });
+      event.stopPropagation();
+    });
 
   const enterIntersections = updateIntersections
     .enter()
@@ -157,12 +157,7 @@ export const update = (el, props, state) => {
     .transition()
     .duration(1000)
     .attr('opacity', 1)
-    .attr('d', d => {
-      // console.log(d.id);
-      // console.log(d.geometryType);
-      // console.log(d.points);
-      return generators[d.geometryType](d.points)
-    })
+    .attr('d', d => generators[d.geometryType](d.points))
     .attr('fill', d => d.fill)
     .attr('stroke', d => d.stroke)
     .attr('stroke-width', '2px');
@@ -172,14 +167,9 @@ export const update = (el, props, state) => {
     .transition()
     .duration(1000)
     .attr('opacity', 1)
-    .attr('d', d => {
-      // console.log(d.id);
-      // console.log(d.geometryType);
-      // console.log(d.points);
-      return generators[d.geometryType](d.points)
-    })
+    .attr('d', d => generators[d.geometryType](d.points))
     .attr('fill', d => d.fill)
-    .attr('stroke', d => d.stroke)
+    // .attr('stroke', d => d.stroke)
     .attr('stroke-width', '2px');
 
   updateIntersections
