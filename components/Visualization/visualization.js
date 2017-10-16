@@ -19,7 +19,8 @@ export const create = (el, props, state) => {
     .text('SubSee')
     .attr('x', props.dimentions.maxWidth)
     .attr('y', props.dimentions.maxHeight)
-    .attr('text-anchor', 'end');
+    .attr('text-anchor', 'end')
+    .attr('font-family', 'Fudd');
 
   update(el, props, state);
 };
