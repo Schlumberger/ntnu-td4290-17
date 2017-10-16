@@ -1,5 +1,5 @@
 import { select, event } from 'd3-selection';
-import { } from 'd3-transition';
+import {  } from 'd3-transition';
 import { line, area, curveBasis } from 'd3-shape';
 import { scaleLinear } from 'd3-scale';
 
@@ -27,7 +27,7 @@ export const update = (el, props, state) => {
     onLayerClicked
   } = props;
 
-  //Coverts coordinates to d-attribute
+  // Coverts coordinates to d-attribute
   const lineGenerator = line()
     .x(d => xScale(d.x))
     .y(d => yScale(d.y));
