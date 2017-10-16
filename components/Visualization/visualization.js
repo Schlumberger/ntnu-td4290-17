@@ -1,5 +1,5 @@
 import { select, event } from 'd3-selection';
-import {  } from 'd3-transition';
+import {} from 'd3-transition';
 import { line, area, curveBasis } from 'd3-shape';
 import { scaleLinear } from 'd3-scale';
 
@@ -13,6 +13,13 @@ export const create = (el, props, state) => {
   const svg = select(el);
   svg.append('g').attr('id', 'layers');
   svg.append('g').attr('id', 'faults');
+  svg
+    .append('text')
+    .attr('id', 'logo')
+    .text('SubSee')
+    .attr('x', props.dimentions.maxWidth)
+    .attr('y', props.dimentions.maxHeight)
+    .attr('text-anchor', 'end');
 
   update(el, props, state);
 };
@@ -84,6 +91,10 @@ export const update = (el, props, state) => {
       onLayerClicked({ info: d });
       event.stopPropagation();
     });
+
+  select('text')
+    .attr('x', width)
+    .attr('y', height);
 
   // Remove if too many
   updateFaults
