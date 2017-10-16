@@ -28,20 +28,7 @@ export const update = (el, props, state) => {
     onLayerClicked
   } = props;
 
-  let intsctns = []
-  if (layers) {
-    intsctns = [].concat.apply([],layers.map(x => {
-      return x.hasOwnProperty('intersections') ? x.intersections : []
-    }));
-    // console.log('intersections');
-    // console.log(intsctns);
-  }
-
-  // console.log(layers[0].points);
-  if (layers[0] && layers[0].points[0] === undefined) return;
-
-  // console.log('visualize layers:');
-  // console.log(layers);
+  let intersections = []
 
   //Coverts coordinates to d-attribute
   const lineGenerator = line()
@@ -89,7 +76,7 @@ export const update = (el, props, state) => {
   const updateIntersections = svg
     .select('g#intersections')
     .selectAll('circle')
-    .data(intsctns, d => d.id);
+    .data(intersections, d => d.id);
 
   // Add new text-elements if nessescary
   const enterFaults = updateFaults
@@ -173,7 +160,7 @@ export const destroy = el => {
   select(el)
     .selectAll('path')
     .remove();
-  // select(el)
-  //   .selectAll('circle')
-  //   .remove();
+  select(el)
+    .selectAll('circle')
+    .remove();
 };
