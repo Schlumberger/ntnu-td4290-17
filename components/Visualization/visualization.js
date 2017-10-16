@@ -1,6 +1,6 @@
 import { select, event } from 'd3-selection';
-import { transition } from 'd3-transition';
-import { line, area, circle, curveBasis } from 'd3-shape';
+import { } from 'd3-transition';
+import { line, area, curveBasis } from 'd3-shape';
 import { scaleLinear } from 'd3-scale';
 
 const margins = {
@@ -13,7 +13,6 @@ export const create = (el, props, state) => {
   const svg = select(el);
   svg.append('g').attr('id', 'layers');
   svg.append('g').attr('id', 'faults');
-  svg.append('g').attr('id', 'intersections');
 
   update(el, props, state);
 };
@@ -27,8 +26,6 @@ export const update = (el, props, state) => {
     yAxisUnit = 'depth',
     onLayerClicked
   } = props;
-
-  let intersections = []
 
   //Coverts coordinates to d-attribute
   const lineGenerator = line()
@@ -73,11 +70,6 @@ export const update = (el, props, state) => {
     .selectAll('path')
     .data(layers, d => d.id);
 
-  const updateIntersections = svg
-    .select('g#intersections')
-    .selectAll('circle')
-    .data(intersections, d => d.id);
-
   // Add new text-elements if nessescary
   const enterFaults = updateFaults
     .enter()
@@ -93,11 +85,6 @@ export const update = (el, props, state) => {
       event.stopPropagation();
     });
 
-  const enterIntersections = updateIntersections
-    .enter()
-    .append('circle')
-    .attr('opacity', 0)
-
   // Remove if too many
   updateFaults
     .exit()
@@ -107,13 +94,6 @@ export const update = (el, props, state) => {
     .remove();
 
   updateLayers
-    .exit()
-    .transition()
-    .duration(500)
-    .attr('opacity', 0)
-    .remove();
-
-  const exitIntersections = updateIntersections
     .exit()
     .transition()
     .duration(500)
@@ -140,27 +120,10 @@ export const update = (el, props, state) => {
     .attr('fill', d => d.fill)
     .attr('stroke', d => d.stroke)
     .attr('stroke-width', '2px');
-
-  updateIntersections
-    .merge(enterIntersections)
-    .attr('opacity', 0)
-    .transition()
-    .duration(1000)
-    .attr('opacity', 1)
-    .attr("cx", d => xScale(d.x))
-    .attr("cy", d => yScale(d.y))
-    .attr("r", 4)
-    .attr('fill', d => d.fill)
-    .attr('stroke', d => d.stroke)
-    .attr('stroke-width', '2px')
-    .attr("stroke", "white");
 };
 
 export const destroy = el => {
   select(el)
     .selectAll('path')
-    .remove();
-  select(el)
-    .selectAll('circle')
     .remove();
 };
