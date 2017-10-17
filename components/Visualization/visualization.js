@@ -1,6 +1,6 @@
 import { select, event } from 'd3-selection';
-import {} from 'd3-transition';
-import { line, area, curveBasis } from 'd3-shape';
+import {  } from 'd3-transition';
+import { line, area, circle, curveBasis } from 'd3-shape';
 import { scaleLinear } from 'd3-scale';
 
 const margins = {
@@ -14,6 +14,7 @@ export const create = (el, props, state) => {
   svg.append('g').attr('id', 'layers');
   svg.append('g').attr('id', 'subareas');
   svg.append('g').attr('id', 'faults');
+  svg.append('g').attr('id', 'intersections');
 
   update(el, props, state);
 };
