@@ -102,7 +102,7 @@ function computeSubareas(stack) {
     // init first subarea, then divide it on coliding faults
     if (!layer.hasOwnProperty('subareas')) {
       layer.subareas = [{
-        id: layer.id+'-0',
+        id: layer.id,
         points: layer.points,
         type: layer.type
       }];
@@ -258,12 +258,12 @@ function computeSubareas(stack) {
           layer.subareas.splice(
             layer.subareas.indexOf(subarea), 1,
             {
-              id: subarea.id+'0',
+              id: subarea.id,
               points: leftArea,
               type: subarea.type
             },
             {
-              id: subarea.id+'1',
+              id: subarea.id,
               points: rightArea,
               type: subarea.type
             }
@@ -285,6 +285,16 @@ function computeSubareas(stack) {
     });
     // log(layer.intersections);
   });
+
+  stack.filter(x => x.type == 'surface').map(layer => {
+    let index = 0;
+    return layer.subareas.map(subarea => {
+      subarea.id = subarea.id + '-' + index;
+      subarea.order = index;
+      index++;
+      return subarea;
+    })
+  })
 
   // stack.filter(x => x.type == 'surface').map(layer => {
   //   layer.subareas.map(subarea => {
