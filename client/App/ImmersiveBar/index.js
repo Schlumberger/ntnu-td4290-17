@@ -11,12 +11,12 @@ export default connect(
     layers: state`settings.visibility`,
     yAxisUnit: state`settings.yAxisUnit`,
     // Get the signal in app.layerClicked in the app-module
-    layerClicked: signal`app.layerSettingClicked`,
+    layerSettingClicked: signal`app.layerSettingClicked`,
     yAxisOptionClicked: signal`app.yAxisOptionClicked`
   },
   function SideMenu ({
     className,
-    layerClicked,
+    layerSettingClicked,
     yAxisOptionClicked,
     layers = {},
     yAxisUnit
@@ -28,7 +28,7 @@ export default connect(
         key={layerID}
         inactive={!layers[layerID]}
         // use signal as a function
-        onClick={() => layerClicked({ layerID })}
+        onClick={() => layerSettingClicked({ layerID })}
       >
         {layerID.split('-').join(' ')}
       </ImmersiveButton>
