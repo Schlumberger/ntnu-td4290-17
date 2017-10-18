@@ -4,8 +4,10 @@
   "description": "",
   "main": "client/index.js",
   "scripts": {
-    "test": "cross-env NODE_ENV=test mocha --require ./tests/setup.js ./tests/**/*.test.js --compilers js:babel-core/register",
-    "coverage": "cross-env NODE_ENV=test nyc mocha --require ./tests/setup.js ./tests/**/*.test.js",
+    "test":
+      "cross-env NODE_ENV=test mocha --require ./tests/setup.js ./tests/**/*.test.js --compilers js:babel-core/register",
+    "coverage":
+      "cross-env NODE_ENV=test nyc mocha --require ./tests/setup.js ./tests/**/*.test.js",
     "start": "webpack-dev-server",
     "build": "webpack",
     "storybook": "start-storybook -p 6006",
@@ -15,25 +17,15 @@
   "babel": {
     "env": {
       "test": {
-        "plugins": [
-          "istanbul"
-        ]
+        "plugins": ["istanbul"]
       }
     }
   },
   "nyc": {
     "all": true,
-    "include": [
-      "client/**",
-      "components/**",
-      "utils/**"
-    ],
-    "exclude": [
-      "**/stories.js"
-    ],
-    "require": [
-      "babel-core/register"
-    ],
+    "include": ["client/**", "components/**", "utils/**"],
+    "exclude": ["**/stories.js"],
+    "require": ["babel-core/register"],
     "sourceMap": false,
     "instrument": false
   },
@@ -57,6 +49,8 @@
     "d3-selection": "^1.1.0",
     "d3-shape": "^1.2.0",
     "d3-transition": "^1.1.0",
+    "d3-force": "^1.1.0",
+    "d3-polygon": "^1.0.3",
     "firebase-admin": "^5.4.1",
     "prop-types": "^15.6.0",
     "react": "^15.6.1",
