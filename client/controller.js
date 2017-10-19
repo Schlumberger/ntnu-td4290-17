@@ -24,9 +24,7 @@ export default Controller({
       visibility: {
         layers: false,
         faults: false,
-        inspector: false,
-        subareas: true,
-        intersects: false
+        inspector: false
       },
       diagramOption: 'depth' // depth, age, force
     }
