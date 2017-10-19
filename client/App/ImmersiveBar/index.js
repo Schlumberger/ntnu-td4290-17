@@ -26,9 +26,19 @@ export default connect(
     const layerButtons = Object.keys(layers).map(layerID => (
       <ImmersiveButton
         key={layerID}
-        inactive={!layers[layerID]}
+        inactive={
+          !layers[layerID] ||
+          diagramOption === 'age' ||
+          diagramOption === 'force'
+        } // set inactive if the diagram is age or force
         // use signal as a function
-        onClick={() => layerSettingClicked({ layerID })}
+        onClick={() => {
+          if (diagramOption === 'age' || diagramOption === 'force') {
+            // to make buttons non-pushable when not in depth mode
+            return;
+          }
+          layerSettingClicked({ layerID });
+        }}
       >
         {layerID.split('-').join(' ')}
       </ImmersiveButton>

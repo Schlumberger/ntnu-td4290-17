@@ -31,9 +31,9 @@ export const create = (el, props, state) => {
 export const update = (el, props, state) => {
   const { width, height } = state;
   const {
-    faults = [],
-    layers = [],
-    intsctns = [],
+    // faults = [],
+    // layers = [],
+    // intsctns = [],
     subareas = [],
     dimentions = { maxWidth: 0, maxHeight: 0 },
     diagramOption = 'depth',
@@ -43,40 +43,12 @@ export const update = (el, props, state) => {
   console.log(props);
   console.log(width.toString() + '  ' + height.toString());
 
-  // try to push a sublayer to the right
-  // if (subareas.length >= 1) {
-  //   for (let i = 0; i < 10; i++) {
-  //     subareas[i].points.forEach(p => {
-  //       console.log(p);
-  //       return (p.y1 *= 0.5);
-  //     });
-  //   }
-  // }
-
-  // // Coverts coordinates to d-attribute
-  // const lineGenerator = line()
-  //   .x(d => xScale(d.x))
-  //   .y(d => yScale(d.y));
-
   const areaGenerator = area()
     .x(d => xScale(d.x))
     .y0(d => yScale(d.y0))
     .y1(d => yScale(d.y1))
     // makes interpolate of the form curveCardinal
     .curve(curveBasis);
-
-  // const areaGeneratorWithOrigin = (ox, oy, points) => {
-  //   return areaGenerator(
-  //     points.map(p => {
-  //       return { x: p.x + ox, y0: p.y0 + oy, y1: p.y1 + oy };
-  //     })
-  //   );
-  // };
-
-  // const generators = {
-  //   line: lineGenerator,
-  //   area: areaGenerator
-  // };
 
   // Select how to scale values to x positions
   const xScale = scaleLinear()
@@ -272,15 +244,6 @@ export const destroy = el => {
   select(el)
     .selectAll('g')
     .remove();
-  // select(el)
-  //   .selectAll('path')
-  //   .remove();
-  // select(el)
-  //   .selectAll('.node')
-  //   .remove();
-  // select(el)
-  //   .selectAll('.link')
-  //   .remove();
 };
 
 // got from http://bl.ocks.org/pbellon/4b875d2ab7019c0029b636523b34e074
