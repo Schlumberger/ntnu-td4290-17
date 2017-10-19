@@ -22,8 +22,8 @@ export default Controller({
     error: null,
     settings: {
       visibility: {
-        layers: false,
-        faults: false,
+        layers: true,
+        faults: true,
         inspector: false
       },
       diagramOption: 'depth' // depth, age, force
