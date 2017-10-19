@@ -26,7 +26,8 @@ export default Controller({
         faults: false,
         inspector: false,
         subareas: true,
-        intersects: true
+        intersects: false,
+        forceDiagram: false // special case, because not only data is changed when entering this state
       },
       yAxisUnit: 'depth'
     }

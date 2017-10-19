@@ -58,6 +58,7 @@ class App extends React.Component {
               yAxisUnit={this.props.yAxisUnit}
               onLayerClicked={this.props.layerClicked}
               onEmptyClicked={this.props.emptyClicked}
+              forceDiagram={this.props.forceDiagram}
             />
           </div>
         ) : (
@@ -85,6 +86,22 @@ App.propTypes = {
 // Connect the component to cerebral so that cerebral can manage it
 export default connect(
   // The first argument is an object that describes what you want to get from cerebral
+<<<<<<< HEAD
   dependencies,
+=======
+  {
+    // This assigns this.props.* to the return value of the computed
+    faults: computeFaults,
+    layers: computeLayers,
+    subareas: computeSubareas,
+    intersections: computeIntersections,
+    dimentions: computeMaxDimentions,
+    forceDiagram: state`settings.visability.forceDiagram`,
+    yAxisUnit: state`settings.yAxisUnit`,
+    layerClicked: signal`app.layerClicked`,
+    emptyClicked: signal`app.emptyClicked`,
+    places: state`places`
+  },
+>>>>>>> integrating force layout state into application. Want a button to change to forceLayout view. Not finished
   App
 );
