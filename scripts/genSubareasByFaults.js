@@ -288,19 +288,16 @@ function computeSubareas(stack) {
 
   stack.filter(x => x.type == 'surface').map(layer => {
     let index = 0;
-    return layer.subareas.map(subarea => {
+    layer.subareas = layer.subareas.filter(s => {
+      return Math.min(...s.points.map(p => p.x)) !== Math.max(...s.points.map(p => p.x));
+    }).map(subarea => {
       subarea.id = subarea.id + '-' + index;
       subarea.order = index;
       index++;
       return subarea;
     })
+    return layer;
   })
-
-  // stack.filter(x => x.type == 'surface').map(layer => {
-  //   layer.subareas.map(subarea => {
-  //     console.log(subarea);
-  //   });
-  // })
 
   log('done that');
   return stack;
