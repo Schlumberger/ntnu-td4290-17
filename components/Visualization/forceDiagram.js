@@ -270,7 +270,10 @@ export const destroy = el => {
     .selectAll('path')
     .remove();
   select(el)
-    .selectAll('circle')
+    .selectAll('.node')
+    .remove();
+  select(el)
+    .selectAll('.link')
     .remove();
 };
 

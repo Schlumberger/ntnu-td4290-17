@@ -26,10 +26,10 @@ export default Controller({
         faults: false,
         inspector: false,
         subareas: true,
-        intersects: false,
-        forceDiagram: false // special case, because not only data is changed when entering this state
+        intersects: false
       },
-      yAxisUnit: 'depth'
+      yAxisUnit: 'depth',
+      forceDiagram: false
     }
   },
   modules: {

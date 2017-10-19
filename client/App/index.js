@@ -96,7 +96,7 @@ export default connect(
     subareas: computeSubareas,
     intersections: computeIntersections,
     dimentions: computeMaxDimentions,
-    forceDiagram: state`settings.visibility.forceDiagram`,
+    forceDiagram: state`settings.forceDiagram`,
     yAxisUnit: state`settings.yAxisUnit`,
     layerClicked: signal`app.layerClicked`,
     emptyClicked: signal`app.emptyClicked`,

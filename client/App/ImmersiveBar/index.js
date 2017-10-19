@@ -10,16 +10,20 @@ export default connect(
     // Get the state located in .layers
     layers: state`settings.visibility`,
     yAxisUnit: state`settings.yAxisUnit`,
+    forceDiagram: state`settings.forceDiagram`,
     // Get the signal in app.layerClicked in the app-module
     layerSettingClicked: signal`app.layerSettingClicked`,
-    yAxisOptionClicked: signal`app.yAxisOptionClicked`
+    yAxisOptionClicked: signal`app.yAxisOptionClicked`,
+    forceDiagramClicked: signal`app.forceDiagramClicked`
   },
   function SideMenu ({
     className,
     layerSettingClicked,
     yAxisOptionClicked,
+    forceDiagramClicked,
     layers = {},
-    yAxisUnit
+    yAxisUnit,
+    forceDiagram
   }) {
     // Map data to components
     console.log(layers);
@@ -40,6 +44,7 @@ export default connect(
           <Handle>
             {layerButtons}
             <ImmersiveButton
+              // depth/age button
               onClick={() => yAxisOptionClicked({ unit: 'age' })}
               inactive={yAxisUnit === 'age'}
             >
@@ -50,6 +55,14 @@ export default connect(
               inactive={yAxisUnit === 'depth'}
             >
               {'Depth'}
+            </ImmersiveButton>
+
+            <ImmersiveButton
+              // forceDiagram button
+              onClick={() => forceDiagramClicked({ active: !forceDiagram })}
+              inactive={forceDiagram === false}
+            >
+              {'Force\nDiagram'}
             </ImmersiveButton>
           </Handle>
         </Wrapper>

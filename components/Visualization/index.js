@@ -49,7 +49,9 @@ class Visualization extends Component {
       this.destroy(this.svg);
 
       // set new viz state
-      this.props.forceDiagram ? setForceDiagramState : setNormalDiagramState;
+      this.props.forceDiagram
+        ? setForceDiagramState(this)
+        : setNormalDiagramState(this);
 
       // create new state
       this.create(this.svg, this.props, this.state);
