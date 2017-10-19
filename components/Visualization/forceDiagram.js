@@ -36,11 +36,12 @@ export const update = (el, props, state) => {
     intsctns = [],
     subareas = [],
     dimentions = { maxWidth: 0, maxHeight: 0 },
-    yAxisUnit = 'depth',
+    diagramOption = 'depth',
     onLayerClicked
   } = props;
 
-  // console.log(subareas);
+  console.log(props);
+  console.log(width.toString() + '  ' + height.toString());
 
   // try to push a sublayer to the right
   // if (subareas.length >= 1) {
@@ -52,10 +53,10 @@ export const update = (el, props, state) => {
   //   }
   // }
 
-  // Coverts coordinates to d-attribute
-  const lineGenerator = line()
-    .x(d => xScale(d.x))
-    .y(d => yScale(d.y));
+  // // Coverts coordinates to d-attribute
+  // const lineGenerator = line()
+  //   .x(d => xScale(d.x))
+  //   .y(d => yScale(d.y));
 
   const areaGenerator = area()
     .x(d => xScale(d.x))
@@ -64,18 +65,18 @@ export const update = (el, props, state) => {
     // makes interpolate of the form curveCardinal
     .curve(curveBasis);
 
-  const areaGeneratorWithOrigin = (ox, oy, points) => {
-    return areaGenerator(
-      points.map(p => {
-        return { x: p.x + ox, y0: p.y0 + oy, y1: p.y1 + oy };
-      })
-    );
-  };
+  // const areaGeneratorWithOrigin = (ox, oy, points) => {
+  //   return areaGenerator(
+  //     points.map(p => {
+  //       return { x: p.x + ox, y0: p.y0 + oy, y1: p.y1 + oy };
+  //     })
+  //   );
+  // };
 
-  const generators = {
-    line: lineGenerator,
-    area: areaGenerator
-  };
+  // const generators = {
+  //   line: lineGenerator,
+  //   area: areaGenerator
+  // };
 
   // Select how to scale values to x positions
   const xScale = scaleLinear()
@@ -94,6 +95,8 @@ export const update = (el, props, state) => {
 
   // create simualtion nodes
   const nodes = createNodes(subareas, xScale, yScale);
+
+  console.log(nodes);
 
   // create links
   const links = createLinksByNodes(nodes);
@@ -267,14 +270,17 @@ const createLinksByNodes = nodes => {
 
 export const destroy = el => {
   select(el)
-    .selectAll('path')
+    .selectAll('g')
     .remove();
-  select(el)
-    .selectAll('.node')
-    .remove();
-  select(el)
-    .selectAll('.link')
-    .remove();
+  // select(el)
+  //   .selectAll('path')
+  //   .remove();
+  // select(el)
+  //   .selectAll('.node')
+  //   .remove();
+  // select(el)
+  //   .selectAll('.link')
+  //   .remove();
 };
 
 // got from http://bl.ocks.org/pbellon/4b875d2ab7019c0029b636523b34e074

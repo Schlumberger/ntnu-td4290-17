@@ -9,21 +9,17 @@ export default connect(
   {
     // Get the state located in .layers
     layers: state`settings.visibility`,
-    yAxisUnit: state`settings.yAxisUnit`,
-    forceDiagram: state`settings.forceDiagram`,
+    diagramOption: state`settings.diagramOption`,
     // Get the signal in app.layerClicked in the app-module
     layerSettingClicked: signal`app.layerSettingClicked`,
-    yAxisOptionClicked: signal`app.yAxisOptionClicked`,
-    forceDiagramClicked: signal`app.forceDiagramClicked`
+    diagramOptionClicked: signal`app.diagramOptionClicked`
   },
   function SideMenu ({
     className,
     layerSettingClicked,
-    yAxisOptionClicked,
-    forceDiagramClicked,
+    diagramOptionClicked,
     layers = {},
-    yAxisUnit,
-    forceDiagram
+    diagramOption
   }) {
     // Map data to components
     console.log(layers);
@@ -45,22 +41,22 @@ export default connect(
             {layerButtons}
             <ImmersiveButton
               // depth/age button
-              onClick={() => yAxisOptionClicked({ unit: 'age' })}
-              inactive={yAxisUnit === 'age'}
+              onClick={() => diagramOptionClicked({ option: 'age' })}
+              inactive={diagramOption === 'age'}
             >
-              {'Age'}
+              {'Age\nDiagram'}
             </ImmersiveButton>
             <ImmersiveButton
-              onClick={() => yAxisOptionClicked({ unit: 'depth' })}
-              inactive={yAxisUnit === 'depth'}
+              onClick={() => diagramOptionClicked({ option: 'depth' })}
+              inactive={diagramOption === 'depth'}
             >
-              {'Depth'}
+              {'Depth\nDiagram'}
             </ImmersiveButton>
 
             <ImmersiveButton
               // forceDiagram button
-              onClick={() => yAxisOptionClicked({ unit: 'force' })}
-              inactive={yAxisUnit === 'force'}
+              onClick={() => diagramOptionClicked({ option: 'force' })}
+              inactive={diagramOption === 'force'}
             >
               {'Force'}
             </ImmersiveButton>

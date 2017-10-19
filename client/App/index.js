@@ -26,10 +26,12 @@ const dependencies = {
   user: state`app.user`,
   faults: computeFaults,
   layers: computeLayers,
+  subareas: computeSubareas,
+  intersections: computeIntersections,
   dimentions: computeMaxDimentions,
-  yAxisUnit: state`settings.yAxisUnit`,
   layerClicked: signal`app.layerClicked`,
   emptyClicked: signal`app.emptyClicked`,
+  diagramOption: state`settings.diagramOption`,
   routed: signal`app.routed`,
   places: state`places`
 };
@@ -55,10 +57,9 @@ class App extends React.Component {
               subareas={this.props.subareas}
               intsctns={this.props.intersections}
               dimentions={this.props.dimentions}
-              yAxisUnit={this.props.yAxisUnit}
+              diagramOption={this.props.diagramOption}
               onLayerClicked={this.props.layerClicked}
               onEmptyClicked={this.props.emptyClicked}
-              forceDiagram={this.props.forceDiagram}
             />
           </div>
         ) : (
@@ -77,7 +78,7 @@ App.propTypes = {
   subareas: array,
   intersections: array,
   dimentions: object,
-  yAxisUnit: string,
+  diagramOption: string,
   layerClicked: func,
   emptyClicked: func,
   places: array
@@ -86,22 +87,6 @@ App.propTypes = {
 // Connect the component to cerebral so that cerebral can manage it
 export default connect(
   // The first argument is an object that describes what you want to get from cerebral
-<<<<<<< HEAD
   dependencies,
-=======
-  {
-    // This assigns this.props.* to the return value of the computed
-    faults: computeFaults,
-    layers: computeLayers,
-    subareas: computeSubareas,
-    intersections: computeIntersections,
-    dimentions: computeMaxDimentions,
-    forceDiagram: state`settings.forceDiagram`,
-    yAxisUnit: state`settings.yAxisUnit`,
-    layerClicked: signal`app.layerClicked`,
-    emptyClicked: signal`app.emptyClicked`,
-    places: state`places`
-  },
->>>>>>> integrating force layout state into application. Want a button to change to forceLayout view. Not finished
   App
 );

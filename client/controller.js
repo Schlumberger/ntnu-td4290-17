@@ -28,8 +28,7 @@ export default Controller({
         subareas: true,
         intersects: false
       },
-      yAxisUnit: 'depth',
-      forceDiagram: false
+      diagramOption: 'depth' // depth, age, force
     }
   },
   modules: {

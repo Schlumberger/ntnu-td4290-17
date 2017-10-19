@@ -1,5 +1,5 @@
 import { select, event } from 'd3-selection';
-import {  } from 'd3-transition';
+import {} from 'd3-transition';
 import { line, area, circle, curveBasis } from 'd3-shape';
 import { scaleLinear } from 'd3-scale';
 
@@ -27,7 +27,7 @@ export const update = (el, props, state) => {
     intsctns = [],
     subareas = [],
     dimentions = { maxWidth: 0, maxHeight: 0 },
-    yAxisUnit = 'depth',
+    diagramOption = 'depth',
     onLayerClicked
   } = props;
 
@@ -38,8 +38,8 @@ export const update = (el, props, state) => {
 
   const areaGenerator = area()
     .x(d => xScale(d.x))
-    .y0(d => yScale(yAxisUnit === 'depth' ? d.y0 : d.age0))
-    .y1(d => yScale(yAxisUnit === 'depth' ? d.y1 : d.age1))
+    .y0(d => yScale(diagramOption === 'depth' ? d.y0 : d.age0))
+    .y1(d => yScale(diagramOption === 'depth' ? d.y1 : d.age1))
     // makes interpolate of the form curveCardinal
     .curve(curveBasis);
 
@@ -111,7 +111,7 @@ export const update = (el, props, state) => {
   const enterIntersections = updateIntersections
     .enter()
     .append('circle')
-    .attr('opacity', 0)
+    .attr('opacity', 0);
 
   // Remove if too many
   updateFaults
@@ -179,20 +179,24 @@ export const update = (el, props, state) => {
     .transition()
     .duration(1000)
     .attr('opacity', 1)
-    .attr("cx", d => xScale(d.x))
-    .attr("cy", d => yScale(d.y))
-    .attr("r", 4)
+    .attr('cx', d => xScale(d.x))
+    .attr('cy', d => yScale(d.y))
+    .attr('r', 4)
     .attr('fill', d => d.fill)
     .attr('stroke', d => d.stroke)
     .attr('stroke-width', '2px')
-    .attr("stroke", "white");
+    .attr('stroke', 'white');
 };
 
 export const destroy = el => {
+  // select(el)
+  //   .selectAll('path')
+  //   .remove();
+  // select(el)
+  //   .selectAll('circle')
+  //   .remove();
+
   select(el)
-    .selectAll('path')
-    .remove();
-  select(el)
-    .selectAll('circle')
+    .selectAll('g')
     .remove();
 };

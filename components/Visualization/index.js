@@ -36,24 +36,32 @@ class Visualization extends Component {
   }
 
   componentDidUpdate () {
-    console.log(
-      'forceDiagram: ' + this.props.forceDiagram + ' ' + this.wasForceDiagram
-    );
+    // console.log(
+    //   'forceDiagram: ' + this.wasForceDiagram
+    // );
+
+    console.log(this.props.diagramOption);
 
     // check if the state has changed to or from forceDiagram.
     // if so, update state
-    if (this.props.forceDiagram != this.wasForceDiagram) {
-      this.wasForceDiagram = this.props.forceDiagram;
+    if (this.props.diagramOption != 'force' && this.wasForceDiagram) {
+      // go from forceDiagram to normal
+      this.wasForceDiagram = false;
+      console.log('switch to normal diagram');
 
       // destroy the last visualization
       this.destroy(this.svg);
-
       // set new viz state
-      this.props.forceDiagram
-        ? setForceDiagramState(this)
-        : setNormalDiagramState(this);
-
+      setNormalDiagramState(this);
       // create new state
+      this.create(this.svg, this.props, this.state);
+    } else if (this.props.diagramOption === 'force' && !this.wasForceDiagram) {
+      // go from normal diagram to force
+      this.wasForceDiagram = true;
+      console.log('switch to force diagram');
+
+      this.destroy(this.svg);
+      setForceDiagramState(this);
       this.create(this.svg, this.props, this.state);
     } else {
       // if create is executed, update is also executed

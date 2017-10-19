@@ -4,7 +4,7 @@ import { state } from 'cerebral/tags';
 // Finds maxWidth and maxHeight
 export default compute(
   state`formattedData`,
-  state`settings.yAxisUnit`,
+  state`settings.diagramOption`,
   (data = [], yAxis) => {
     const maxWidth = Math.max(
       0,
@@ -16,7 +16,10 @@ export default compute(
       ...data.map(el =>
         Math.max(
           ...el.points.map(
-            p => (yAxis === 'depth' ? p.y1 || p.y : p.maxAge || 0)
+            p =>
+              yAxis === 'depth' || yAxis === 'force'
+                ? p.y1 || p.y
+                : p.maxAge || 0
           )
         )
       )
