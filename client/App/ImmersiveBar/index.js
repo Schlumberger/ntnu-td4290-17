@@ -59,10 +59,10 @@ export default connect(
 
             <ImmersiveButton
               // forceDiagram button
-              onClick={() => forceDiagramClicked({ active: !forceDiagram })}
-              inactive={forceDiagram === false}
+              onClick={() => yAxisOptionClicked({ unit: 'force' })}
+              inactive={yAxisUnit === 'force'}
             >
-              {'Force\nDiagram'}
+              {'Force'}
             </ImmersiveButton>
           </Handle>
         </Wrapper>
