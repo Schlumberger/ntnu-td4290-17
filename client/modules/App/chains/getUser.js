@@ -3,13 +3,6 @@ import {state, props} from 'cerebral/tags';
 import {set} from 'cerebral/operators';
 
 export default [
-    getUser(), {
-        error: [
-            createUserWithEmailAndPassword(email, password)
-        ]
-    },
-    signInWithGoogle({
-        redirect: false,
-    }),
+    signInWithGoogle(),
     set(state`app.user`, props`response`)
 ]
