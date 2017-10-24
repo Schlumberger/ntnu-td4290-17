@@ -14,7 +14,7 @@ export default connect(
     layerClicked: signal`app.layerSettingClicked`,
     yAxisOptionClicked: signal`app.yAxisOptionClicked`
   },
-  function SideMenu({
+  function SideMenu ({
     className,
     layerClicked,
     yAxisOptionClicked,

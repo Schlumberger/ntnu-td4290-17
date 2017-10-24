@@ -1,0 +1,6 @@
+{
+  "extends": ["standard", "standard-react"],
+  "rules": {
+    "semi": 0
+  }
+}

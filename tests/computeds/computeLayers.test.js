@@ -23,4 +23,18 @@ describe('Compute correct values', function() {
     });
     assert.deepEqual(result, []);
   });
+  it('Should filter layers', function() {
+    const result = runCompute(computed, {
+      state: {
+        settings: {
+          visibility: {
+            layers: true
+          },
+          yAxisUnit: 'depth'
+        },
+        formattedData: [{ type: 'surface' }, { type: 'notsurface' }]
+      },
+    });
+    assert.deepEqual(result, [{ type: 'surface' }]);
+  });
 });

@@ -6,12 +6,16 @@ const parser = new xml2js.Parser();
 
 const filepath = path.join(__dirname, '..', 'data', 'geometry.svg');
 
-fs.readFile(filepath, function(err, data) {
-  parser.parseString(data, function(err, result) {
-    const res = parseSVG(result.svg.g);
-    console.log(JSON.stringify(res, null, 2));
+module.exports = () => {
+  return new Promise((resolve, reject) => {
+    fs.readFile(filepath, function (err, data) {
+      parser.parseString(data, function (err, result) {
+        if (err) reject(err);
+        resolve(parseSVG(result.svg.g));
+      });
+    });
   });
-});
+};
 
 const parseSVG = data => {
   return data.reduce((accGroup, group) => {
@@ -61,6 +65,9 @@ const parsePolylinePoints = points => {
       x: Number(pieces[i]),
       y: Number(pieces[i + 1])
     });
+  }
+  if (coords[0].x > coords[coords.length - 1].x) {
+    coords = coords.reverse();
   }
   return coords;
 };

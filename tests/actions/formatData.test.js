@@ -22,20 +22,50 @@ describe('Return correct values', function() {
             age: [1, 2]
           }
         },
-        dataset: [{ type: 'layer', category: 'foo', points: [{ x: 4, y: 5 }] }]
+        dataset: [{ type: 'surface', id: 'foo', points: [{ x: 4, y: 5 }] }]
       }
     }).then(({ output }) =>
       assert.deepEqual(output, {
         data: [
           {
-            type: 'layer',
+            type: 'surface',
+            category: 'foo',
             fill: 'green',
             stroke: 'white',
             geometryType: 'area',
             minAge: 1,
             maxAge: 2,
+            id: 'foo',
+            points: [{ x: 4, y: 5, age0: 1, age1: 2, minAge: 1, maxAge: 2 }]
+          }
+        ]
+      })
+    );
+  });
+  it('Should compute properties without points', function() {
+    return runAction(action, {
+      state: {
+        chronostrat: {
+          foo: {
+            color: 'green',
+            age: [1, 2]
+          }
+        },
+        dataset: [{ type: 'surface', id: 'foo' }]
+      }
+    }).then(({ output }) =>
+      assert.deepEqual(output, {
+        data: [
+          {
+            type: 'surface',
             category: 'foo',
-            points: [{ x: 4, y: 5, minAge: 1, maxAge: 2 }]
+            fill: 'green',
+            stroke: 'white',
+            geometryType: 'area',
+            minAge: 1,
+            maxAge: 2,
+            id: 'foo',
+            points: []
           }
         ]
       })
