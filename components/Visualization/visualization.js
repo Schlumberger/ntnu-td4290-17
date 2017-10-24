@@ -1,5 +1,5 @@
 import { select, event } from 'd3-selection';
-import {  } from 'd3-transition';
+import {} from 'd3-transition';
 import { line, area, curveBasis } from 'd3-shape';
 import { scaleLinear } from 'd3-scale';
 
@@ -36,7 +36,7 @@ export const update = (el, props, state) => {
     .x(d => xScale(d.x))
     .y0(d => yScale(yAxisUnit === 'depth' ? d.y0 : d.age0))
     .y1(d => yScale(yAxisUnit === 'depth' ? d.y1 : d.age1))
-    //makes interpolate of the form curveCardinal
+    // makes interpolate of the form curveCardinal
     .curve(curveBasis);
 
   const generators = {
