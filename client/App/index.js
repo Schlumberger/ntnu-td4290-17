@@ -13,30 +13,53 @@ import {
   ImmersiveBar,
   InfoBox,
   GridWrapper,
-  PlacesBar
+  PlacesBar,
+  ButtonWrapper,
+  ButtonIcon,
+  ButtonText
 } from './elements';
+
+const dependencies = {
+  user: state`app.user`,
+  faults: computeFaults,
+  layers: computeLayers,
+  dimentions: computeMaxDimentions,
+  yAxisUnit: state`settings.yAxisUnit`,
+  layerClicked: signal`app.layerClicked`,
+  emptyClicked: signal`app.emptyClicked`,
+  routed: signal`app.routed`,
+  places: state`places`
+};
 
 class App extends React.Component {
   render () {
     // Here we now have access to this.props.* as what the computed returned
     return (
       <Wrapper>
-        <PlacesBar
-          places={this.props.places}
-          dimensions={this.props.dimentions}
-        />
-        <GridWrapper>
-          <ImmersiveBar />
-          <InfoBox />
-        </GridWrapper>
-        <Visualization
-          faults={this.props.faults}
-          layers={this.props.layers}
-          dimentions={this.props.dimentions}
-          yAxisUnit={this.props.yAxisUnit}
-          onLayerClicked={this.props.layerClicked}
-          onEmptyClicked={this.props.emptyClicked}
-        />
+        {this.props.user ? (
+          <div>
+            <PlacesBar
+              places={this.props.places}
+              dimensions={this.props.dimentions}
+            />
+            <GridWrapper>
+              <ImmersiveBar />
+              <InfoBox />
+            </GridWrapper>
+            <Visualization
+              faults={this.props.faults}
+              layers={this.props.layers}
+              dimentions={this.props.dimentions}
+              yAxisUnit={this.props.yAxisUnit}
+              onLayerClicked={this.props.layerClicked}
+              onEmptyClicked={this.props.emptyClicked}
+            />
+          </div>
+        ) : (
+          <ButtonWrapper onClick={() => this.props.routed()}>
+            <ButtonText>{'Login with google'}</ButtonText>
+          </ButtonWrapper>
+        )}
       </Wrapper>
     );
   }
@@ -55,15 +78,6 @@ App.propTypes = {
 // Connect the component to cerebral so that cerebral can manage it
 export default connect(
   // The first argument is an object that describes what you want to get from cerebral
-  {
-    // This assigns this.props.* to the return value of the computed
-    faults: computeFaults,
-    layers: computeLayers,
-    dimentions: computeMaxDimentions,
-    yAxisUnit: state`settings.yAxisUnit`,
-    layerClicked: signal`app.layerClicked`,
-    emptyClicked: signal`app.emptyClicked`,
-    places: state`places`
-  },
+  dependencies,
   App
 );

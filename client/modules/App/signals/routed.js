@@ -7,7 +7,5 @@ import getUser from '../chains/getUser';
 
 // When the '/'-route is triggered, run getChronostrat and getDataset in parallel
 export default sequence('On Routed', [
-  getUser,
-  parallel([getChronostrat, getDataset, getPlaces]),
-  formatData
+  getUser([parallel([getChronostrat, getDataset, getPlaces]), formatData])
 ]);

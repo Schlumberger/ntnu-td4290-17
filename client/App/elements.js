@@ -48,3 +48,29 @@ export const InfoBox = styled(Info)`
   pointer-events: all;
   cursor: move;
 `;
+
+export const ButtonWrapper = styled.div`
+  position: fixed;
+  top: 50%;
+  right: 50%;
+  transform: translate(50%, 0);
+  display: inline-block;
+  background: white;
+  color: #444;
+  border-radius: 5px;
+  border: thin solid #888;
+  box-shadow: 1px 1px 1px grey;
+  white-space: nowrap;
+  cursor: pointer;
+  padding: 10px;
+`;
+
+export const ButtonText = styled.span`
+  display: inline-block;
+  vertical-align: middle;
+  padding-left: 42px;
+  padding-right: 42px;
+  font-size: 14px;
+  font-weight: bold;
+  font-family: 'Roboto', sans-serif;
+`;
