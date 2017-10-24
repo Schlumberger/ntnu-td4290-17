@@ -6,7 +6,7 @@ import { Container } from '@cerebral/react';
 
 import ImmersiveBar from 'client/App/ImmersiveBar';
 
-describe('<ImmersiveBar />', () => {
+/* describe('<ImmersiveBar />', () => {
   it('Should exist', () => {
     const controller = Controller({
       state: {
@@ -27,3 +27,4 @@ describe('<ImmersiveBar />', () => {
     expect(wrapper).to.exist;
   });
 });
+*/
