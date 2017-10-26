@@ -13,5 +13,22 @@ describe('<App />', () => {
         <App />
       </Container>
     );
+    expect(wrapper).to.exist;
+  });
+  it('Should exist with user', () => {
+    const wrapper = mount(
+      <Container
+        controller={Controller({
+          state: {
+            app: {
+              user: true
+            }
+          }
+        })}
+      >
+        <App />
+      </Container>
+    );
+    expect(wrapper).to.exist;
   });
 });

@@ -1,10 +1,12 @@
 import React from 'react';
+import { Container } from '@cerebral/react';
+import { Controller } from 'cerebral';
 import { mount } from 'enzyme';
 import { assert, expect } from 'chai';
 
 import ImmersiveBar from 'client/App/ImmersiveBar';
 
-/* describe('<ImmersiveBar />', () => {
+describe('<ImmersiveBar />', () => {
   it('Should exist', () => {
     const wrapper = mount(
       <Container controller={Controller()}>
@@ -17,6 +19,6 @@ import ImmersiveBar from 'client/App/ImmersiveBar';
         />
       </Container>
     );
+    expect(wrapper).to.exist;
   });
 });
-*/
