@@ -13,7 +13,6 @@ module.exports.addAgeToPoints = (
   point.minAge = age[0];
   point.maxAge = age[1];
 
-  console.log(unconform);
   if (unconform) {
     const ageDiff = age[1] - age[0];
     const height = Math.abs(point.height);
@@ -90,10 +89,10 @@ module.exports.getMaxHeightByCategory = (data, category) => {
 module.exports.checkUnconformity = (category, unconformities) => {
   for (let place of Object.keys(unconformities)) {
     var placeString = place.toString();
+    console.log(placeString.slice(5));
     if (category.toString() == placeString.slice(5)) {
       return true;
-    } else {
-      return false;
     }
   }
+  return false;
 };
