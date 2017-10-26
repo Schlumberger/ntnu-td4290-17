@@ -80,3 +80,14 @@ module.exports.getMaxHeightByCategory = (data, category) => {
       .map(data => Math.max(0, ...data.points.map(point => point.height)))
   );
 };
+
+module.exports.checkUnconformity = (category, unconformities) => {
+  for (let place of Object.keys(unconformities)) {
+    var placeString = place.toString();
+    if (category.toString() == placeString.slice(5)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+};
