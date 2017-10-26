@@ -37,7 +37,8 @@ export default function formatData ({ state }) {
           line.category,
           chronostrat,
           point,
-          getMaxHeightByCategory(data, line.category)
+          getMaxHeightByCategory(data, line.category),
+          line.unconform
         )
       )
     });

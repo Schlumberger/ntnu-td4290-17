@@ -3,7 +3,8 @@ module.exports.addAgeToPoints = (
   category,
   chronostrat,
   point,
-  maxHeight
+  maxHeight,
+  unconform
 ) => {
   if (type === 'fault') return point;
 
@@ -12,13 +13,16 @@ module.exports.addAgeToPoints = (
   point.minAge = age[0];
   point.maxAge = age[1];
 
-  var unconform = false;
+  console.log(unconform);
   if (unconform) {
     const ageDiff = age[1] - age[0];
     const height = Math.abs(point.height);
 
     point.age0 = age[0];
     point.age1 = Math.min(age[0] + ageDiff * (height / maxHeight || 1), age[1]);
+  } else {
+    point.age0 = age[0];
+    point.age1 = age[1];
   }
   return point;
 };
