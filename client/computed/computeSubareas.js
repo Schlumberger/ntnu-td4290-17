@@ -32,31 +32,26 @@ export default compute(
   // state`settings.visibility.subareas`,
   (data = [], visibility) => {
     // if (!visibility) return [];
-    return [].concat
-      .apply(
-        [],
-        data.filter(d => d.type === 'surface' && d.hasOwnProperty('subareas')).map(layer => {
-          var lum = getColor();
-          layer.subareas = layer.subareas
-            .filter(s => s.points != undefined)
-            .map(subarea => {
-              lum = getColor(lum);
-              // console.log(lum);
+    return data.filter(d => d.type === 'surface' && d.hasOwnProperty('subareas')).map(layer => {
+      var lum = getColor();
+      layer.subareas = layer.subareas
+        .filter(s => s.points != undefined)
+        .map(subarea => {
+          lum = getColor(lum);
+          // console.log(lum);
 
-              if (subarea.points) {
-                subarea.fill = ColorLuminance(layer.fill, lum);
-                subarea.stroke = '#000000';
-                subarea.minAge = layer.minAge;
-                subarea.maxAge = layer.maxAge;
-                subarea.geometryType = 'area';
-                return subarea;
-              } else {
-                console.log('jbmnt');
-              }
-            });
-          return layer.subareas;
-        })
-      )
-      .reverse();
+          if (subarea.points) {
+            subarea.fill = ColorLuminance(layer.fill, lum);
+            subarea.stroke = '#000000';
+            subarea.minAge = layer.minAge;
+            subarea.maxAge = layer.maxAge;
+            subarea.geometryType = 'area';
+            return subarea;
+          } else {
+            console.log('jbmnt');
+          }
+        });
+      return layer;
+    });
   }
 );

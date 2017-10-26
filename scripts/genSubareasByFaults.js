@@ -316,6 +316,7 @@ function computeSubareas(stack) {
       }
       subarea.area = Math.abs(d3p.polygonArea(pol));
       subarea.length = d3p.polygonLength(pol);
+      console.log(subarea.id + " P: " + subarea.center + " A: " + subarea.area + " L: " + subarea.length);
 
       return subarea;
     }).filter(subarea => {
@@ -324,7 +325,6 @@ function computeSubareas(stack) {
       subarea.id = subarea.id + '-' + index;
       subarea.order = index;
 
-      console.log(subarea.id + " P: " + subarea.center + " A: " + subarea.area + " L: " + subarea.length);
       index++;
       return subarea;
     })

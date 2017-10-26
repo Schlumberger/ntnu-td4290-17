@@ -29,6 +29,8 @@ export const update = (el, props, state) => {
     onLayerClicked
   } = props;
 
+  console.log(layers);
+
   // Coverts coordinates to d-attribute
   const lineGenerator = line()
     .x(d => xScale(d.x))
