@@ -1,3 +1,5 @@
+var d3p = require('d3-polygon');
+
 const debug = false;
 
 function log(msg) {
@@ -291,8 +293,38 @@ function computeSubareas(stack) {
     layer.subareas = layer.subareas.filter(s => {
       return Math.min(...s.points.map(p => p.x)) !== Math.max(...s.points.map(p => p.x));
     }).map(subarea => {
+      // create a polygon on the format [[x,y],[x,y],...]
+      let pol = [];
+      subarea.points.forEach(p => pol.push([p.x, p.y0]));
+      subarea.points.reverse().forEach(p => pol.push([p.x, p.y1]));
+
+      // calculate center
+      let center = d3p.polygonCentroid(pol);
+
+      // if center cannot be found, skip this sublayer. Its probably too small
+      if (isFinite(center[0]) && isFinite(center[1])) {
+        let x = isFinite(center[0]) ? center[0] : subarea.points[0].x;
+        let y = isFinite(center[1]) ? center[1] : subarea.points[0].y0;
+
+        subarea.center = {
+          x: x,
+          y: y,
+          // r: Math.max(width, height) / 2,
+        }
+      } else {
+        subarea.center = false;
+      }
+      subarea.area = Math.abs(d3p.polygonArea(pol));
+      subarea.length = d3p.polygonLength(pol);
+
+      return subarea;
+    }).filter(subarea => {
+      return subarea.area > 20 && subarea.length > 10 && subarea.center;
+    }).map(subarea => {
       subarea.id = subarea.id + '-' + index;
       subarea.order = index;
+
+      console.log(subarea.id + " P: " + subarea.center + " A: " + subarea.area + " L: " + subarea.length);
       index++;
       return subarea;
     })

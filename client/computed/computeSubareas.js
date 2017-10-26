@@ -35,7 +35,7 @@ export default compute(
     return [].concat
       .apply(
         [],
-        data.filter(d => d.type === 'surface').map(layer => {
+        data.filter(d => d.type === 'surface' && d.hasOwnProperty('subareas')).map(layer => {
           var lum = getColor();
           layer.subareas = layer.subareas
             .filter(s => s.points != undefined)
