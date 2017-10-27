@@ -432,7 +432,7 @@ function computeSubareas (stack) {
         }
         subarea.area = Math.abs(d3p.polygonArea(pol));
         subarea.length = d3p.polygonLength(pol);
-        console.log(
+        log(
           subarea.id +
             ' P: ' +
             subarea.center +
@@ -457,7 +457,7 @@ function computeSubareas (stack) {
         // Every subarea will have its (x0, y0) = (0, 0), and all other points subtracted by x0 and y0, so:
         //    for each point p: p.x -= x0; p.y -= y0
         // pointsGlobalToLocal(subarea);
-        console.log(subarea);
+        log(subarea);
 
         return subarea;
       });
@@ -472,8 +472,9 @@ function computeSubareas (stack) {
         if (s1.center.y < s2.center.y) {
           const a = Math.abs(s1.center.y - s2.center.y);
           const b = Math.abs(s1.center.x - s2.center.x);
-          const angle = Math.atan(a/b) * (100/Math.PI);
-          if (angle > 49) {
+          const angle = Math.atan(a/b) * (180/Math.PI);
+
+          if (angle > 85) {
             // console.log(
             //   s1.id + " " + JSON.stringify(s1.center) + " <=> " +
             //   s2.id + " " + JSON.stringify(s2.center) + " a: " + angle
