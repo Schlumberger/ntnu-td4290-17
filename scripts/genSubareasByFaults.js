@@ -465,15 +465,19 @@ function computeSubareas (stack) {
   });
 
   // Detect connections between subareas of different layers
+  // - contraint: subareas should be placed above/under
   stack.filter(x => x.type == 'surface').map(layer => {
     layer.subareas = layer.subareas.map(s1 => {
       s1.links = {};
       stack.filter(x => x.type == 'surface' && x.id !== layer.id).forEach(l2 => l2.subareas.map(s2 => {
         if (s1.center.y < s2.center.y) {
+          // get an angle |/_ between x-axis and the line
           const a = Math.abs(s1.center.y - s2.center.y);
           const b = Math.abs(s1.center.x - s2.center.x);
           const angle = Math.atan(a/b) * (180/Math.PI);
 
+          // if line connecting centers is as vertical as possible
+          // we claim it to be a valid connection between subareas
           if (angle > 85) {
             // console.log(
             //   s1.id + " " + JSON.stringify(s1.center) + " <=> " +
