@@ -94,6 +94,7 @@
     "mocha": "^3.5.3",
     "nyc": "^11.2.1",
     "react-test-renderer": "^15.6.1",
+    "sinon": "^4.0.2",
     "webpack": "^3.5.5",
     "webpack-dev-server": "^2.7.1",
     "xml2js": "^0.4.19"
