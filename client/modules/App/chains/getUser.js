@@ -1,8 +1,20 @@
-import {getUser} from '@cerebral/firebase/operators';
-import {state, props} from 'cerebral/tags';
-import {set} from 'cerebral/operators';
+import { getUser, signInWithGoogle } from '@cerebral/firebase/operators';
+import { state, props } from 'cerebral/tags';
+import { set, when } from 'cerebral/operators';
 
-export default [
+export default function (cont = []) {
+  return [
     getUser(),
-    set(state`app.user`, props`response`)
-]
+    when(props`response.user`),
+    {
+      true: [set(state`app.user`, props`response`), cont],
+      false: [
+        signInWithGoogle(),
+        {
+          error: [],
+          success: [set(state`app.user`, props`response`), cont]
+        }
+      ]
+    }
+  ];
+}

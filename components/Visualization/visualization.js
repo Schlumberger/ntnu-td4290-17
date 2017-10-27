@@ -44,7 +44,7 @@ export const update = (el, props, state) => {
     .x(d => xScale(d.x))
     .y0(d => yScale(yAxisUnit === 'depth' ? d.y0 : d.age0))
     .y1(d => yScale(yAxisUnit === 'depth' ? d.y1 : d.age1))
-    //makes interpolate of the form curveCardinal
+    // makes interpolate of the form curveCardinal
     .curve(curveBasis);
 
   const generators = {

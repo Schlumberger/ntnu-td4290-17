@@ -42,4 +42,33 @@ describe('Return correct values', function() {
       })
     );
   });
+  it('Should compute properties without points', function() {
+    return runAction(action, {
+      state: {
+        chronostrat: {
+          foo: {
+            color: 'green',
+            age: [1, 2]
+          }
+        },
+        dataset: [{ type: 'surface', id: 'foo' }]
+      }
+    }).then(({ output }) =>
+      assert.deepEqual(output, {
+        data: [
+          {
+            type: 'surface',
+            category: 'foo',
+            fill: 'green',
+            stroke: 'white',
+            geometryType: 'area',
+            minAge: 1,
+            maxAge: 2,
+            id: 'foo',
+            points: []
+          }
+        ]
+      })
+    );
+  });
 });
