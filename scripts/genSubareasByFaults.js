@@ -316,7 +316,7 @@ function computeSubareas(stack) {
       }
       subarea.area = Math.abs(d3p.polygonArea(pol));
       subarea.length = d3p.polygonLength(pol);
-      console.log(subarea.id + " P: " + subarea.center + " A: " + subarea.area + " L: " + subarea.length);
+      // console.log(subarea.id + " P: " + subarea.center + " A: " + subarea.area + " L: " + subarea.length);
 
       return subarea;
     }).filter(subarea => {
@@ -327,6 +327,29 @@ function computeSubareas(stack) {
 
       index++;
       return subarea;
+    })
+    return layer;
+  })
+
+  // Detect connections between subareas of different layers
+  stack.filter(x => x.type == 'surface').map(layer => {
+    layer.subareas = layer.subareas.map(s1 => {
+      s1.links = {};
+      stack.filter(x => x.type == 'surface' && x.id !== layer.id).forEach(l2 => l2.subareas.map(s2 => {
+        if (s1.center.y < s2.center.y) {
+          const a = Math.abs(s1.center.y - s2.center.y);
+          const b = Math.abs(s1.center.x - s2.center.x);
+          const angle = Math.atan(a/b) * (100/Math.PI);
+          if (angle > 49) {
+            // console.log(
+            //   s1.id + " " + JSON.stringify(s1.center) + " <=> " +
+            //   s2.id + " " + JSON.stringify(s2.center) + " a: " + angle
+            // );
+            s1.links[s2.id] = s2.center;
+          }
+        }
+      }));
+      return s1;
     })
     return layer;
   })
