@@ -147,6 +147,10 @@ describe('Formatting data utils', function () {
       const id = '2-seabed';
       assert.equal(getCategory(id, {}), 'seabed');
     });
+    it('Should return other if not in populated chronostrat', function () {
+      const id = '2-seabed';
+      assert.equal(getCategory(id, { foo: true, bar: true }), 'seabed');
+    });
     it('Should return null if none of the above', function () {
       const id = 'seabed';
       assert.equal(getCategory(id, {}), null);

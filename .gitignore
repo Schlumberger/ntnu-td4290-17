@@ -3,3 +3,4 @@ dist
 .idea
 node_modules
 .nyc_output
+npm-debug.log
