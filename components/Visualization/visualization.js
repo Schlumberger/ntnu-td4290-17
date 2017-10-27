@@ -22,13 +22,14 @@ export const update = (el, props, state) => {
   const {
     faults = [],
     layers = [],
-    intsctns = [],
-    subareas = [],
+    // intsctns = [],
+    // subareas = [],
     dimentions = { maxWidth: 0, maxHeight: 0 },
     diagramOption = 'depth',
     onLayerClicked
   } = props;
 
+  console.log('layers');
   console.log(layers);
 
   // Coverts coordinates to d-attribute

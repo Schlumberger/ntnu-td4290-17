@@ -6,7 +6,8 @@ import {
   forceSimulation,
   forceCenter,
   forceLink,
-  forceCollide
+  forceCollide,
+  forceManyBody
 } from 'd3-force';
 import { polygonCentroid } from 'd3-polygon';
 
@@ -70,8 +71,8 @@ export const update = (el, props, state) => {
 
   console.log(nodes);
 
-  // create links
-  const links = createLinksByNodes(nodes);
+  // create simulation links
+  const links = createLinksByNodes(nodes, xScale, yScale);
 
   console.log(
     'subareas skipped: ' + (subareas.length - nodes.length).toString()
@@ -133,12 +134,18 @@ export const update = (el, props, state) => {
     .attr('fill', '#000');
 
   const simTick = e => {
-    // update nodes
+    // update visualized nodes
     node.attr('cx', d => d.x).attr('cy', d => d.y);
 
+    // update visualized subareas by setting the translate attribute
     enterSubareas.attr('transform', d => {
-      // console.log(d);
-      return 'translate(' + (d.x - d.startX) + ',' + (d.y - d.startY) + ')';
+      return (
+        'translate(' +
+        (d.x - d.scaledStartPos.x) +
+        ',' +
+        (d.y - d.scaledStartPos.y) +
+        ')'
+      );
     });
 
     link
@@ -152,90 +159,127 @@ export const update = (el, props, state) => {
 };
 
 const createSimulation = (nodes, links, tickFunc) => {
+  // find min and max area
+  const minArea = nodes.reduce(
+    (acc, currVal) => (acc = Math.min(acc, currVal.area)),
+    Infinity
+  );
+  const maxArea = nodes.reduce(
+    (acc, currVal) => (acc = Math.max(acc, currVal.area)),
+    0
+  );
+
+  // create a scale mapping from sublayer area to force strength
+  const areaForceScale = scaleLinear()
+    .domain([minArea, maxArea])
+    .range([0, 30]);
+
+  // create a scale mapping from area to force distance
+  const areaForceDistScale = scaleLinear()
+    .domain([minArea, maxArea])
+    .range([50, 700]);
+
   return (
     forceSimulation(nodes)
       .alphaDecay(0) // simulation will never stop
+      // .force('bounding', d => forceCollide().radius(d => d.r))
+      // .force('bounding', forceCollide().radius(d => d.r))
+
+      // simulate a collision force
+      .force(
+        'repulse by area size',
+        forceManyBody()
+          .strength(d => {
+            const f = areaForceScale(d.area); // negative to repel
+            console.log(f);
+            return -f;
+          })
+          .distanceMax(d => areaForceDistScale(d))
+      )
       .force(
         'link',
         forceLink(links)
           .id(d => d.id)
-          // .distance(d => d.source.r + d.target.r) // to make nodes not collide
-          .strength(d => 0.05)
+          .distance(d => d.prefDist) // to make nodes attract each other to a prefferred distance
+          .strength(d => 0.5)
       )
-      .force('bounding', d => forceCollide().radius(d => d.r))
-      // .force('bounding', forceCollide().radius(d => d.r))
       .on('tick', tickFunc)
   );
 };
 
 const createNodes = (subareas, xScale, yScale) => {
   const nodes = [];
-  subareas.forEach(sub => {
-    // create a polygon on the format [[x,y],[x,y],...]
-    let pol = [];
-    sub.points.forEach(p => pol.push([p.x, p.y0]));
-    for (let i = sub.points.length - 1; i >= 0; i--) {
-      pol.push([sub.points[i].x, sub.points[i].y1]);
-    }
+  subareas.forEach(layer => {
+    let category = layer.category;
 
-    // calculate center
-    let center = polygonCentroid(pol);
+    layer.subareas.forEach(sub => {
+      // set x and y values to the center of the object. And scale it to the right size
+      // sub.scaledCenter = { x: xScale(sub.center.x), y: yScale(sub.center.y) };
 
-    // if center cannot be found, skip this sublayer. Its probably too small
-    if (!isFinite(center[0]) || !isFinite(center[1])) {
-      return;
-    }
+      // set the category of the node
+      sub.category = category;
 
-    let x = xScale(isFinite(center[0]) ? center[0] : sub.points[0].x);
-    let y = yScale(isFinite(center[1]) ? center[1] : sub.points[0].y0);
+      // scale x and y, and add the center coords
+      const { x: x0, y0 } = sub.points[0];
+      sub.x = xScale(sub.center.x);
+      sub.y = yScale(sub.center.y);
 
-    // calculate width and height
-    // assuming points are given from left to right
-    const width = sub.points[sub.points.length - 1].x - sub.points[0].x;
-    const height =
-      sub.points[Math.floor(sub.points.length / 2)].y1 -
-      sub.points[Math.floor(sub.points.length / 2)].y0; // jalla
+      // add a scaled start
+      sub.scaledStartPos = { x: sub.x, y: sub.y };
 
-    // console.log(width.toString() + '    ' + height.toString());
-
-    // let radius be half of the largest of width and height
-    let r = Math.max(width, height) / 2;
-
-    nodes.push({
-      id: sub.id,
-      x: x,
-      y: y,
-      startX: x,
-      startY: y,
-      points: sub.points,
-      fill: sub.fill,
-      r: r,
-      pol: pol
+      nodes.push(sub);
     });
   });
   return nodes;
 };
 
-const createLinksByNodes = nodes => {
+const createLinksByNodes = (nodes, xScale, yScale) => {
   const links = [];
+  const nodeCategories = {};
+
   for (let i = 0; i < nodes.length - 1; i++) {
-    let currSublayerName = nodes[i].id;
-    let nextSublayerName = nodes[i + 1].id;
+    const currNode = nodes[i];
 
-    // retrieve layer name without sublayer index
-    let currLayerName = currSublayerName.substr(
-      0,
-      currSublayerName.lastIndexOf('-')
-    );
-    let nextLayerName = nextSublayerName.substr(
-      0,
-      nextSublayerName.lastIndexOf('-')
-    );
+    // if other nodes of the same category exists, create a link between this and the last of them (neighbour).
+    // then add this node to that category mapping
+    // if another node doesnt exist, add an array with the currNode to the given category
+    if (nodeCategories.hasOwnProperty(currNode.category)) {
+      const srcN = currNode;
+      const tarN = nodeCategories[currNode.category][0];
 
-    // create links between sublayers that belong to the same layer
-    if (currLayerName === nextLayerName) {
-      links.push({ source: currSublayerName, target: nextSublayerName });
+      // calculate the preferred distance between the layers
+      const srcLen = srcN.points[srcN.points.length - 1].x - srcN.points[0].x;
+      const tarLen = tarN.points[tarN.points.length - 1].x - tarN.points[0].x;
+      const distBetween = xScale(Math.abs(srcLen * 0.5 + tarLen * 0.5));
+
+      links.push({
+        source: srcN.id,
+        target: tarN.id,
+        prefDist: distBetween
+      });
+
+      nodeCategories[currNode.category].unshift(currNode);
+    } else {
+      nodeCategories[currNode.category] = [currNode];
     }
+
+    // let currSublayerName = nodes[i].id;
+    // let nextSublayerName = nodes[i + 1].id;
+    //
+    // // retrieve layer name without sublayer index
+    // let currLayerName = currSublayerName.substr(
+    //   0,
+    //   currSublayerName.lastIndexOf('-')
+    // );
+    // let nextLayerName = nextSublayerName.substr(
+    //   0,
+    //   nextSublayerName.lastIndexOf('-')
+    // );
+
+    // // create links between sublayers that belong to the same layer
+    // if (currLayerName === nextLayerName) {
+    //   links.push({ source: currSublayerName, target: nextSublayerName });
+    // }
   }
   return links;
 };
@@ -324,3 +368,53 @@ function forceCollidePolygon (polygon, radius) {
     }
   }
 }
+
+// This is the first create node func from when we didnt use "subarea" property.
+
+// const createNodes = (subareas, xScale, yScale) => {
+//   const nodes = [];
+//   subareas.forEach(sub => {
+//     // create a polygon on the format [[x,y],[x,y],...]
+//     let pol = [];
+//     sub.points.forEach(p => pol.push([p.x, p.y0]));
+//     for (let i = sub.points.length - 1; i >= 0; i--) {
+//       pol.push([sub.points[i].x, sub.points[i].y1]);
+//     }
+//
+//     // calculate center
+//     let center = polygonCentroid(pol);
+//
+//     // if center cannot be found, skip this sublayer. Its probably too small
+//     if (!isFinite(center[0]) || !isFinite(center[1])) {
+//       return;
+//     }
+//
+//     let x = xScale(isFinite(center[0]) ? center[0] : sub.points[0].x);
+//     let y = yScale(isFinite(center[1]) ? center[1] : sub.points[0].y0);
+//
+//     // calculate width and height
+//     // assuming points are given from left to right
+//     const width = sub.points[sub.points.length - 1].x - sub.points[0].x;
+//     const height =
+//       sub.points[Math.floor(sub.points.length / 2)].y1 -
+//       sub.points[Math.floor(sub.points.length / 2)].y0; // jalla
+//
+//     // console.log(width.toString() + '    ' + height.toString());
+//
+//     // let radius be half of the largest of width and height
+//     let r = Math.max(width, height) / 2;
+//
+//     nodes.push({
+//       id: sub.id,
+//       x: x,
+//       y: y,
+//       startX: x,
+//       startY: y,
+//       points: sub.points,
+//       fill: sub.fill,
+//       r: r,
+//       pol: pol
+//     });
+//   });
+//   return nodes;
+// };
