@@ -470,18 +470,21 @@ function computeSubareas (stack) {
     layer.subareas = layer.subareas.map(s1 => {
       s1.links = {};
       stack.filter(x => x.type == 'surface' && x.id !== layer.id).forEach(l2 => l2.subareas.map(s2 => {
-        if (s1.center.y < s2.center.y) {
+        if (s1.hasOwnProperty('length') && s1.center.y < s2.center.y) {
           // get an angle |/_ between x-axis and the line
           const a = Math.abs(s1.center.y - s2.center.y);
           const b = Math.abs(s1.center.x - s2.center.x);
           const angle = Math.atan(a/b) * (180/Math.PI);
+          const length = Math.sqrt(a*a + b*b);
 
           // if line connecting centers is as vertical as possible
           // we claim it to be a valid connection between subareas
-          if (angle > 85) {
+          if (angle > 55 && length < 1.7 * Math.sqrt(s1.area)) {
             // console.log(
-            //   s1.id + " " + JSON.stringify(s1.center) + " <=> " +
-            //   s2.id + " " + JSON.stringify(s2.center) + " a: " + angle
+            //   "[" + s1.id + "/" + s2.id + "] " + Math.round(s1.length) + " <=> " + Math.round(s2.length) +
+            //   " " + Math.round(s1.area) + " <=> " + Math.round(s2.area) +
+            //   " " + Math.round(Math.sqrt(s1.area)) + " <=> " + Math.round(Math.sqrt(s2.area)) +
+            //   " l: " + Math.round(length) + " a: " + Math.round(angle)
             // );
             s1.links[s2.id] = s2.center;
           }
