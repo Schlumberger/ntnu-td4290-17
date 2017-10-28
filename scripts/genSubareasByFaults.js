@@ -468,9 +468,10 @@ function computeSubareas (stack) {
   // - contraint: subareas should be placed above/under
   stack.filter(x => x.type == 'surface').map(layer => {
     layer.subareas = layer.subareas.map(s1 => {
-      s1.links = {};
+      // s1.links = {};
+      links = [];
       stack.filter(x => x.type == 'surface' && x.id !== layer.id).forEach(l2 => l2.subareas.map(s2 => {
-        if (s1.hasOwnProperty('length') && s1.center.y < s2.center.y) {
+        if (s1.center.y < s2.center.y) {
           // get an angle |/_ between x-axis and the line
           const a = Math.abs(s1.center.y - s2.center.y);
           const b = Math.abs(s1.center.x - s2.center.x);
@@ -479,17 +480,38 @@ function computeSubareas (stack) {
 
           // if line connecting centers is as vertical as possible
           // we claim it to be a valid connection between subareas
-          if (angle > 55 && length < 1.7 * Math.sqrt(s1.area)) {
+          // console.log("angle: " + angle);
+          if (angle > 65 && length < 7 * Math.sqrt(s1.area)) {
             // console.log(
             //   "[" + s1.id + "/" + s2.id + "] " + Math.round(s1.length) + " <=> " + Math.round(s2.length) +
             //   " " + Math.round(s1.area) + " <=> " + Math.round(s2.area) +
             //   " " + Math.round(Math.sqrt(s1.area)) + " <=> " + Math.round(Math.sqrt(s2.area)) +
             //   " l: " + Math.round(length) + " a: " + Math.round(angle)
             // );
-            s1.links[s2.id] = s2.center;
+
+            // Ratio for link detection if a combination of angle and length
+            const ratio = 1200 * (60 - angle) + length;
+            links.push({
+              id: s2.id,
+              ratio: ratio > 1 ? ratio : 1,
+              center: s2.center
+            })
           }
         }
       }));
+      s1.links = {};
+      // Only the links to closest subareas are selected
+      // Minimal length is increased by 50% to include other subareass in similar proximity
+      if (links.length > 0) {
+        const minRatio = Math.min.apply(Math, links.map(l => l.ratio)) * 1.5;
+        // console.log(links.map(l => l.ratio));
+        // console.log(Math.min.apply(Math, links.map(l => l.ratio)) + " => " + minRatio);
+        links.forEach(l => {
+          if (l.ratio <= minRatio) {
+            s1.links[l.id] = l.center;
+          }
+        });
+      };
       return s1;
     })
     return layer;
