@@ -17,8 +17,6 @@ export const create = (el, props, state) => {
     .append('text')
     .attr('id', 'logo')
     .text('SubSee')
-    .attr('x', props.dimentions.maxWidth)
-    .attr('y', props.dimentions.maxHeight)
     .attr('text-anchor', 'end')
     .attr('font-family', 'Fudd');
 
