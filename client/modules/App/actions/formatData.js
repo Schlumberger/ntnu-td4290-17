@@ -10,9 +10,11 @@ import {
 } from 'utils/formattingData';
 
 export default function formatData ({ state }) {
-  const chronostrat = state.get('chronostrat');
-  const dataset = state.get('dataset');
+
+  const chronostrat = state.get('chronostrat') || [];
+  const dataset = state.get('dataset') || [];
   const unconformities = state.get('unconformities');
+
 
   const data = dataset.map((line, index, data) => {
     const category = getCategory(line.id, chronostrat);
@@ -37,8 +39,10 @@ export default function formatData ({ state }) {
           line.category,
           chronostrat,
           point,
+
           getMaxHeightByCategory(data, line.category),
           line.unconform
+
         )
       )
     });

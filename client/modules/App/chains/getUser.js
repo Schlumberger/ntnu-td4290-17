@@ -2,7 +2,7 @@ import { getUser, signInWithGoogle } from '@cerebral/firebase/operators';
 import { state, props } from 'cerebral/tags';
 import { set, when } from 'cerebral/operators';
 
-export default function (cont = []) {
+export default function (cont) {
   return [
     getUser(),
     when(props`response.user`),
