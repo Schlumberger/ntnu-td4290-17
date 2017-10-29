@@ -5,10 +5,71 @@ import {
   getStroke,
   getFill,
   getGeometryType,
-  getCategory
+  getCategory,
+  getAge,
+  getMaxHeightByCategory
 } from 'utils/formattingData';
 
 describe('Formatting data utils', function () {
+  describe('Get max height by category', function () {
+    it('Should get age 0 if no data', function () {
+      assert.deepEqual(getMaxHeightByCategory(), 0);
+    });
+    it('Should get max height', function () {
+      const data = [
+        { category: 'fooz', points: [{ height: 4 }] },
+        { category: 'fooz', points: [{ height: 2 }] }
+      ];
+
+      const result = getMaxHeightByCategory(data, 'fooz');
+
+      assert.deepEqual(result, 4);
+    });
+    it('Should disregard other layers', function () {
+      const data = [
+        { category: 'foozt', points: [{ height: 4 }] },
+        { category: 'fooz', points: [{ height: 2 }] }
+      ];
+
+      const result = getMaxHeightByCategory(data, 'fooz');
+
+      assert.deepEqual(result, 2);
+    });
+    it('Should be minumum 0', function () {
+      const data = [
+        { category: 'foozt', points: [{ height: -4 }] },
+        { category: 'fooz', points: [{ height: -2 }] }
+      ];
+
+      const result = getMaxHeightByCategory(data, 'fooz');
+
+      assert.deepEqual(result, 0);
+    });
+  });
+  describe('Get age', function () {
+    it('Should get age if in chronostrat', function () {
+      const chronostrat = {
+        foo: {
+          age: [1, 2]
+        }
+      };
+
+      const result = getAge('foo', chronostrat);
+
+      assert.deepEqual(result, { minAge: 1, maxAge: 2 });
+    });
+    it('Should get 0 if not in chronostrat', function () {
+      const chronostrat = {
+        foo: {
+          age: [1, 2]
+        }
+      };
+
+      const result = getAge('bar', chronostrat);
+
+      assert.deepEqual(result, { minAge: 0, maxAge: 0 });
+    });
+  });
   describe('Add age to points', function () {
     it('Should do nothing if fault', function () {
       const points = {
@@ -85,6 +146,10 @@ describe('Formatting data utils', function () {
     it('Should return seabed if contains seabed in name', function () {
       const id = '2-seabed';
       assert.equal(getCategory(id, {}), 'seabed');
+    });
+    it('Should return other if not in populated chronostrat', function () {
+      const id = '2-seabed';
+      assert.equal(getCategory(id, { foo: true, bar: true }), 'seabed');
     });
     it('Should return null if none of the above', function () {
       const id = 'seabed';
