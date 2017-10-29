@@ -8,9 +8,9 @@ import PlacesBar from 'components/PlacesBar';
 
 const places = [
   {
-    id: 'loppa-high',
-    text: 'Loppa High',
-    x: 235250
+  "id" : "loppa-high",
+  "text" : "Loppa High",
+  "x" : 235250
   }
 ];
 
@@ -18,7 +18,10 @@ describe('<PlacesBar />', () => {
   it('Should exist', () => {
     const wrapper = mount(
       <Container controller={Controller()}>
-        <PlacesBar places={places} dimensions={{ maxWidth: 10 }} />
+        <PlacesBar
+          places={places}
+          dimensions={{ maxWidth: 10 }}
+        />
       </Container>
     );
     expect(wrapper).to.exist;
@@ -26,17 +29,10 @@ describe('<PlacesBar />', () => {
   it('Should update and unmount', done => {
     const wrapper = mount(
       <Container controller={Controller()}>
-        <PlacesBar places={places} dimensions={{ maxWidth: 10 }} />
-      </Container>
-    );
-    wrapper.update();
-    wrapper.unmount();
-    done();
-  });
-  it('Should mount with no places', done => {
-    const wrapper = mount(
-      <Container controller={Controller()}>
-        <PlacesBar dimensions={{ maxWidth: 10 }} />
+        <PlacesBar
+          places={places}
+          dimensions={{ maxWidth: 10 }}
+        />
       </Container>
     );
     wrapper.update();
