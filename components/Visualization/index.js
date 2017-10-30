@@ -44,7 +44,7 @@ class Visualization extends Component {
 
     // check if the state has changed to or from forceDiagram.
     // if so, update state
-    if (this.props.diagramOption != 'force' && this.wasForceDiagram) {
+    if (this.props.diagramOption !== 'force' && this.wasForceDiagram) {
       // go from forceDiagram to normal
       this.wasForceDiagram = false;
       console.log('switch to normal diagram');
