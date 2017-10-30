@@ -20,9 +20,9 @@ export const create = (el, props, state) => {
 export const update = (el, props, state) => {
   const { width, height } = state;
   const {
-    faults = [],
-    layers = [],
-    dimentions = { maxWidth: 0, maxHeight: 0 },
+    faults,
+    layers,
+    dimentions,
     yAxisUnit = 'depth',
     onLayerClicked
   } = props;
@@ -80,8 +80,10 @@ export const update = (el, props, state) => {
     .enter()
     .append('path')
     .attr('opacity', 0)
-    .on('click', (d, ...args) => {
+    .on('click', d => {
+      /* istanbul ignore next */
       onLayerClicked({ info: d });
+      /* istanbul ignore next */
       event.stopPropagation();
     });
 
