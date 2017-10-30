@@ -69,10 +69,16 @@ export const update = (el, props, state) => {
   // create simualtion nodes
   const nodes = createNodes(subareas, xScale, yScale);
 
-  console.log(nodes);
+  console.log('nodes', nodes);
 
   // create simulation links
   const links = createLinksByNodes(nodes, xScale, yScale);
+
+  console.log('links', links);
+  console.log(
+    'link strengths',
+    links.map(d => (d.strength === -1 ? 0.5 : d.strength))
+  );
 
   // console.log(
   //   'subareas skipped: ' + (subareas.length - nodes.length).toString()
@@ -88,6 +94,7 @@ export const update = (el, props, state) => {
   const enterSubareas = updateSubareas
     .enter()
     .append('path')
+    .attr('class', 'node')
     .attr('opacity', 0)
     .on('click', (d, ...args) => {
       onLayerClicked({ info: d });
@@ -118,7 +125,8 @@ export const update = (el, props, state) => {
     .append('line')
     .attr('class', 'link')
     .attr('stroke', d => `${d.strength === -1 ? '#999' : '#f00'}`)
-    .attr('stroke-width', d => `${d.strength === -1 ? 1 : 0.5}px`);
+    .attr('stroke-width', d => `${d.strength === -1 ? 1 : 0.5}px`)
+    .attr('stroke-dasharray', d => `${d.strength === -1 ? 0 : (5, 5)}px`);
 
   // create visual nodes
   const node = svg
@@ -158,8 +166,8 @@ export const update = (el, props, state) => {
   const sim = createSimulation(nodes, links, simTick);
 
   // ________________REMOVE TO PLAY SIMULATION
-  sim.stop();
-  simTick(null); // to actually draw links
+  // sim.stop();
+  // simTick(null); // to actually draw links
   // _________________
 };
 
@@ -177,12 +185,12 @@ const createSimulation = (nodes, links, tickFunc) => {
   // create a scale mapping from sublayer area to force strength
   const areaForceScale = scaleLinear()
     .domain([minArea, maxArea])
-    .range([0, 30]);
+    .range([10, 100]);
 
   // create a scale mapping from area to force distance
   const areaForceDistScale = scaleLinear()
     .domain([minArea, maxArea])
-    .range([50, 700]);
+    .range([300, 1000]);
 
   return (
     forceSimulation(nodes)
@@ -206,7 +214,7 @@ const createSimulation = (nodes, links, tickFunc) => {
         forceLink(links)
           .id(d => d.id)
           .distance(d => d.prefDist) // to make nodes attract each other to a prefferred distance
-          .strength(d => (d.strength === -1 ? 0.5 : d.strength))
+          .strength(d => (d.strength === -1 ? 0.3 : d.strength))
       )
       .on('tick', tickFunc)
   );
@@ -335,7 +343,7 @@ const createOntopLinksByNodes = (nodes, xScale, yScale) => {
       //   prefDist: heightBetween
       // });
 
-      const lin = createLink(n.id, l, heightBetween, 0);
+      const lin = createLink(n.id, l, heightBetween, 0.0);
       // console.log(lin);
       links.push(lin);
     }
