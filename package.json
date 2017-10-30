@@ -5,6 +5,11 @@
   "main": "client/index.js",
   "scripts": {
     "test": "cross-env NODE_ENV=test mocha --require ./tests/setup.js ./tests/**/*.test.js --compilers js:babel-core/register",
+    "test:actions": "cross-env NODE_ENV=test mocha --require ./tests/setup.js ./tests/actions/**/*.test.js --compilers js:babel-core/register",
+    "test:components": "cross-env NODE_ENV=test mocha --require ./tests/setup.js ./tests/components/**/*.test.js --compilers js:babel-core/register",
+    "test:computeds": "cross-env NODE_ENV=test mocha --require ./tests/setup.js ./tests/computeds/**/*.test.js --compilers js:babel-core/register",
+    "test:signals": "cross-env NODE_ENV=test mocha --require ./tests/setup.js ./tests/signals/**/*.test.js --compilers js:babel-core/register",
+    "test:utils": "cross-env NODE_ENV=test mocha --require ./tests/setup.js ./tests/utils/**/*.test.js --compilers js:babel-core/register",
     "coverage": "cross-env NODE_ENV=test nyc mocha --require ./tests/setup.js ./tests/**/*.test.js",
     "start": "webpack-dev-server",
     "build": "webpack",
@@ -89,6 +94,7 @@
     "mocha": "^3.5.3",
     "nyc": "^11.2.1",
     "react-test-renderer": "^15.6.1",
+    "sinon": "^4.0.2",
     "webpack": "^3.5.5",
     "webpack-dev-server": "^2.7.1",
     "xml2js": "^0.4.19"

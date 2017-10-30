@@ -15,5 +15,10 @@ describe('<ImmersiveButton />', () => {
         }}
       />
     );
+    expect(wrapper).to.exist;
+  });
+  it('Should exist when inactive', () => {
+    const wrapper = shallow(<ImmersiveButton children={'testing'} />);
+    expect(wrapper).to.exist;
   });
 });
