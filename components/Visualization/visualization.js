@@ -18,7 +18,7 @@ export const create = (el, props, state) => {
     .attr('id', 'logo')
     .text('SubSee')
     .attr('text-anchor', 'end')
-    .attr('font-family', 'Fudd');
+    .attr('font-family', 'Roboto');
 
   update(el, props, state);
 };
@@ -92,8 +92,8 @@ export const update = (el, props, state) => {
     });
 
   select('text')
-    .attr('x', width)
-    .attr('y', height);
+    .attr('x', width - 5)
+    .attr('y', height - 5);
 
   // Remove if too many
   updateFaults
