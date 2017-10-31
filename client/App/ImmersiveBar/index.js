@@ -22,7 +22,7 @@ export default connect(
     diagramOption
   }) {
     // Map data to components
-    console.log(layers);
+
     const layerButtons = Object.keys(layers).map(layerID => (
       <ImmersiveButton
         key={layerID}
@@ -50,19 +50,13 @@ export default connect(
           <Handle>
             {layerButtons}
             <ImmersiveButton
-              // depth/age button
-              onClick={() => diagramOptionClicked({ option: 'age' })}
-              inactive={diagramOption === 'age'}
+              onClick={() =>
+                diagramOptionClicked({
+                  option: diagramOption === 'depth' ? 'age' : 'depth'
+                })}
             >
-              {'Age\nDiagram'}
+              {diagramOption === 'depth' ? 'Wheeler\nDiagram' : 'Depth\nView'}
             </ImmersiveButton>
-            <ImmersiveButton
-              onClick={() => diagramOptionClicked({ option: 'depth' })}
-              inactive={diagramOption === 'depth'}
-            >
-              {'Depth\nDiagram'}
-            </ImmersiveButton>
-
             <ImmersiveButton
               // forceDiagram button
               onClick={() => diagramOptionClicked({ option: 'force' })}

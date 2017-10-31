@@ -48,7 +48,7 @@ describe('<ImmersiveBar />', () => {
       </Container>
     );
 
-    expect(wrapper.find(ImmersiveButton)).to.have.length(6);
+    expect(wrapper.find(ImmersiveButton)).to.have.length(5);
   });
   it('Should trigger yAxisOptionClicked for each button', () => {
     const diagramOptionClicked = sinon.spy();
@@ -81,7 +81,7 @@ describe('<ImmersiveBar />', () => {
 
     wrapper.find(ImmersiveButton).forEach(el => el.simulate('click'));
 
-    expect(diagramOptionClicked).to.have.property('callCount', 3);
+    expect(diagramOptionClicked).to.have.property('callCount', 2);
     expect(layerSettingClicked).to.have.property('callCount', 3);
   });
 });

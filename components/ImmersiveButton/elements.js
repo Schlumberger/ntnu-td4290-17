@@ -28,4 +28,7 @@ export const ActiveText = styled(Typ16)`
   text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5);
 `;
 
-export const InactiveText = styled(Typ16)`color: #bbbbbb;`;
+export const InactiveText = styled(Typ16)`
+  color: #bbbbbb;
+  text-align: center;
+`;
