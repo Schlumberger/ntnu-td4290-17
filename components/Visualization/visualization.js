@@ -19,18 +19,10 @@ export const create = (el, props, state) => {
 
 export const update = (el, props, state) => {
   const { width, height } = state;
-  const {
-    faults = [],
-    layers = [],
-    // intsctns = [],
-    // subareas = [],
-    dimentions = { maxWidth: 0, maxHeight: 0 },
-    diagramOption = 'depth',
-    onLayerClicked
-  } = props;
+  const { faults, layers, dimentions, diagramOption, onLayerClicked } = props;
 
-  console.log('layers');
-  console.log(layers);
+  // console.log('layers');
+  // console.log(layers);
 
   // Coverts coordinates to d-attribute
   const lineGenerator = line()
@@ -85,8 +77,10 @@ export const update = (el, props, state) => {
     .enter()
     .append('path')
     .attr('opacity', 0)
-    .on('click', (d, ...args) => {
+    .on('click', d => {
+      /* istanbul ignore next */
       onLayerClicked({ info: d });
+      /* istanbul ignore next */
       event.stopPropagation();
     });
 

@@ -4,8 +4,8 @@ import { assert } from 'chai';
 
 import action from 'modules/App/actions/formatData';
 
-describe('Return correct values', function() {
-  it('Should compute empty arrays if empty data', function() {
+describe('Return correct values', function () {
+  it('Should compute empty arrays if empty data', function () {
     return runAction(action, {
       state: {
         chronostrat: {},
@@ -13,7 +13,7 @@ describe('Return correct values', function() {
       }
     }).then(({ output }) => assert.deepEqual(output, { data: [] }));
   });
-  it('Should compute properties', function() {
+  it('Should compute properties', function () {
     return runAction(action, {
       state: {
         chronostrat: {
@@ -36,13 +36,14 @@ describe('Return correct values', function() {
             minAge: 1,
             maxAge: 2,
             id: 'foo',
-            points: [{ x: 4, y: 5, age0: 1, age1: 2, minAge: 1, maxAge: 2 }]
+            points: [{ x: 4, y: 5, age0: 1, age1: 2, minAge: 1, maxAge: 2 }],
+            unconform: null
           }
         ]
       })
     );
   });
-  it('Should compute properties without points', function() {
+  it('Should compute properties without points', function () {
     return runAction(action, {
       state: {
         chronostrat: {
@@ -65,7 +66,8 @@ describe('Return correct values', function() {
             minAge: 1,
             maxAge: 2,
             id: 'foo',
-            points: []
+            points: [],
+            unconform: null
           }
         ]
       })

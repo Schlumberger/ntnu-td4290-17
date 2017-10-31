@@ -3,6 +3,7 @@ import { mount } from 'enzyme';
 import { Container } from '@cerebral/react';
 import { Controller } from 'cerebral';
 import { expect } from 'chai';
+import sinon from 'sinon';
 
 import Viz from 'components/Visualization';
 
@@ -68,6 +69,28 @@ describe('<Visualization />', () => {
     );
     wrapper.update();
     wrapper.unmount();
+    done();
+  });
+  it('Should trigger on empty layer click', done => {
+    const spy = sinon.spy();
+    const wrapper = mount(
+      <Container controller={Controller()}>
+        <Viz
+          layers={layers}
+          faults={faults}
+          dimentions={{ maxWidth: 5, maxHeight: 5 }}
+          yAxisUnit={'age'}
+          onEmptyClicked={spy}
+        />
+      </Container>
+    );
+
+    wrapper
+      .find('div')
+      .first()
+      .simulate('click');
+
+    expect(spy).to.have.property('callCount', 1);
     done();
   });
 });
