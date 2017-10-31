@@ -3,21 +3,21 @@ import { assert } from 'chai';
 
 import app from 'modules/App';
 
-describe('Y axis option clicked', function () {
-  it('Should set yAxis', () => {
+describe('Diagram option clicked', function () {
+  it('Should set diagramOption', () => {
     return CerebralTest({
       modules: {
         app
       },
       state: {
         settings: {
-          yAxisUnit: ''
+          diagramOption: ''
         }
       }
     })
-      .runSignal('app.yAxisOptionClicked', { unit: 'foo' })
+      .runSignal('app.diagramOptionClicked', { option: 'foo' })
       .then(({ state }) => {
-        assert.equal(state.settings.yAxisUnit, 'foo');
+        assert.equal(state.settings.diagramOption, 'foo');
       });
   });
 });

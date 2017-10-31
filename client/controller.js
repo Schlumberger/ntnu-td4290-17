@@ -27,7 +27,7 @@ const controller = Controller({
         faults: true,
         inspector: false
       },
-      yAxisUnit: 'depth'
+      diagramOption: 'depth' // depth, age, force
     }
   },
   modules: {

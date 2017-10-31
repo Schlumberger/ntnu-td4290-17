@@ -1,6 +1,6 @@
 import { select, event } from 'd3-selection';
 import {} from 'd3-transition';
-import { line, area, curveBasis } from 'd3-shape';
+import { line, area, circle, curveBasis } from 'd3-shape';
 import { scaleLinear } from 'd3-scale';
 
 const margins = {
@@ -19,13 +19,10 @@ export const create = (el, props, state) => {
 
 export const update = (el, props, state) => {
   const { width, height } = state;
-  const {
-    faults,
-    layers,
-    dimentions,
-    yAxisUnit = 'depth',
-    onLayerClicked
-  } = props;
+  const { faults, layers, dimentions, diagramOption, onLayerClicked } = props;
+
+  // console.log('layers');
+  // console.log(layers);
 
   // Coverts coordinates to d-attribute
   const lineGenerator = line()
@@ -34,8 +31,8 @@ export const update = (el, props, state) => {
 
   const areaGenerator = area()
     .x(d => xScale(d.x))
-    .y0(d => yScale(yAxisUnit === 'depth' ? d.y0 : d.age0))
-    .y1(d => yScale(yAxisUnit === 'depth' ? d.y1 : d.age1))
+    .y0(d => yScale(diagramOption === 'depth' ? d.y0 : d.age0))
+    .y1(d => yScale(diagramOption === 'depth' ? d.y1 : d.age1))
     // makes interpolate of the form curveCardinal
     .curve(curveBasis);
 
@@ -125,7 +122,14 @@ export const update = (el, props, state) => {
 };
 
 export const destroy = el => {
+  // select(el)
+  //   .selectAll('path')
+  //   .remove();
+  // select(el)
+  //   .selectAll('circle')
+  //   .remove();
+
   select(el)
-    .selectAll('path')
+    .selectAll('g')
     .remove();
 };

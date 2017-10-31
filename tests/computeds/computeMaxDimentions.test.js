@@ -20,11 +20,11 @@ describe('Compute max dimensions', function () {
     });
     assert.deepEqual(result, { maxWidth: 20, maxHeight: 0 });
   });
-  it('Should find the correct max with yAxis depth', function () {
+  it('Should find the correct max with diagramOption equal depth', function () {
     const result = runCompute(computed, {
       state: {
         settings: {
-          yAxisUnit: 'depth'
+          diagramOption: 'depth'
         },
         formattedData: [
           { points: [{ x: 10, y1: 3 }, { x: 20, y1: 2 }, { x: 5, y: 4 }] }

@@ -1,0 +1,1497 @@
+[33mcommit 7a0884ce98d4f2171565efc3a6bae1b43802b6b4[m
+Author: Matus Kosut <matuskosut@gmail.com>
+Date:   Thu Oct 26 12:33:44 2017 +0200
+
+    moving more computations to scripts
+
+[33mcommit 50a0580452a929f06a3444006f26c50a2ca04b61[m
+Author: Matus Kosut <matuskosut@gmail.com>
+Date:   Thu Oct 26 11:04:32 2017 +0200
+
+    update for splitting script
+
+[33mcommit db4177f0e17b805e2f91ce140d8765cf220294da[m
+Author: Eirik <eirik1502@gmail.com>
+Date:   Thu Oct 19 16:22:17 2017 +0200
+
+    disable visibility buttons in age and force diagram. Its now done in immersiveBar - index, wich isn't optimal
+
+[33mcommit cd76f8687172282322aba432fc13e08565327d35[m
+Author: Eirik <eirik1502@gmail.com>
+Date:   Thu Oct 19 16:05:55 2017 +0200
+
+    set layers and faults visible by default
+
+[33mcommit 62beddfeb6ce8239750f4e9e7f44b37d4d2fc6bd[m
+Author: Eirik <eirik1502@gmail.com>
+Date:   Thu Oct 19 16:02:53 2017 +0200
+
+    remove visability buttons that are not necessary, change between the three diagrams now works, but isnt wery smooth. (last commit) Changed state variable yAxisUnit to diagramOption to reflect the state that the client is in (depth, age or force). Corresponding singnal yAxisOptionClicked to diagramOptionClicked.
+
+[33mcommit 995de4ca3f609161cd4b9941ae1d3b22755fb373[m
+Author: Eirik <eirik1502@gmail.com>
+Date:   Thu Oct 19 15:25:14 2017 +0200
+
+    switch between depth and force diagram works. Some of the visualization options should be dependent on the diagram state
+
+[33mcommit 5bcea0305363bc1ba19ec2856474c0c2e294d596[m
+Author: Matus Kosut <matuskosut@gmail.com>
+Date:   Thu Oct 19 11:38:04 2017 +0200
+
+    change of vars
+
+[33mcommit d22da94fa4517bd42b22a4e2ab866c1682d4bdaa[m
+Author: Eirik <eirik1502@gmail.com>
+Date:   Thu Oct 19 11:21:05 2017 +0200
+
+    add a button to sitch to and from the force diagram. Age/depth not working now. Should also make other buttons inactive when forceDiagram is active
+
+[33mcommit 397158e4860365d0ebafdb8f48ea37ec12684d0a[m
+Author: Matus Kosut <matuskosut@gmail.com>
+Date:   Thu Oct 19 10:55:01 2017 +0200
+
+    minor typo
+
+[33mcommit c55ff0d8bcdd3be3aad236e1409b2a386038034a[m
+Author: Eirik <eirik1502@gmail.com>
+Date:   Thu Oct 19 10:51:27 2017 +0200
+
+    integrating force layout state into application. Want a button to change to forceLayout view. Not finished
+
+[33mcommit a96dac927962557ff46301e5db9cf2fb93742dbe[m
+Author: Eirik <eirik1502@gmail.com>
+Date:   Wed Oct 18 15:10:54 2017 +0200
+
+    change name of 'layerSettingsClicked' from 'layerClicked' to avoid confusion
+
+[33mcommit 8bdf911f8a91416cd9d1b07eee3c099d7a2c8cc9[m
+Author: Eirik <eirik1502@gmail.com>
+Date:   Wed Oct 18 15:09:00 2017 +0200
+
+    add functionality to apply forces on the sublayers. Not finished, but working
+
+[33mcommit b9100b5aa3df3b5c0ed68e56087cadc10c1d086b[m
+Author: Matus Kosut <matuskosut@gmail.com>
+Date:   Tue Oct 17 13:38:29 2017 +0200
+
+    fixes after rebase
+
+[33mcommit 0280934709cf23887697085cdbe2a2b22a5b9d70[m
+Author: Matus Kosut <matuskosut@gmail.com>
+Date:   Sun Oct 15 13:49:27 2017 +0200
+
+    [Feature] improved control over intersections and subareas
+
+[33mcommit 2d0664654a61510a4eaecc950f24f75f623989e3[m
+Author: Matus Kosut <matuskosut@gmail.com>
+Date:   Sun Oct 15 13:24:50 2017 +0200
+
+    [Feature] improved control over intersections and subareas
+
+[33mcommit 7048d3bfa33dc73cf336fea52bc2a5c331fbae1c[m
+Author: Matus Kosut <matuskosut@gmail.com>
+Date:   Sun Oct 15 13:12:20 2017 +0200
+
+    [Feature] improved control over intersections and subareas
+
+[33mcommit d408ac553989b3dd03b21731cf42238cb8627667[m
+Author: Matus Kosut <matuskosut@gmail.com>
+Date:   Sat Oct 14 22:19:31 2017 +0200
+
+    [Feature] remove unnecessary logging
+
+[33mcommit 3467bf78ccdd3d8fd12edf80beae47ed156879a3[m
+Author: Matus Kosut <matuskosut@gmail.com>
+Date:   Sat Oct 14 14:20:59 2017 +0200
+
+    [Feature] visualization of splitted layers
+
+[33mcommit 8df6ea19546cd0d3f5664fba64016b1c719772d8[m
+Author: Matus Kosut <matuskosut@gmail.com>
+Date:   Sat Oct 14 08:05:44 2017 +0200
+
+    use real data from db
+
+[33mcommit 4b709f9fef1b836c3271653d7d38a91b817e8d18[m
+Author: Matus Kosut <matuskosut@gmail.com>
+Date:   Sat Oct 14 08:02:04 2017 +0200
+
+    use real data from db
+
+[33mcommit 8540dcfa105cba66d295d07f46fea055217349da[m
+Merge: 81cce37 a38cd86
+Author: leftlamb <martin_kostveit@hotmail.com>
+Date:   Tue Oct 24 13:09:24 2017 +0200
+
+    Merge pull request #53 from Schlumberger/loginfix
+    
+    Fixes login
+
+[33mcommit a38cd867a0012662b5fe38636e8e52b8ed50053b[m
+Author: Johannes Andersen <johanes1@online.no>
+Date:   Tue Oct 24 13:07:19 2017 +0200
+
+    Fixes login
+
+[33mcommit 81cce377828d2afc4857fa9124608714d5ac5173[m
+Merge: 8f07b89 fa10c6c
+Author: Johannes Andersen <JohannesAnd@users.noreply.github.com>
+Date:   Tue Oct 24 12:37:15 2017 +0200
+
+    Merge pull request #52 from Schlumberger/authentication
+    
+    Authentication
+
+[33mcommit fa10c6c519dad3284bacf18b6d776244f0aba535[m
+Author: Martin Halvor Kostveit <martin_kostveit@hotmail.com>
+Date:   Tue Oct 24 12:30:47 2017 +0200
+
+    [authentication] fixed authorization for the project
+
+[33mcommit 1b6fb6006d4ad2ec4d94eb852bce1ef9a756b4de[m
+Author: Martin Halvor Kostveit <martin_kostveit@hotmail.com>
+Date:   Mon Oct 23 14:48:47 2017 +0200
+
+    [authentication] deleted redundant code
+
+[33mcommit 87209ba8e13ab31dcabc13c793c5029f64b475af[m
+Author: Martin Halvor Kostveit <martin_kostveit@hotmail.com>
+Date:   Mon Oct 23 14:44:37 2017 +0200
+
+    [authentication] finished login
+
+[33mcommit 8f07b894cc38b93492eaa0b9798e84fb1f6aa2b7[m
+Merge: ae77271 93358e6
+Author: Johannes Andersen <JohannesAnd@users.noreply.github.com>
+Date:   Tue Oct 17 12:30:42 2017 +0200
+
+    Merge pull request #50 from Schlumberger/isectScript
+    
+    Isect script
+
+[33mcommit ae77271cdb469baa8a8f0e34e30f0a4fe7fea78e[m
+Merge: 7e6e8f2 348b2e8
+Author: Matúš Košút <matuskosut@users.noreply.github.com>
+Date:   Mon Oct 16 13:30:09 2017 +0200
+
+    Merge pull request #48 from Schlumberger/TestFormatData
+    
+    [Test] FormatData
+
+[33mcommit 93358e6184b2d4a8b4478b3fcc88cb87da4dd745[m
+Author: Matus Kosut <matuskosut@gmail.com>
+Date:   Mon Oct 16 12:51:40 2017 +0200
+
+    [Feature] polishing of visualization
+
+[33mcommit 4205d2d5cc022422fed1004d52a77a8c2efcfcc9[m
+Author: Matus Kosut <matuskosut@gmail.com>
+Date:   Mon Oct 16 12:51:00 2017 +0200
+
+    [Feature] polishing of visualization
+
+[33mcommit bdcdfd9996f051ff87d666f76896c44466f20891[m
+Author: Matus Kosut <matuskosut@gmail.com>
+Date:   Mon Oct 16 12:48:14 2017 +0200
+
+    [Feature] polishing of visualization
+
+[33mcommit a997b56158dbc8fbb9cbfffca731c41609e8a1a7[m
+Author: Matus Kosut <matuskosut@gmail.com>
+Date:   Mon Oct 16 12:43:31 2017 +0200
+
+    [Feature] remove test generation script
+
+[33mcommit 2698611e6bc25db14ab3e65d0be3e6b3500139d8[m
+Author: Matus Kosut <matuskosut@gmail.com>
+Date:   Mon Oct 16 12:41:22 2017 +0200
+
+    [Feature] remove test lines
+
+[33mcommit 7e6e8f26d9be9328f95fcb53ba9072556c365bec[m
+Merge: 7b9c787 2b5c876
+Author: mamk95 <github43@thixateo.net>
+Date:   Mon Oct 16 12:34:33 2017 +0200
+
+    Merge pull request #49 from Schlumberger/InfoBoxTest
+    
+    [Test] added two basic InfoBox Tests
+
+[33mcommit 719d082f961907ad83423fe8b147b150667e3d10[m
+Author: Martin Halvor Kostveit <martin_kostveit@hotmail.com>
+Date:   Sun Oct 15 17:23:03 2017 +0200
+
+    [feature] authentication
+
+[33mcommit 2b5c87670ba9e5fd01933d48e35de39efddc01e6[m
+Author: NicolaiF <10811383+NicolaiF@users.noreply.github.com>
+Date:   Sun Oct 15 14:08:21 2017 +0200
+
+    [Test] added two basic InfoBox Tests
+
+[33mcommit c4272845af4aa5b34022da25e0e47488816454f6[m
+Author: Matus Kosut <matuskosut@gmail.com>
+Date:   Sun Oct 15 11:52:31 2017 +0200
+
+    [Feature] more data for subareas fix
+
+[33mcommit 2a00f1951f27e62c823747fef199adf278740597[m
+Author: Matus Kosut <matuskosut@gmail.com>
+Date:   Sun Oct 15 00:24:04 2017 +0200
+
+    [Feature] more data for subareas fix
+
+[33mcommit 1714f2ba33076eca38254d76291c8712369760bf[m
+Author: Matus Kosut <matuskosut@gmail.com>
+Date:   Sat Oct 14 23:58:10 2017 +0200
+
+    [Feature] more data for subareas
+
+[33mcommit 6c1e5fd426e94349b4b5a3632456d161a0bcc015[m
+Author: Matus Kosut <matuskosut@gmail.com>
+Date:   Sat Oct 14 00:04:04 2017 +0200
+
+    [Feature] splitting script more edge cases fixed
+
+[33mcommit 4bb1d913e6c853cf36720ba645eae70eee8fd93c[m
+Author: Matus Kosut <matuskosut@gmail.com>
+Date:   Fri Oct 13 21:55:57 2017 +0200
+
+    [Feature] fixing more edge cases in splitting algorithm
+
+[33mcommit bd82990f7ab16880e20bb7ae2aa707986691e813[m
+Author: Matus Kosut <matuskosut@gmail.com>
+Date:   Fri Oct 13 11:29:49 2017 +0200
+
+    [Feature] handling more edge cases and dbg
+
+[33mcommit 348b2e80f66a0843ef2fa1c0d1f2c17289f16a54[m
+Author: Magnus <mmkarlsen@gmail.com>
+Date:   Thu Oct 12 13:58:12 2017 +0200
+
+    [Test] FormatData
+    
+    Test for "client/modules/App/actions/formatData.js".
+
+[33mcommit 43b683843ff6c0cb30c4506f1a623ee61c01cdf1[m
+Author: Matus Kosut <matuskosut@gmail.com>
+Date:   Thu Oct 12 13:30:54 2017 +0200
+
+    [Feature] script integration with data
+
+[33mcommit 688879620ad8c2ae0b815a31308a0b1d6f457f49[m
+Author: Matus Kosut <matuskosut@gmail.com>
+Date:   Thu Oct 12 11:08:27 2017 +0200
+
+    [Feature] intersections and subareas script
+
+[33mcommit b683e5f63c2bd3c0d875b8561c839464d092dc2f[m
+Author: Matus Kosut <matuskosut@gmail.com>
+Date:   Wed Oct 11 22:32:56 2017 +0200
+
+    [Feature] precise layers splitting
+
+[33mcommit 85e624c473886a4293b3c9a70128a6194c11e638[m
+Author: Matus Kosut <matuskosut@gmail.com>
+Date:   Tue Oct 10 17:22:41 2017 +0200
+
+    [Feature] patch after rebase
+
+[33mcommit 6b44129c0373238e66abb703b8d425328b294199[m
+Author: Matus Kosut <matuskosut@gmail.com>
+Date:   Tue Oct 10 15:46:34 2017 +0200
+
+    [Feature] find opposite point of cut
+
+[33mcommit a33d5760461111ce96cbfa374197eb7b10dcac77[m
+Author: Matus Kosut <matuskosut@gmail.com>
+Date:   Tue Oct 10 12:32:53 2017 +0200
+
+    [Feature] improvement in intersection algorithm
+
+[33mcommit e386a037be461b2be6e414cf8e5ef0d120243231[m
+Author: Matus Kosut <matuskosut@gmail.com>
+Date:   Mon Oct 9 10:44:47 2017 +0200
+
+    [Feature] change in test data
+
+[33mcommit af34a6d08a8c9dfb31a633bb4ab0bfa04e954ee1[m
+Author: Matus Kosut <matuskosut@gmail.com>
+Date:   Mon Oct 9 00:08:54 2017 +0200
+
+    [Feature] Simple subarea slicing
+
+[33mcommit 7b25316a55c358da000478ae27c72e89e9f15e04[m
+Author: Matus Kosut <matuskosut@gmail.com>
+Date:   Sun Oct 8 14:54:27 2017 +0200
+
+    [Feature] differentiate all types of cut when dividing areas
+
+[33mcommit cdfcea415447fb06832d0cff6051775598173a45[m
+Author: Matus Kosut <matuskosut@gmail.com>
+Date:   Sat Oct 7 17:59:58 2017 +0200
+
+    [Feature] new progress on subarea division
+
+[33mcommit c03efdf77c3a52b92134cc162175b0489bf44e36[m
+Author: Matus Kosut <matuskosut@gmail.com>
+Date:   Sat Oct 7 15:37:40 2017 +0200
+
+    [Feature] changing debug
+
+[33mcommit ae829f05f27ec84c07626029a415b7fb29201889[m
+Author: Matus Kosut <matuskosut@gmail.com>
+Date:   Sat Oct 7 14:17:04 2017 +0200
+
+    [Feature] targeting small areas for intersections fix
+
+[33mcommit 109cb5508eb58abde12c90eb15867014da6026fe[m
+Author: Matus Kosut <matuskosut@gmail.com>
+Date:   Sat Oct 7 14:15:16 2017 +0200
+
+    [Feature] targeting small areas for intersections
+
+[33mcommit 0a02d8d8062c92f6393b87296b6cab29a0a618af[m
+Author: Matus Kosut <matuskosut@gmail.com>
+Date:   Fri Oct 6 23:53:08 2017 +0200
+
+    [Feature] breaking points calculation [intersections]
+
+[33mcommit a38cbf41051bd4ed1ba05ba932d9cb4d48b3f93e[m
+Author: Matus Kosut <matuskosut@gmail.com>
+Date:   Fri Oct 6 21:45:22 2017 +0200
+
+    [Feature] visualisation of intersections [lineSplit]
+
+[33mcommit 60d118b7c683fdfafc8d1586558e2881c0620a77[m
+Author: Matus Kosut <matuskosut@gmail.com>
+Date:   Thu Oct 5 17:49:22 2017 +0200
+
+    simple iteration over vertical lines in layer to find intersections
+
+[33mcommit 77223b15c78ec160bb932ed4fcbd2b907ad1fa0a[m
+Author: Matus Kosut <matuskosut@gmail.com>
+Date:   Thu Oct 5 13:45:11 2017 +0200
+
+    intersection algorithm
+
+[33mcommit 2c1ea2a61a2a1f4121eb5c2d29ca816b5d084b21[m
+Author: Eirik <eirik1502@gmail.com>
+Date:   Thu Oct 5 13:23:04 2017 +0200
+
+    add a function to take layers and faults, and add sublayers to each layer objects corresponding to split
+
+[33mcommit a24e46c201f16c414a598b528c44b2d215406561[m
+Author: Eirik <eirik1502@gmail.com>
+Date:   Thu Oct 5 11:40:54 2017 +0200
+
+    add test data, one layer by three points, and a fault
+
+[33mcommit a526846aeaef676f438ae21ed5266d14ada41b25[m
+Author: Eirik <eirik1502@gmail.com>
+Date:   Thu Oct 5 11:14:09 2017 +0200
+
+    add a little test data in index.js
+
+[33mcommit 857fbf8ab8e72154133dde134838e72af6c4fa37[m
+Author: Eirik <eirik1502@gmail.com>
+Date:   Fri Sep 29 16:03:31 2017 +0200
+
+    start algorithm to cut layers by faults
+
+[33mcommit 7b9c787cf197410b58b366a6263ced77e513935f[m
+Merge: acd0a4a 4c3e6cc
+Author: Johannes Andersen <JohannesAnd@users.noreply.github.com>
+Date:   Mon Oct 9 14:33:10 2017 +0200
+
+    Merge pull request #47 from Schlumberger/addAdminaccess
+    
+    Add admin access
+
+[33mcommit 4c3e6cc0e8455adafc105a2d664d0ca7fa93084b[m
+Author: Johannes Andersen <johanes1@online.no>
+Date:   Mon Oct 9 14:30:50 2017 +0200
+
+    Stop process
+
+[33mcommit ba81f69288679506a809b13bd52ae9c369c09ee0[m
+Author: Trudelutt <tjostad@hotmail.com>
+Date:   Mon Oct 9 14:14:59 2017 +0200
+
+    add config file and grammer
+
+[33mcommit 03493f9fd7d74480c3e8ea874a71ff257de25634[m
+Author: Trudelutt <tjostad@hotmail.com>
+Date:   Mon Oct 9 14:01:47 2017 +0200
+
+    add firebase update to be admin
+
+[33mcommit acd0a4ad6255a46dad0e6a32bcb8b3265ed39bf8[m
+Merge: dbb45a4 cf797a1
+Author: Johannes Andersen <JohannesAnd@users.noreply.github.com>
+Date:   Mon Oct 9 13:47:48 2017 +0200
+
+    Merge pull request #45 from Schlumberger/placeNamesTest
+    
+    [Test] place names test init
+
+[33mcommit dbb45a4d8796bb912a441ebded76023c2b168637[m
+Merge: 5bf320d 8599174
+Author: Johannes Andersen <JohannesAnd@users.noreply.github.com>
+Date:   Mon Oct 9 13:47:12 2017 +0200
+
+    Merge pull request #46 from Schlumberger/placesFix
+    
+    [Bug] data for place names were changed again
+
+[33mcommit 859917499ba232c7f3dc2874cbb3d13848534b73[m
+Author: Matus Kosut <matuskosut@gmail.com>
+Date:   Mon Oct 9 12:26:26 2017 +0200
+
+    [Bug] data for place names were changed again
+
+[33mcommit cf797a1761aaa7bc6997b37647ccdcfd49c81265[m
+Author: Matus Kosut <matuskosut@gmail.com>
+Date:   Sun Oct 8 22:57:22 2017 +0200
+
+    [Feature] place names test init
+
+[33mcommit 5bf320d35394880ab9fe9664bd0561137016b3ba[m
+Merge: 47beaf7 f2b6a9e
+Author: NicolaiF <nico-fre@hotmail.com>
+Date:   Sat Oct 7 20:26:06 2017 +0200
+
+    Merge pull request #44 from Schlumberger/maxDimensionsTest
+    
+    [Test] add maxWidth test under Maxdimensionstest
+
+[33mcommit f2b6a9e54678fea435d9cb5a0fc8e5e8d321218e[m
+Author: Trudelutt <tjostad@hotmail.com>
+Date:   Sat Oct 7 19:54:02 2017 +0200
+
+    Fix grammer
+
+[33mcommit f811ae5fd3d87da933fbedda29eedd04fac2e08a[m
+Author: Trudelutt <tjostad@hotmail.com>
+Date:   Sat Oct 7 19:47:01 2017 +0200
+
+    add maxWidth test
+
+[33mcommit 47beaf78c4e99c16274bba3212ba40e8e234a920[m
+Merge: b61ff38 a0a9b33
+Author: Trudelutt <trudejos@stud.ntnu.no>
+Date:   Sat Oct 7 19:21:46 2017 +0200
+
+    Merge pull request #43 from Schlumberger/maxDimensionsTest
+    
+    [Test] Added null test for maxDimensions
+
+[33mcommit b61ff383737d7193e04c717ba9d2180d833cc8ce[m
+Merge: 513703a 4b81579
+Author: Matúš Košút <matuskosut@users.noreply.github.com>
+Date:   Sat Oct 7 17:32:29 2017 +0200
+
+    Merge pull request #40 from Schlumberger/firebaseAuthentication
+    
+    Firebase authentication
+
+[33mcommit a0a9b3311acc43c6563d48632947afc48559df59[m
+Author: NicolaiF <10811383+NicolaiF@users.noreply.github.com>
+Date:   Sat Oct 7 17:21:25 2017 +0200
+
+    [Test] Added null test for maxDimensions
+
+[33mcommit 513703a60ace59965aa1d2183f337d6dddda65c4[m
+Merge: 28abc1c ccb2c50
+Author: Matúš Košút <matuskosut@users.noreply.github.com>
+Date:   Sat Oct 7 16:48:45 2017 +0200
+
+    Merge pull request #42 from Schlumberger/test-compute-layers
+    
+    [Test] test compute layers
+
+[33mcommit ccb2c5018195ab260ac70102b5bb80a6adcba70c[m
+Author: Elena Andrés <elenaandres08@gmail.com>
+Date:   Sat Oct 7 16:25:19 2017 +0200
+
+    [Test] Should filter layers in computeLayers
+
+[33mcommit 28abc1c943382022c4012a929ce80fd18ba68b4d[m
+Merge: 5d55c6e ceadc81
+Author: Matúš Košút <matuskosut@users.noreply.github.com>
+Date:   Sat Oct 7 16:22:17 2017 +0200
+
+    Merge pull request #41 from Schlumberger/write-to-database
+    
+    [Script] Write to database
+
+[33mcommit ceadc8116c15def857ca5eec6899ec8ed491f3cb[m
+Author: Elena Andrés <elenaandres08@gmail.com>
+Date:   Sat Oct 7 15:26:11 2017 +0200
+
+    script to update database with new points
+
+[33mcommit fe6eec1b5b5cfef1a1fee10bbb13702244ae5167[m
+Author: Johannes Andersen <johanes1@online.no>
+Date:   Sat Oct 7 14:49:30 2017 +0200
+
+    Added an example
+
+[33mcommit 31b16ef108d39ef1a73fb7f59e7b4f2bb34f87c8[m
+Author: Johannes Andersen <johanes1@online.no>
+Date:   Sat Oct 7 14:47:00 2017 +0200
+
+    Promisified scripts
+
+[33mcommit 4b815797c58410169b2c8fe1b4d9d681b33fa94b[m
+Author: Martin Halvor Kostveit <martin_kostveit@hotmail.com>
+Date:   Sat Oct 7 13:28:01 2017 +0200
+
+    [security] setup of firebase authentication
+
+[33mcommit 04b23648d3b81c6d2778f20d7b43bc7f8bbbb4d1[m
+Author: Martin Halvor Kostveit <martin_kostveit@hotmail.com>
+Date:   Sat Oct 7 13:08:56 2017 +0200
+
+    [security] setup of firebase authentication
+
+[33mcommit 5d55c6ec6586c893f271fa0f21f10f033819c0a8[m
+Merge: 6861e61 a3c6805
+Author: NicolaiF <nico-fre@hotmail.com>
+Date:   Fri Oct 6 14:44:35 2017 +0200
+
+    Merge pull request #36 from Schlumberger/linting
+    
+    Linting
+
+[33mcommit a3c680527e0f39a9ba21a6c2fcdafebf360792b3[m
+Merge: b03160f 6861e61
+Author: Johannes Andersen <johanes1@online.no>
+Date:   Fri Oct 6 14:42:02 2017 +0200
+
+    Merge branch 'dev' into linting
+
+[33mcommit b03160f5324ff418d07f64e6e5f2bffee86bd248[m
+Author: Johannes Andersen <johanes1@online.no>
+Date:   Fri Oct 6 14:34:29 2017 +0200
+
+    [Linting] Updated proptypes
+
+[33mcommit 4e5be9beaf1491e4df07c940af9e7a62f65ee43f[m
+Author: Johannes Andersen <johanes1@online.no>
+Date:   Fri Oct 6 14:32:32 2017 +0200
+
+    [Linting] Linted it all
+
+[33mcommit 6861e6125acb2f9355734a355a990c75d30772fc[m
+Merge: d1c3c6e 81c5bfc
+Author: NicolaiF <nico-fre@hotmail.com>
+Date:   Fri Oct 6 14:27:55 2017 +0200
+
+    Merge pull request #34 from Schlumberger/TestComputeFaults
+    
+    [Test] ComputeFaults
+
+[33mcommit d1c3c6ea2d69c9a41c04c7d1e0ea92bfbe5a4123[m
+Merge: 7cfd7cb 4963859
+Author: NicolaiF <nico-fre@hotmail.com>
+Date:   Fri Oct 6 14:27:25 2017 +0200
+
+    Merge pull request #33 from Schlumberger/stacking
+    
+    Wheeler diagram
+
+[33mcommit 81c5bfc422726b9d4d6186c5a47982d7fa6aaa07[m
+Author: Magnus <mmkarlsen@gmail.com>
+Date:   Fri Oct 6 13:15:14 2017 +0200
+
+    [Test] ComputeFaults
+
+[33mcommit 4963859d296c321482365f3eedddb76f0a7477f9[m
+Author: Johannes Andersen <johanes1@online.no>
+Date:   Fri Oct 6 13:01:35 2017 +0200
+
+    [Linting] Removed console.log
+
+[33mcommit b8da19a28896da56edf711eacc3a5c2b4b9b29ac[m
+Author: Johannes Andersen <johanes1@online.no>
+Date:   Fri Oct 6 12:59:44 2017 +0200
+
+    [Testing] Fixed tests
+
+[33mcommit 1791bb5d8f5d054d4eae81b0e6cfe9aef04a008e[m
+Merge: 5060855 7cfd7cb
+Author: Johannes Andersen <johanes1@online.no>
+Date:   Fri Oct 6 12:54:30 2017 +0200
+
+    Merge branch 'dev' into stacking
+
+[33mcommit 5060855f64428ecb8c6f5fffbf7d66ea5687ffc5[m
+Author: Johannes Andersen <johanes1@online.no>
+Date:   Fri Oct 6 12:53:44 2017 +0200
+
+    [Feature] Wheeler diagram
+
+[33mcommit 7cfd7cbcf6a89d839625ae278575a24ce291c432[m
+Merge: f9e5c1b 6ac1c90
+Author: eirik1502 <eirik1502@gmail.com>
+Date:   Thu Oct 5 12:34:55 2017 +0200
+
+    Merge pull request #32 from Schlumberger/master
+    
+    fix direct merge to master
+
+[33mcommit 6ac1c902c35d17d32274f9b3a1a13d889c95a474[m
+Merge: 2138842 489f484
+Author: Matúš Košút <matuskosut@users.noreply.github.com>
+Date:   Thu Oct 5 08:13:53 2017 +0200
+
+    Merge pull request #31 from Schlumberger/vis-tuning
+    
+    [place-names] visualisation top-margin moved and little style added t…
+
+[33mcommit 489f4842ffa5b09efb2a317f7e3cbe02a0955502[m
+Author: Matus Kosut <matuskosut@gmail.com>
+Date:   Wed Oct 4 23:21:25 2017 +0200
+
+    [place-names] visualisation top-margin moved and little style added to immersive buttons
+
+[33mcommit 2138842f6642575476485e2046defb3ba76f3c5b[m
+Merge: 4071851 f9e5c1b
+Author: leftlamb <martin_kostveit@hotmail.com>
+Date:   Tue Oct 3 10:03:39 2017 +0200
+
+    Merge pull request #30 from Schlumberger/dev
+    
+    [Merge] Dev to master
+
+[33mcommit f9e5c1bfc4d43acda72834507ba573aea36c304e[m
+Merge: d805437 d68ab95
+Author: NicolaiF <nico-fre@hotmail.com>
+Date:   Tue Oct 3 10:02:01 2017 +0200
+
+    Merge pull request #29 from Schlumberger/place-names
+    
+    little fix for reposition of notes
+
+[33mcommit d68ab95220f63c4405e4e9844adf0f31c04f5203[m
+Author: Matus Kosut <matuskosut@gmail.com>
+Date:   Mon Oct 2 13:55:49 2017 +0200
+
+    little fix for reposition of notes
+
+[33mcommit d8054377e6420d26f05e1f1ead5856dde096675b[m
+Merge: 4e1d92a 80650d2
+Author: Trudelutt <trudejos@stud.ntnu.no>
+Date:   Fri Sep 29 16:23:36 2017 +0200
+
+    Merge pull request #27 from Schlumberger/WrapperBug
+    
+    [Bug] Pointer-event none on wrapper for immersivebar
+
+[33mcommit 4e1d92a082d3108e94338d1ae027d462fb6a90b7[m
+Merge: 534193b e316691
+Author: Johannes Andersen <JohannesAnd@users.noreply.github.com>
+Date:   Fri Sep 29 16:23:03 2017 +0200
+
+    Merge pull request #28 from Schlumberger/infoboxvisibility
+    
+    Show and hide info box when layers are clicked.
+
+[33mcommit e31669167f46ce26129358222b10bfa263af3ddd[m
+Author: Hallgrim Ludvigsen <github@hallgrim.no>
+Date:   Fri Sep 29 16:20:08 2017 +0200
+
+    Show and hide infobox.
+
+[33mcommit 2e28cad681f9d420d4c27026c12046116eebf093[m
+Author: Trudelutt <tjostad@hotmail.com>
+Date:   Fri Sep 29 16:06:14 2017 +0200
+
+    [fix test]tests is now working -stacking
+
+[33mcommit 28ec3e1af94a3ab0d477ffbb28ef3d7cad355e08[m
+Author: Trudelutt <tjostad@hotmail.com>
+Date:   Fri Sep 29 15:46:22 2017 +0200
+
+    [fix point] can now calculate height-stacking
+
+[33mcommit 12649327c9b28d3e796cb1a524099ff247c17cde[m
+Author: NicolaiF <nico-fre@hotmail.com>
+Date:   Fri Sep 29 14:08:16 2017 +0200
+
+    [Bug] Whole array is listed
+
+[33mcommit 881ce50063d129733190075d1dcbbbfbdf7d7754[m
+Author: Johannes Andersen <johanes1@online.no>
+Date:   Fri Sep 29 13:33:18 2017 +0200
+
+    [WIP]
+
+[33mcommit 809c5fd5596a22fc5bdc9de1b3b2b90277452747[m
+Author: Johannes Andersen <johanes1@online.no>
+Date:   Thu Sep 28 14:37:51 2017 +0200
+
+    [WIP] Started stacking
+
+[33mcommit 80650d26167ee0ff554693bb4a68d6f039d5911e[m
+Author: NicolaiF <nico-fre@hotmail.com>
+Date:   Thu Sep 28 13:46:57 2017 +0200
+
+    [Bug] Pointer-event none on wrapper for immersivebar
+
+[33mcommit 534193b995c9cc8e910c59f18c260995a06c4b2b[m
+Merge: acb7839 b2fba4b
+Author: Matúš Košút <matuskosut@users.noreply.github.com>
+Date:   Wed Sep 27 14:28:50 2017 +0200
+
+    Merge pull request #26 from Schlumberger/place-names
+    
+    Place names
+
+[33mcommit b2fba4bda781e9caf253266e514f81c919a03c22[m
+Author: Matus Kosut <matuskosut@gmail.com>
+Date:   Wed Sep 27 14:21:24 2017 +0200
+
+    [place-names] remove unwanted
+
+[33mcommit fe3574face51bbda123b01873470185fcd60fd6e[m
+Merge: 540c26f bf1f5ab
+Author: Matus Kosut <matuskosut@gmail.com>
+Date:   Wed Sep 27 13:34:59 2017 +0200
+
+    [place-names] rebase
+
+[33mcommit 540c26fe143c6718402f5d2bf8799ea1d3aef950[m
+Author: Matus Kosut <matuskosut@gmail.com>
+Date:   Wed Sep 27 13:20:53 2017 +0200
+
+    [place-names] make elements scalable with window
+
+[33mcommit d4fdee827025653dba90e0db385c91515bcad34c[m
+Author: Matus Kosut <matuskosut@gmail.com>
+Date:   Mon Sep 25 13:57:51 2017 +0200
+
+    [place-names] added better css
+
+[33mcommit 72463fa99dd518cb91518ff06cdca5e795808e68[m
+Author: Matus Kosut <matuskosut@gmail.com>
+Date:   Mon Sep 25 10:22:35 2017 +0200
+
+    [place-names] adding basic output
+
+[33mcommit 6d359de42c5a0aab58329c0b5ca65ea0c8b4f9eb[m
+Author: Matus Kosut <matuskosut@gmail.com>
+Date:   Mon Sep 25 10:13:56 2017 +0200
+
+    [place-names] adding basic output
+
+[33mcommit a91e940b1aea0330ffe3a11d4f24faed021e8b85[m
+Author: Matus Kosut <matuskosut@gmail.com>
+Date:   Mon Sep 25 00:01:38 2017 +0200
+
+    nevermind
+
+[33mcommit 2b5b2ba9590881f3717528e0c2833236972670f9[m
+Author: Matus Kosut <matuskosut@gmail.com>
+Date:   Sun Sep 24 23:59:28 2017 +0200
+
+    [place-names] get places from db
+
+[33mcommit bf1f5ab9f716b2611417b8c3dca29c0127df6b69[m
+Author: Matus Kosut <matuskosut@gmail.com>
+Date:   Wed Sep 27 13:20:53 2017 +0200
+
+    [place-names] make elements scalable with window
+
+[33mcommit acb7839cb462ed715e13093ad66e6835533ad3c0[m
+Merge: e776b32 cae3acc
+Author: NicolaiF <nico-fre@hotmail.com>
+Date:   Tue Sep 26 10:34:41 2017 +0200
+
+    Merge pull request #25 from Schlumberger/draggable
+    
+    [Feature] Draggable UI-elements
+
+[33mcommit cae3acca3e1d7eb72b59048b23b37ee2cec76e0d[m
+Author: Johannes Andersen <johanes1@online.no>
+Date:   Tue Sep 26 10:15:50 2017 +0200
+
+    [Feature] Draggable UI-elements
+
+[33mcommit e776b3241a0df9bf108d7ece0af3995544e9655b[m
+Merge: c4f7c9b be8a95a
+Author: Johannes Andersen <JohannesAnd@users.noreply.github.com>
+Date:   Tue Sep 26 09:57:33 2017 +0200
+
+    Merge pull request #24 from Schlumberger/BugAndStyling
+    
+    [Bug] Pointer event on button wrapper. [Styling] Smaller text in infobox
+
+[33mcommit c4f7c9bc854037f88898fd76a147f6ecb5bf81d6[m
+Merge: f56d3ae c1a5482
+Author: Johannes Andersen <JohannesAnd@users.noreply.github.com>
+Date:   Tue Sep 26 09:56:04 2017 +0200
+
+    Merge pull request #23 from Schlumberger/babel
+    
+    [Config] Added new version of babel-loader and stage-3
+
+[33mcommit be8a95a9dae24e1a71e220d152c974e36c7b6e10[m
+Author: NicolaiF <nico-fre@hotmail.com>
+Date:   Tue Sep 26 09:55:04 2017 +0200
+
+    [Bug] Pointer event on button wrapper. [Styling] Smaller text in infobox
+
+[33mcommit c1a54824a030aa36fb49f9d064f8757c60a70363[m
+Author: Johannes Andersen <johanes1@online.no>
+Date:   Tue Sep 26 09:53:20 2017 +0200
+
+    [Config] Added new version of babel-loader and stage-3
+
+[33mcommit 68b282b289483ae235999cfe4047a90de1859f28[m
+Author: Matus Kosut <matuskosut@gmail.com>
+Date:   Mon Sep 25 13:57:51 2017 +0200
+
+    [place-names] added better css
+
+[33mcommit f56d3ae25e62a3acd0e1b3f53a16341beba81cd3[m
+Merge: 5c4a6a8 f8c3f9d
+Author: leftlamb <martin_kostveit@hotmail.com>
+Date:   Mon Sep 25 13:36:17 2017 +0200
+
+    Merge pull request #22 from Schlumberger/squigle
+    
+    [feature] added squiglify file
+
+[33mcommit f8c3f9d880385a7eb9714cbe14b173b04eec737c[m
+Author: Martin Halvor Kostveit <martin_kostveit@hotmail.com>
+Date:   Mon Sep 25 13:33:58 2017 +0200
+
+    [feature] added squiglify file
+
+[33mcommit 40718517c24438d36bb4fab7c5f43d8133c51638[m
+Merge: 2f4dd4c 5c4a6a8
+Author: leftlamb <martin_kostveit@hotmail.com>
+Date:   Mon Sep 25 12:55:27 2017 +0200
+
+    Merge pull request #20 from Schlumberger/dev
+    
+    Merge to master
+
+[33mcommit 5c4a6a89d0209a677dee4e36156a06eedb64eb44[m
+Merge: 2720564 0f6c169
+Author: leftlamb <martin_kostveit@hotmail.com>
+Date:   Mon Sep 25 12:53:56 2017 +0200
+
+    Merge pull request #19 from Schlumberger/merge2
+    
+    Merge master into dev
+
+[33mcommit 0f6c1695b7b62a1a17ab0d9a23cecd615b452e58[m
+Merge: 2720564 2f4dd4c
+Author: Johannes Andersen <johanes1@online.no>
+Date:   Mon Sep 25 12:51:20 2017 +0200
+
+    Merge branch 'master' into merge2
+
+[33mcommit 8b5aa956a275ef6a4c8b583744aa2f0de6f64103[m
+Author: Matus Kosut <matuskosut@gmail.com>
+Date:   Mon Sep 25 10:22:35 2017 +0200
+
+    [place-names] adding basic output
+
+[33mcommit e76c50b1b34c7b800e027b2f70beb86aa526a2ac[m
+Author: Matus Kosut <matuskosut@gmail.com>
+Date:   Mon Sep 25 10:13:56 2017 +0200
+
+    [place-names] adding basic output
+
+[33mcommit 6b80ec23abda19db64445d898b79cc4a0a6a4ecb[m
+Author: Matus Kosut <matuskosut@gmail.com>
+Date:   Mon Sep 25 00:01:38 2017 +0200
+
+    nevermind
+
+[33mcommit b01e64af225d428aab24d46dc16118773cd7b5f0[m
+Author: Matus Kosut <matuskosut@gmail.com>
+Date:   Sun Sep 24 23:59:28 2017 +0200
+
+    [place-names] get places from db
+
+[33mcommit 27205645bd80fe48b409e2e50a3fd0a1673da5f2[m
+Merge: 5018307 2c7a3b3
+Author: NicolaiF <nico-fre@hotmail.com>
+Date:   Fri Sep 22 15:13:53 2017 +0200
+
+    Merge pull request #18 from Schlumberger/styling
+    
+    [Styling] Buttons and menues
+
+[33mcommit 2c7a3b32234af64f7b49c5a6e18029de3ef989a9[m
+Author: Johannes Andersen <johanes1@online.no>
+Date:   Fri Sep 22 15:11:30 2017 +0200
+
+    [Styling] Buttons and menues
+
+[33mcommit 50183073b8f43edeb08bdd5d8f9d52fa289f73b6[m
+Merge: e584bfb 3dfbb57
+Author: Johannes Andersen <JohannesAnd@users.noreply.github.com>
+Date:   Fri Sep 22 14:29:41 2017 +0200
+
+    Merge pull request #17 from Schlumberger/InfoBoxStyling
+    
+    [Styling]Border color, and capitlize word
+
+[33mcommit 3dfbb57838a52ea055f4583df2979ef55666c168[m
+Author: NicolaiF <nico-fre@hotmail.com>
+Date:   Fri Sep 22 14:28:08 2017 +0200
+
+    [Styling]Border color, and capitlize word
+
+[33mcommit e584bfb2737318119daf04155a3c18b12e661bf5[m
+Merge: 966bf16 b2ab037
+Author: Johannes Andersen <JohannesAnd@users.noreply.github.com>
+Date:   Fri Sep 22 14:07:16 2017 +0200
+
+    Merge pull request #16 from Schlumberger/InfoBox
+    
+    [Feature] Info on layer click
+
+[33mcommit b2ab037140cd8f691efbcf35153f64b6e3585baf[m
+Author: NicolaiF <nico-fre@hotmail.com>
+Date:   Fri Sep 22 14:06:05 2017 +0200
+
+    Fix test
+
+[33mcommit 33c92d564829f72114f156881294b525b572bc2b[m
+Author: NicolaiF <nico-fre@hotmail.com>
+Date:   Fri Sep 22 14:02:30 2017 +0200
+
+    Edited test for namechange
+
+[33mcommit 8c3ff766110bdcf91305d258737e1f4cef41f8d9[m
+Author: NicolaiF <nico-fre@hotmail.com>
+Date:   Fri Sep 22 13:54:18 2017 +0200
+
+    [Feature] Info on layer click
+
+[33mcommit 966bf16ffba69237b0001b332c7b9703f4c23c03[m
+Merge: 424a978 4ed1ef9
+Author: mamk95 <github43@thixateo.net>
+Date:   Fri Sep 22 13:40:41 2017 +0200
+
+    Merge pull request #15 from Schlumberger/RemoveSideBar
+    
+    [Remove] Removed SideBar and SideMenu
+
+[33mcommit 4ed1ef9ead4ee2eaf9023fa421b152026cf4c854[m
+Author: Magnus <mmkarlsen@gmail.com>
+Date:   Fri Sep 22 13:36:59 2017 +0200
+
+    [Remove] Removed SideBar and SideMenu
+
+[33mcommit 424a978e31b0734492459216881368dd0030d16c[m
+Merge: 441d1d2 ef9c133
+Author: NicolaiF <nico-fre@hotmail.com>
+Date:   Fri Sep 22 12:34:17 2017 +0200
+
+    Merge pull request #14 from Schlumberger/fullscreen
+    
+    Fullscreen
+
+[33mcommit ef9c13349fc7b52c437c2b37df42e31293b211d6[m
+Merge: d4375b9 441d1d2
+Author: Johannes Andersen <johanes1@online.no>
+Date:   Fri Sep 22 12:30:37 2017 +0200
+
+    Merge branch 'dev' of github.com:Schlumberger/ntnu-td4290-17 into dev
+
+[33mcommit d4375b94691268c2f9296e9fe10bb3b7782d1d7e[m
+Author: Johannes Andersen <johanes1@online.no>
+Date:   Fri Sep 22 12:30:09 2017 +0200
+
+    [Styles] Made viz full-screen
+
+[33mcommit 441d1d2d03ff5335508dcb801ff70571d3d27f29[m
+Merge: dfc48b1 18750d6
+Author: Hallgrim Ludvigsen <hludvigsen@slb.com>
+Date:   Fri Sep 22 12:22:20 2017 +0200
+
+    Merge branch 'dev' of https://github.com/Schlumberger/ntnu-td4290-17 into dev
+
+[33mcommit 18750d64c2a28cdd4ee9a1f6fdf4d6cdb34db83c[m
+Merge: e9baade 59c704c
+Author: NicolaiF <nico-fre@hotmail.com>
+Date:   Fri Sep 22 12:21:22 2017 +0200
+
+    Merge pull request #11 from Schlumberger/immersive
+    
+    Immersive
+
+[33mcommit 59c704cc8adf59816e9a47c1bd251188556890cb[m
+Author: Johannes Andersen <johanes1@online.no>
+Date:   Fri Sep 22 12:20:12 2017 +0200
+
+    [Fix] Remove console.log
+
+[33mcommit 64ea50c76048582bb7b54715c364b597c4289b36[m
+Merge: a55a36c e9baade
+Author: Johannes Andersen <johanes1@online.no>
+Date:   Fri Sep 22 12:16:33 2017 +0200
+
+    Merge branch 'dev' into immersive
+
+[33mcommit e9baadedc497254ea0628e36cc7462b0e52686d7[m
+Merge: b4c58bc a7cf1f2
+Author: Johannes Andersen <JohannesAnd@users.noreply.github.com>
+Date:   Fri Sep 22 12:11:38 2017 +0200
+
+    Merge pull request #13 from Schlumberger/computeLayers
+    
+    Compute layers
+
+[33mcommit a7cf1f20c3d048a2861d606f1ad736e5834de4a2[m
+Author: Trudelutt <tjostad@hotmail.com>
+Date:   Fri Sep 22 11:39:55 2017 +0200
+
+     [fix] splitt computation of layers and faults - computeLayers
+
+[33mcommit b4c58bc14351cb1aaf2b023b21c1fc4ebdbce168[m
+Merge: e957dc1 6fb159a
+Author: Trudelutt <trudejos@stud.ntnu.no>
+Date:   Fri Sep 22 10:35:33 2017 +0200
+
+    Merge pull request #12 from Schlumberger/interpolation
+    
+    [Add functionality] add effect interpolation to the graph -interpolation
+
+[33mcommit 6fb159ae50992e97f1b02390692e5707b3b5b0c5[m
+Author: Trudelutt <tjostad@hotmail.com>
+Date:   Fri Sep 22 10:32:17 2017 +0200
+
+    [Add functionality] add effect interpolation to the graph -interpolation
+
+[33mcommit e957dc19acb4386b8d3006ba2480bf380ea8c0a3[m
+Merge: 3682031 cbc7cb9
+Author: Johannes Andersen <JohannesAnd@users.noreply.github.com>
+Date:   Mon Sep 18 15:12:05 2017 +0200
+
+    Merge pull request #10 from Schlumberger/testing
+    
+    [Testing] Merge
+
+[33mcommit cbc7cb99ed577e678267146aa6acc4fff6a1ee0d[m
+Author: Johannes Andersen <johanes1@online.no>
+Date:   Sat Sep 16 15:09:12 2017 +0200
+
+    [Testing] Signal tests
+
+[33mcommit 2f4dd4c3774ac63b011157618ab656a8a232aaa9[m
+Merge: f9fb7f0 9a062c4
+Author: Johannes Andersen <JohannesAnd@users.noreply.github.com>
+Date:   Sat Sep 16 12:12:17 2017 +0200
+
+    Merge pull request #9 from Schlumberger/merge
+    
+    Merge dev into master
+
+[33mcommit 25309b34b4d9a000cd28089debc97016dcf346d2[m
+Author: Johannes Andersen <johanes1@online.no>
+Date:   Sat Sep 16 11:40:29 2017 +0200
+
+    [Testing] Added files that have no tests to report
+
+[33mcommit 9a062c49edd96e922698416d875b28eaf92d5a72[m
+Merge: 3682031 f9fb7f0
+Author: Johannes Andersen <johanes1@online.no>
+Date:   Sat Sep 16 10:49:09 2017 +0200
+
+    Merge branch 'master' into merge
+
+[33mcommit 4f3a0b5fd41426713b2352579a9b4621cebcdcf9[m
+Author: Johannes Andersen <johanes1@online.no>
+Date:   Sat Sep 16 10:41:13 2017 +0200
+
+    [Testing] 100% coverage of select files
+
+[33mcommit 5f39fb30e0a88dcae710d1a5db3c93a632c9bcc4[m
+Author: Johannes Andersen <johanes1@online.no>
+Date:   Sat Sep 16 00:58:06 2017 +0200
+
+    [Testing] More test coverage
+
+[33mcommit 3bbdc06aa2a244c1340276686a1fe9648ed0850c[m
+Author: Johannes Andersen <johanes1@online.no>
+Date:   Fri Sep 15 22:46:04 2017 +0200
+
+    [Testing] Added coverage report tool
+
+[33mcommit c565c3722a631c3b78fb5fbeb8df8fdfd8b9e82d[m
+Author: Johannes Andersen <johanes1@online.no>
+Date:   Fri Sep 15 21:07:03 2017 +0200
+
+    [Testing] Added a component test
+
+[33mcommit 03d6a4810146ac020e7fb6fcaad8a0e38622aee0[m
+Author: Johannes Andersen <johanes1@online.no>
+Date:   Fri Sep 15 20:38:37 2017 +0200
+
+    [Refactor] Added alias to test-imports
+
+[33mcommit 33979b26807042c9e170692923645c7f3b9ff96c[m
+Author: Johannes Andersen <johanes1@online.no>
+Date:   Fri Sep 15 20:33:53 2017 +0200
+
+    [Update] Updated to cerebral 3.0.0
+
+[33mcommit d2a7097afeb47aac558588ba657ab79b0d293eb7[m
+Author: Johannes Andersen <johanes1@online.no>
+Date:   Fri Sep 15 19:28:47 2017 +0200
+
+    [Testing] Initial test
+
+[33mcommit a55a36c73e0c16067b1ce89b72ee4fd649c6fbcc[m
+Author: Eirik <eirik1502@gmail.com>
+Date:   Fri Sep 15 18:14:03 2017 +0200
+
+    changed title to SeeBed
+
+[33mcommit c7bd9a816a0f736c22286d120da3ec9d49d3b2dd[m
+Author: Eirik <eirik1502@gmail.com>
+Date:   Fri Sep 15 17:57:51 2017 +0200
+
+    add an immersive menu
+
+[33mcommit 3682031d7591c983c135aef9a27b82eaaacaa43d[m
+Merge: ed46c6c fa31fee
+Author: eirik1502 <eirik1502@gmail.com>
+Date:   Fri Sep 15 15:19:23 2017 +0200
+
+    Merge pull request #7 from Schlumberger/sprint2
+    
+    Added chart functionality
+
+[33mcommit ed46c6c70cf2b0b6d29261e21dbc7e12764bbd62[m
+Merge: 6e72f0f 9eb3570
+Author: eirik1502 <eirik1502@gmail.com>
+Date:   Fri Sep 15 15:13:10 2017 +0200
+
+    Merge pull request #6 from Schlumberger/script
+    
+    Script for converting svg to json
+
+[33mcommit 6e72f0fc2c2bbc0b24a54f167b57419f1767ef9a[m
+Merge: 6dfd813 3efdc30
+Author: Johannes Andersen <JohannesAnd@users.noreply.github.com>
+Date:   Fri Sep 15 15:01:27 2017 +0200
+
+    Merge pull request #8 from Schlumberger/ci
+    
+    Added circle CI for automatic test running
+
+[33mcommit 3efdc302698f2612dbae1c3622d6764c19145801[m
+Author: Johannes Andersen <johanes1@online.no>
+Date:   Fri Sep 15 11:54:03 2017 +0200
+
+    [Config] Update CI settings
+
+[33mcommit 3fb9f2e5dc7179f09d92c6b91f9bdc88426a655a[m
+Author: Johannes Andersen <johanes1@online.no>
+Date:   Fri Sep 15 11:42:28 2017 +0200
+
+    [Scripts] Added test script
+
+[33mcommit dfc48b16444c698391a97b2e983648158bb7555f[m
+Author: Hallgrim Ludvigsen <hludvigsen@slb.com>
+Date:   Fri Sep 15 11:31:22 2017 +0200
+
+    Add places data.
+
+[33mcommit c1ec3529d07e32cb0d4a14e7dad1371fd481276c[m
+Author: Hallgrim Ludvigsen <hludvigsen@slb.com>
+Date:   Fri Sep 15 11:16:01 2017 +0200
+
+    Add URL to report that contains some of the data.
+
+[33mcommit 4fb53bdb48cdaa01365d31d4cb1c3cc627021a29[m
+Author: Johannes Andersen <johanes1@online.no>
+Date:   Fri Sep 15 11:10:24 2017 +0200
+
+    [Added circle CI]
+
+[33mcommit 9eb357014f3d03cffebd5c31274555e0a81c1c80[m
+Author: Johannes Andersen <johanes1@online.no>
+Date:   Wed Sep 13 21:03:26 2017 +0200
+
+    [Feature] Added script for parsing svg to json
+
+[33mcommit f7376b4f4ad3eb84b2a2b5d4fcaba3ce4098246e[m
+Author: Johannes Andersen <johanes1@online.no>
+Date:   Wed Sep 13 20:22:17 2017 +0200
+
+    [Data] Updated data
+
+[33mcommit fa31feeff0348bf8f8551be91c60b337c969ec29[m
+Author: Hallgrim Ludvigsen <github@hallgrim.no>
+Date:   Wed Sep 13 14:31:56 2017 +0200
+
+    Updated to data.
+
+[33mcommit e4406f66202b12ec58bedcbf62db6a66f1223157[m
+Author: Johannes Andersen <johanes1@online.no>
+Date:   Tue Sep 12 22:51:49 2017 +0200
+
+    [Refactor] Simplified rendering of chart
+
+[33mcommit 8ef2f401dc86f4f4afde3f8edf24b00634eeb7fc[m
+Author: Johannes Andersen <johanes1@online.no>
+Date:   Tue Sep 12 21:23:48 2017 +0200
+
+    [Refactoring] Optimized datamanipulation
+
+[33mcommit beada2e049d0d53ab8cdb9f91931e757f81525ca[m
+Author: Johannes Andersen <johanes1@online.no>
+Date:   Tue Sep 12 19:34:31 2017 +0200
+
+    [Feature] Added filled layers and animation depth/age
+
+[33mcommit 6dfd813ad64915bc9c9e2ed39dd877343f2175e5[m
+Merge: 6bf070a 4a50f3b
+Author: mamk95 <github43@thixateo.net>
+Date:   Tue Sep 12 09:06:59 2017 +0200
+
+    Merge pull request #5 from Schlumberger/cleanup
+    
+    [Refactoring] Cleaned up layer-code and styling
+
+[33mcommit 4a50f3bc3b94d05e8db3d11a952912fe40805473[m
+Author: Johannes Andersen <johanes1@online.no>
+Date:   Mon Sep 11 11:00:19 2017 +0200
+
+    [Refactoring] Cleaned up layer-code and styling
+
+[33mcommit 6bf070aa30fcda29bb97fd5a5be4929e6c940857[m
+Author: Magnus <mmkarlsen@gmail.com>
+Date:   Sat Sep 9 06:43:58 2017 +0200
+
+    [Component] Added layers to SideBar - dev
+
+[33mcommit a8e3a98e95cca1348ca36834b9a3bd9251376005[m
+Merge: ffee6b2 f6bf1f8
+Author: Johannes Andersen <JohannesAnd@users.noreply.github.com>
+Date:   Fri Sep 8 22:41:58 2017 +0200
+
+    Merge pull request #4 from Schlumberger/comments
+    
+    [Documentation] Added comments
+
+[33mcommit f6bf1f87dd02cc88f3dfd8628206f31b0265a185[m
+Author: Johannes Andersen <johanes1@online.no>
+Date:   Fri Sep 8 22:40:54 2017 +0200
+
+    [Documentation] Added comments
+
+[33mcommit ffee6b22ee381444afb333326a6f37bea5aec790[m
+Author: Eirik <eirik1502@gmail.com>
+Date:   Fri Sep 8 14:33:01 2017 +0200
+
+    fix merge non-conflict problems
+
+[33mcommit 2e34ffe12b45e576c4d12f5c4a8f77fb09825027[m
+Merge: 96c8fe6 2b46228
+Author: eirik1502 <eirik1502@gmail.com>
+Date:   Fri Sep 8 14:16:01 2017 +0200
+
+    Merge pull request #3 from Schlumberger/SideBar
+    
+    Side bar
+
+[33mcommit 2b46228c4361a02e8de41536eaabc92f72029c74[m
+Merge: d15303d 96c8fe6
+Author: eirik1502 <eirik1502@gmail.com>
+Date:   Fri Sep 8 14:15:51 2017 +0200
+
+    Merge branch 'dev' into SideBar
+
+[33mcommit d15303ddc4011c1bda2213e3c5ba234881d2701c[m
+Author: Eirik <eirik1502@gmail.com>
+Date:   Fri Sep 8 14:13:14 2017 +0200
+
+    change location of SideBar from components to App
+
+[33mcommit 13833d5f65a4cb998e08b89ef03738ca9a344038[m
+Author: Eirik <eirik1502@gmail.com>
+Date:   Fri Sep 8 13:59:05 2017 +0200
+
+    add sidebar button text bounce
+
+[33mcommit f9fb7f01d1fa86d10086d4c9c708ae329c6cbd42[m
+Author: Hallgrim Ludvigsen <hludvigsen@slb.com>
+Date:   Fri Sep 8 13:56:45 2017 +0200
+
+    Split cretaceous in lower/upper to match geometry data set.
+
+[33mcommit f0443bee269adfd476c037aa84884ad401abb046[m
+Author: Trudelutt <tjostad@hotmail.com>
+Date:   Fri Sep 8 12:04:31 2017 +0200
+
+    [removed] removed footer -dev
+
+[33mcommit 47476ebc37df7b800bcdfc8356cb9dc9defe566e[m
+Merge: a8d4683 96c8fe6
+Author: Johannes Andersen <JohannesAnd@users.noreply.github.com>
+Date:   Fri Sep 8 12:01:34 2017 +0200
+
+    Merge pull request #2 from Schlumberger/dev
+    
+    Update master from dev
+
+[33mcommit 96c8fe65be5880c75fbcaea6e87a632bcec395f1[m
+Author: Trudelutt <tjostad@hotmail.com>
+Date:   Fri Sep 8 11:52:03 2017 +0200
+
+    [Styling] fixed sidemenu - dev
+
+[33mcommit 7a13759860c404dc699bbbba06e1c251e67c5070[m
+Merge: ee12833 ec5ec1c
+Author: Trudelutt <tjostad@hotmail.com>
+Date:   Fri Sep 8 11:35:56 2017 +0200
+
+    Merge branch 'header' into cerebral
+
+[33mcommit ee12833c77a6532940496982f640e1785b49866d[m
+Author: Trudelutt <tjostad@hotmail.com>
+Date:   Fri Sep 8 11:23:34 2017 +0200
+
+    [add data] visualization data - cerebral
+
+[33mcommit edd509a29475426b6d73a8086042abc230cd5781[m
+Author: Johannes Andersen <johanes1@online.no>
+Date:   Fri Sep 8 10:21:24 2017 +0200
+
+    [Feature] Can select layers
+
+[33mcommit f7d9ed71969f04e4d647f508fdd63ec6c742971d[m
+Author: Johannes Andersen <johanes1@online.no>
+Date:   Thu Sep 7 19:24:57 2017 +0200
+
+    [Feature] Compute visibility settings for layers
+
+[33mcommit 029680312229cf6372f067871a6698f9659c41a6[m
+Author: Magnus <mmkarlsen@gmail.com>
+Date:   Thu Sep 7 18:43:19 2017 +0200
+
+    [Component] Made SideBar fancier - SideBar
+
+[33mcommit 15be27207f8c16f34e09838b47262d39d6e36b76[m
+Author: Johannes Andersen <johanes1@online.no>
+Date:   Thu Sep 7 18:32:00 2017 +0200
+
+    [Init] Added cerebral
+
+[33mcommit a8d4683e6fd6ff8cc42329ef80b9c51d7892f8eb[m
+Merge: 6a1846e e5d9255
+Author: Johannes Andersen <JohannesAnd@users.noreply.github.com>
+Date:   Thu Sep 7 15:43:10 2017 +0200
+
+    Merge pull request #1 from Schlumberger/storybook
+    
+    Added storybook
+
+[33mcommit e5d925577dca2201d9eec5f6bcf5db2213b4bd9d[m
+Author: Johannes Andersen <johanes1@online.no>
+Date:   Thu Sep 7 15:42:09 2017 +0200
+
+    [Fix] Added storybook to dependencies
+
+[33mcommit 2663a801b6099d7cca4b896303a10b0a3e05d714[m
+Author: Johannes Andersen <johanes1@online.no>
+Date:   Thu Sep 7 15:26:18 2017 +0200
+
+    [Dev] Added storybook
+
+[33mcommit ec5ec1caf3f29ee005e7c0f8e7d945c410559579[m
+Author: Trudelutt <tjostad@hotmail.com>
+Date:   Thu Sep 7 13:39:34 2017 +0200
+
+    [style the header] made the header more like we want it to be - header
+
+[33mcommit 57e30957a1ba8b66fc6d83cd852842797e7290d6[m
+Author: Matus Kosut <matuskosut@gmail.com>
+Date:   Thu Sep 7 11:59:48 2017 +0200
+
+    [feature] inital header stuff - header
+
+[33mcommit 941b20c9781eed9b02bab6f7bffb1c8a6dd97eda[m
+Author: Magnus <mmkarlsen@gmail.com>
+Date:   Thu Sep 7 11:34:01 2017 +0200
+
+    [Component] Created simple sidebar - SideBar
+
+[33mcommit 6a1846e245b95c51f49593bdb12c1eef3c1b1a7c[m
+Author: Johannes Andersen <johanes1@online.no>
+Date:   Tue Sep 5 20:43:48 2017 +0200
+
+    [Component] Added simple viz example
+
+[33mcommit 529e9b3d0ee01f07b701ec7dceb67e1c53a08de6[m
+Author: Johannes Andersen <johanes1@online.no>
+Date:   Tue Sep 5 19:00:42 2017 +0200
+
+    [Styling] Set grid-layout on App-component
+
+[33mcommit 59018d9145b5d66807109cb606ac564ae368f8aa[m
+Author: Johannes Andersen <johanes1@online.no>
+Date:   Tue Sep 5 16:07:05 2017 +0200
+
+    [Linting] Removed double-quotes for single-quotes
+
+[33mcommit 178ac54f83a21f8589bbb01b8b318d97c73fed56[m
+Author: Johannes Andersen <johanes1@online.no>
+Date:   Tue Sep 5 16:03:37 2017 +0200
+
+    [Documentation] Added readme file
+
+[33mcommit 70bb57dbd2faef0800e14bb69d9bbfbf7456d6bd[m
+Merge: 677886e 8197ab6
+Author: Johannes Andersen <johanes1@online.no>
+Date:   Tue Sep 5 13:31:13 2017 +0200
+
+    Merge branch 'master' of github.com:Schlumberger/ntnu-td4290-17
+
+[33mcommit 677886ecf4398d12f9eefd26ce7f8da0b5b0a558[m
+Author: Johannes Andersen <johanes1@online.no>
+Date:   Tue Sep 5 13:30:51 2017 +0200
+
+    [Component] Typ16
+
+[33mcommit 8197ab6c66b3b46f5a26c8ae44157d03f07ab7d3[m
+Author: Matus Kosut <matuskosut@gmail.com>
+Date:   Tue Sep 5 13:11:09 2017 +0200
+
+    [Init] add gitignore stuff
+
+[33mcommit 48a3b5a2e0cd4e0383cbef7736996ee6af95118c[m
+Author: Johannes Andersen <johanes1@online.no>
+Date:   Tue Sep 5 13:01:35 2017 +0200
+
+    [Initial Commit] Hosting and webpack running
+
+[33mcommit e7be22d4372280ff52f150a3b030425f1541c667[m
+Author: Johannes Andersen <johanes1@online.no>
+Date:   Wed Aug 30 06:52:24 2017 +0200
+
+    Added index.html with the SVG to see it in a browser
+
+[33mcommit 0d9f9cf338328ab595c7b9846f3d73e964aff1b7[m
+Author: Hallgrim Ludvigsen <hludvigsen@slb.com>
+Date:   Fri Aug 25 14:08:08 2017 +0200
+
+    Update data.
+
+[33mcommit 7c64791b2dc01e930e84be6ff825cc2c89b7fc1f[m
+Author: Hallgrim Ludvigsen <hludvigsen@slb.com>
+Date:   Fri Aug 25 14:00:22 2017 +0200
+
+    Public data for a NTNU student project.

@@ -5,7 +5,7 @@ import { state } from 'cerebral/tags';
 export default compute(
   state`formattedData`,
   state`settings.visibility.faults`,
-  state`settings.yAxisUnit`,
+  state`settings.diagramOption`,
   (data = [], visibility, yAxis) => {
     if (!visibility || yAxis === 'age') return [];
     return data.filter(d => d.type === 'fault');

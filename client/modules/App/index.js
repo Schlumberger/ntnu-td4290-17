@@ -1,6 +1,6 @@
 import routed from './signals/routed';
 import layerSettingClicked from './signals/layerSettingClicked';
-import yAxisOptionClicked from './signals/yAxisOptionClicked';
+import diagramOptionClicked from './signals/diagramOptionClicked';
 import layerClicked from './signals/layerClicked';
 import emptyClicked from './signals/emptyClicked';
 
@@ -17,7 +17,7 @@ export default {
   signals: {
     routed,
     layerSettingClicked,
-    yAxisOptionClicked,
+    diagramOptionClicked,
     layerClicked,
     emptyClicked
   }

@@ -35,7 +35,7 @@ describe('<Visualization />', () => {
           layers={[]}
           faults={[]}
           dimentions={{ maxWidth: 5, maxHeight: 5 }}
-          yAxisUnit={'age'}
+          diagramOption={'age'}
         />
       </Container>
     );
@@ -48,7 +48,7 @@ describe('<Visualization />', () => {
           layers={layers}
           faults={faults}
           dimentions={{ maxWidth: 5, maxHeight: 5 }}
-          yAxisUnit={'depth'}
+          diagramOption={'depth'}
         />
       </Container>
     );
@@ -63,7 +63,7 @@ describe('<Visualization />', () => {
           layers={[]}
           faults={[]}
           dimentions={{ maxWidth: 5, maxHeight: 5 }}
-          yAxisUnit={'age'}
+          diagramOption={'age'}
         />
       </Container>
     );

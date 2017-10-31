@@ -9,25 +9,36 @@ export default connect(
   {
     // Get the state located in .layers
     layers: state`settings.visibility`,
-    yAxisUnit: state`settings.yAxisUnit`,
+    diagramOption: state`settings.diagramOption`,
     // Get the signal in app.layerClicked in the app-module
-    layerClicked: signal`app.layerSettingClicked`,
-    yAxisOptionClicked: signal`app.yAxisOptionClicked`
+    layerSettingClicked: signal`app.layerSettingClicked`,
+    diagramOptionClicked: signal`app.diagramOptionClicked`
   },
   function SideMenu ({
     className,
-    layerClicked,
-    yAxisOptionClicked,
+    layerSettingClicked,
+    diagramOptionClicked,
     layers = {},
-    yAxisUnit
+    diagramOption
   }) {
     // Map data to components
+    console.log(layers);
     const layerButtons = Object.keys(layers).map(layerID => (
       <ImmersiveButton
         key={layerID}
-        inactive={!layers[layerID]}
+        inactive={
+          !layers[layerID] ||
+          diagramOption === 'age' ||
+          diagramOption === 'force'
+        } // set inactive if the diagram is age or force
         // use signal as a function
-        onClick={() => layerClicked({ layerID })}
+        onClick={() => {
+          if (diagramOption === 'age' || diagramOption === 'force') {
+            // to make buttons non-pushable when not in depth mode
+            return;
+          }
+          layerSettingClicked({ layerID });
+        }}
       >
         {layerID.split('-').join(' ')}
       </ImmersiveButton>
@@ -39,16 +50,25 @@ export default connect(
           <Handle>
             {layerButtons}
             <ImmersiveButton
-              onClick={() => yAxisOptionClicked({ unit: 'age' })}
-              inactive={yAxisUnit === 'age'}
+              // depth/age button
+              onClick={() => diagramOptionClicked({ option: 'age' })}
+              inactive={diagramOption === 'age'}
             >
-              {'Age'}
+              {'Age\nDiagram'}
             </ImmersiveButton>
             <ImmersiveButton
-              onClick={() => yAxisOptionClicked({ unit: 'depth' })}
-              inactive={yAxisUnit === 'depth'}
+              onClick={() => diagramOptionClicked({ option: 'depth' })}
+              inactive={diagramOption === 'depth'}
             >
-              {'Depth'}
+              {'Depth\nDiagram'}
+            </ImmersiveButton>
+
+            <ImmersiveButton
+              // forceDiagram button
+              onClick={() => diagramOptionClicked({ option: 'force' })}
+              inactive={diagramOption === 'force'}
+            >
+              {'Force\nLayout'}
             </ImmersiveButton>
           </Handle>
         </Wrapper>
