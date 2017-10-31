@@ -68,7 +68,7 @@ export default connect(
               onClick={() => diagramOptionClicked({ option: 'force' })}
               inactive={diagramOption === 'force'}
             >
-              {'Force'}
+              {'Force\nLayout'}
             </ImmersiveButton>
           </Handle>
         </Wrapper>
