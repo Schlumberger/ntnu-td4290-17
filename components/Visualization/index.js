@@ -109,7 +109,8 @@ const setNormalDiagramState = object => {
 
 Visualization.propTypes = {
   className: string,
-  onEmptyClicked: func
+  onEmptyClicked: func,
+  diagramOption: string
 };
 
 export default Visualization;

@@ -22,14 +22,14 @@ export default connect(
     diagramOption
   }) {
     // Map data to components
-    console.log(layers);
+
     const layerButtons = Object.keys(layers).map(layerID => (
       <ImmersiveButton
         key={layerID}
         inactive={
           !layers[layerID] ||
-					diagramOption === 'age' ||
-					diagramOption === 'force'
+          diagramOption === 'age' ||
+          diagramOption === 'force'
         } // set inactive if the diagram is age or force
         // use signal as a function
         onClick={() => {

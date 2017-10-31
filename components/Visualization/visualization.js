@@ -1,6 +1,6 @@
 import { select, event } from 'd3-selection';
 import {} from 'd3-transition';
-import { line, area, circle, curveBasis } from 'd3-shape';
+import { line, area, curveBasis } from 'd3-shape';
 import { scaleLinear } from 'd3-scale';
 
 const margins = {
