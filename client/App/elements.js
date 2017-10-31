@@ -19,7 +19,7 @@ export const GridWrapper = styled.div`
   left: 0;
   overflow: hidden;
   display: grid;
-  grid-template-columns: 1fr 250px;
+  grid-template-columns: 1fr 200px;
   grid-template-rows: 1fr 120px 100px 20px;
   grid-template-areas: 'center right' 'center rightBottom'
     'centerBottom rightBottom' 'margin margin';
@@ -43,10 +43,13 @@ export const Visualization = styled(Viz)`
 `;
 
 export const InfoBox = styled(Info)`
-  grid-area: rightBottom;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
   margin: 10px;
   pointer-events: all;
   cursor: move;
+  text-align: center;
 `;
 
 export const ButtonWrapper = styled.div`
