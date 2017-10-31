@@ -18,18 +18,6 @@ const margins = {
   right: 0
 };
 export const create = (el, props, state) => {
-  const svg = select(el);
-  // svg.append('g').attr('id', 'layers');
-  svg.append('g').attr('id', 'subareas');
-  svg.append('g').attr('id', 'nodes');
-  svg.append('g').attr('id', 'links');
-  // svg.append('g').attr('id', 'faults');
-  // svg.append('g').attr('id', 'intersections');
-
-  update(el, props, state);
-};
-
-export const update = (el, props, state) => {
   const { width, height } = state;
   const {
     // faults = [],
@@ -40,6 +28,14 @@ export const update = (el, props, state) => {
     diagramOption = 'depth',
     onLayerClicked
   } = props;
+
+  var svg = select(el);
+  // svg.append('g').attr('id', 'layers');
+  svg.append('g').attr('id', 'subareas');
+  svg.append('g').attr('id', 'nodes');
+  svg.append('g').attr('id', 'links');
+  // svg.append('g').attr('id', 'faults');
+  // svg.append('g').attr('id', 'intersections');
 
   console.log(props);
   console.log(width.toString() + '  ' + height.toString());
@@ -62,7 +58,7 @@ export const update = (el, props, state) => {
     .range([margins.top, height - margins.bottom]);
 
   // Select the svg
-  const svg = select(el)
+  svg = select(el)
     .attr('width', width)
     .attr('height', height);
 
@@ -94,6 +90,7 @@ export const update = (el, props, state) => {
   const enterSubareas = updateSubareas
     .enter()
     .append('path')
+    .attr('opacity', 0)
     .attr('class', 'node')
     .attr('opacity', 0)
     .on('click', (d, ...args) => {
@@ -112,6 +109,8 @@ export const update = (el, props, state) => {
   // Update the properties of all elements
   updateSubareas
     .merge(enterSubareas)
+    .transition()
+    .duration(300)
     .attr('opacity', 1)
     .attr('d', d => areaGenerator(d.points))
     .attr('fill', d => d.fill);
@@ -163,15 +162,43 @@ export const update = (el, props, state) => {
       .attr('y2', d => d.target.y);
   };
 
-  const sim = createSimulation(nodes, links, simTick);
+  el.sim = createSimulation(nodes, links, simTick).stop();
+  simTick(); // visualize nodes and links
 
-  // ________________REMOVE TO PLAY SIMULATION
-  // sim.stop();
-  // simTick(null); // to actually draw links
-  // _________________
+  setTimeout(() => {
+    // legges til super elementet, kanskje ikke optimalt
+    el.sim.restart();
+    // sim.restart();
+  }, 2000);
+
+  update(el, props, state);
+};
+
+export const update = (el, props, state) => {
+  // const { width, height } = state;
+  // const {
+  //   // faults = [],
+  //   // layers = [],
+  //   // intsctns = [],
+  //   subareas = [],
+  //   dimentions = { maxWidth: 0, maxHeight: 0 },
+  //   diagramOption = 'depth',
+  //   onLayerClicked
+  // } = props;
+};
+
+export const destroy = el => {
+  select(el)
+    .selectAll('g')
+    .remove();
+
+  // remove last simulation if exists
+  el.sim.stop();
 };
 
 const createSimulation = (nodes, links, tickFunc) => {
+  // restart simulation if it exists
+
   // find min and max area
   const minArea = nodes.reduce(
     (acc, currVal) => (acc = Math.min(acc, currVal.area)),
@@ -359,12 +386,6 @@ const createLink = (src, tar, dist, strength) => {
     prefDist: dist,
     strength: strength
   };
-};
-
-export const destroy = el => {
-  select(el)
-    .selectAll('g')
-    .remove();
 };
 
 // got from http://bl.ocks.org/pbellon/4b875d2ab7019c0029b636523b34e074
