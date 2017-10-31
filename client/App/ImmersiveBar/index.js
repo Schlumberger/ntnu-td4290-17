@@ -28,8 +28,8 @@ export default connect(
         key={layerID}
         inactive={
           !layers[layerID] ||
-          diagramOption === 'age' ||
-          diagramOption === 'force'
+					diagramOption === 'age' ||
+					diagramOption === 'force'
         } // set inactive if the diagram is age or force
         // use signal as a function
         onClick={() => {
@@ -50,19 +50,13 @@ export default connect(
           <Handle>
             {layerButtons}
             <ImmersiveButton
-              // depth/age button
-              onClick={() => diagramOptionClicked({ option: 'age' })}
-              inactive={diagramOption === 'age'}
+              onClick={() =>
+                diagramOptionClicked({
+                  option: diagramOption === 'depth' ? 'age' : 'depth'
+                })}
             >
-              {'Age\nDiagram'}
+              {diagramOption === 'depth' ? 'Wheeler\nDiagram' : 'Depth\nView'}
             </ImmersiveButton>
-            <ImmersiveButton
-              onClick={() => diagramOptionClicked({ option: 'depth' })}
-              inactive={diagramOption === 'depth'}
-            >
-              {'Depth\nDiagram'}
-            </ImmersiveButton>
-
             <ImmersiveButton
               // forceDiagram button
               onClick={() => diagramOptionClicked({ option: 'force' })}
