@@ -13,6 +13,12 @@ export const create = (el, props, state) => {
   const svg = select(el);
   svg.append('g').attr('id', 'layers');
   svg.append('g').attr('id', 'faults');
+  svg
+    .append('text')
+    .attr('id', 'logo')
+    .text('SubSee')
+    .attr('text-anchor', 'end')
+    .attr('font-family', 'Roboto');
 
   update(el, props, state);
 };
@@ -83,6 +89,10 @@ export const update = (el, props, state) => {
       /* istanbul ignore next */
       event.stopPropagation();
     });
+
+  select('text')
+    .attr('x', width - 5)
+    .attr('y', height - 5);
 
   // Remove if too many
   updateFaults
