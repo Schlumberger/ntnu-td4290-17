@@ -7,7 +7,8 @@ import {
   getGeometryType,
   getCategory,
   getAge,
-  getMaxHeightByCategory
+  getMaxHeightByCategory,
+  checkUnconformity
 } from 'utils/formattingData';
 
 describe('Formatting data utils', function () {
@@ -101,6 +102,34 @@ describe('Formatting data utils', function () {
         age1: 2
       });
     });
+    it('Should add age if surface and unconform', function () {
+      const points = {
+        x: 4,
+        y: 2
+      };
+      const chronostrat = {
+        category: {
+          age: [1, 2]
+        }
+      };
+      const result = addAgeToPoints(
+        'surface',
+        'category',
+        chronostrat,
+        points,
+        200,
+        true
+      );
+
+      assert.deepEqual(result, {
+        x: 4,
+        y: 2,
+        minAge: 1,
+        maxAge: 2,
+        age0: 1,
+        age1: 2
+      });
+    });
   });
   describe('Get Stroke', function () {
     ['surface', 'fault', 'foo'].forEach(type => {
@@ -154,6 +183,25 @@ describe('Formatting data utils', function () {
     it('Should return null if none of the above', function () {
       const id = 'seabed';
       assert.equal(getCategory(id, {}), null);
+    });
+  });
+  describe('Check unconformities', function () {
+    it('Should return null if not category or unconformities', function () {
+      assert.equal(checkUnconformity(), null);
+      assert.equal(checkUnconformity('foo'), null);
+      assert.equal(checkUnconformity(null, { foo: 'bar' }), null);
+    });
+    it('Should find category in  unconformities', function () {
+      const unconformities = {
+        'base-foozerino': true
+      };
+      assert.equal(checkUnconformity('foozerino', unconformities), true);
+    });
+    it('Should not find category in unconformities', function () {
+      const unconformities = {
+        bassdfnsfdl: true
+      };
+      assert.equal(checkUnconformity('foozerino', unconformities), false);
     });
   });
 });

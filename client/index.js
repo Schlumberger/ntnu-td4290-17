@@ -5,6 +5,7 @@ import { Container } from '@cerebral/react';
 import App from 'client/App';
 import controller from './controller';
 
+/* istanbul ignore next */
 render(
   <Container controller={controller}>
     <App />

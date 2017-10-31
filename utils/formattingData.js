@@ -88,13 +88,11 @@ module.exports.getMaxHeightByCategory = (data, category) => {
 
 module.exports.checkUnconformity = (category, unconformities) => {
   if (category == null || unconformities == null) {
-    // Added if-statement for testing purposes
     return null;
   }
   for (let place of Object.keys(unconformities)) {
     var placeString = place.toString();
-    console.log(placeString.slice(5));
-    if (category.toString() == placeString.slice(5)) {
+    if (category.toString() === placeString.slice(5)) {
       return true;
     }
   }

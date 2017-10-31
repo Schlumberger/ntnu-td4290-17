@@ -8,6 +8,7 @@ import InfoBox from 'client/App/InfoBox';
 
 describe('InfoBox', () => {
   it('Should exist', () => {
+    const emptyInfo = [];
     const wrapper = mount(
       <Container controller={Controller()}>
         <InfoBox />
@@ -16,11 +17,6 @@ describe('InfoBox', () => {
     expect(wrapper).to.exist;
   });
   it('Should update', done => {
-    const testInfo = {
-      id: 'Test',
-      minAge: 2,
-      maxAge: 3
-    };
     const wrapper = mount(
       <Container controller={Controller()}>
         <InfoBox />
@@ -83,7 +79,6 @@ describe('InfoBox', () => {
         <InfoBox />
       </Container>
     );
-    wrapper.update();
     done();
   });
 });

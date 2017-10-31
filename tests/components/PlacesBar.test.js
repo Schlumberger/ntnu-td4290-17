@@ -14,11 +14,20 @@ const places = [
   }
 ];
 
-describe('<PlacesBar />', () => {
+describe('<PlacesBar />', done => {
   it('Should exist', () => {
     const wrapper = mount(
       <Container controller={Controller()}>
         <PlacesBar places={places} dimensions={{ maxWidth: 10 }} />
+      </Container>
+    );
+
+    expect(wrapper).to.exist;
+  });
+  it('Should mount with no places', () => {
+    const wrapper = mount(
+      <Container controller={Controller()}>
+        <PlacesBar dimensions={{ maxWidth: 10 }} />
       </Container>
     );
     expect(wrapper).to.exist;
@@ -27,16 +36,6 @@ describe('<PlacesBar />', () => {
     const wrapper = mount(
       <Container controller={Controller()}>
         <PlacesBar places={places} dimensions={{ maxWidth: 10 }} />
-      </Container>
-    );
-    wrapper.update();
-    wrapper.unmount();
-    done();
-  });
-  it('Should mount with no places', done => {
-    const wrapper = mount(
-      <Container controller={Controller()}>
-        <PlacesBar dimensions={{ maxWidth: 10 }} />
       </Container>
     );
     wrapper.update();

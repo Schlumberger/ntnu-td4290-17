@@ -11,7 +11,8 @@ import firebaseConfig from 'configs/firebase';
 import AppModule from './modules/App';
 
 // Lot of settings, only modules and router are important
-export default Controller({
+/* istanbul ignore next */
+const controller = Controller({
   devtools:
     process.env.NODE_ENV === 'production'
       ? null
@@ -53,3 +54,5 @@ export default Controller({
     })
   ]
 });
+
+export default controller;
