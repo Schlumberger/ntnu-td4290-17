@@ -1,5 +1,7 @@
 import routed from './signals/routed';
 import layerSettingClicked from './signals/layerSettingClicked';
+import faultSettingClicked from './signals/faultSettingClicked';
+import inspectorSettingClicked from './signals/inspectorSettingClicked';
 import diagramOptionClicked from './signals/diagramOptionClicked';
 import layerClicked from './signals/layerClicked';
 import emptyClicked from './signals/emptyClicked';
@@ -17,6 +19,8 @@ export default {
   signals: {
     routed,
     layerSettingClicked,
+    faultSettingClicked,
+    inspectorSettingClicked,
     diagramOptionClicked,
     layerClicked,
     emptyClicked
