@@ -3,66 +3,58 @@ import { connect } from '@cerebral/react';
 import { state, signal } from 'cerebral/tags';
 import Draggable from 'react-draggable';
 
-import { Wrapper, ImmersiveButton, Handle } from './elements';
+import { Wrapper, ImmersiveButton, Handle, LayerButton } from './elements';
 
 export default connect(
   {
-    // Get the state located in .layers
     layers: state`settings.visibility`,
     diagramOption: state`settings.diagramOption`,
-    // Get the signal in app.layerClicked in the app-module
     layerSettingClicked: signal`app.layerSettingClicked`,
+    faultSettingClicked: signal`app.faultSettingClicked`,
+    inspectorSettingClicked: signal`app.inspectorSettingClicked`,
     diagramOptionClicked: signal`app.diagramOptionClicked`
   },
   function SideMenu ({
     className,
     layerSettingClicked,
+    faultSettingClicked,
+    inspectorSettingClicked,
     diagramOptionClicked,
     layers = {},
     diagramOption
   }) {
-    // Map data to components
-    console.log(layers);
-    const layerButtons = Object.keys(layers).map(layerID => (
-      <ImmersiveButton
-        key={layerID}
-        inactive={
-          !layers[layerID] ||
-          diagramOption === 'age' ||
-          diagramOption === 'force'
-        } // set inactive if the diagram is age or force
-        // use signal as a function
-        onClick={() => {
-          if (diagramOption === 'age' || diagramOption === 'force') {
-            // to make buttons non-pushable when not in depth mode
-            return;
-          }
-          layerSettingClicked({ layerID });
-        }}
-      >
-        {layerID.split('-').join(' ')}
-      </ImmersiveButton>
-    ));
-
     return (
       <Draggable>
         <Wrapper className={className}>
           <Handle>
-            {layerButtons}
-            <ImmersiveButton
-              // depth/age button
-              onClick={() => diagramOptionClicked({ option: 'age' })}
-              inactive={diagramOption === 'age'}
+            <LayerButton
+              inactive={diagramOption === 'age' || diagramOption === 'force'}
+              onClick={() => layerSettingClicked()}
+              show={layers.layers}
             >
-              {'Age\nDiagram'}
-            </ImmersiveButton>
-            <ImmersiveButton
-              onClick={() => diagramOptionClicked({ option: 'depth' })}
-              inactive={diagramOption === 'depth'}
+              Layers
+            </LayerButton>
+            <LayerButton
+              inactive={diagramOption === 'age' || diagramOption === 'force'}
+              onClick={() => faultSettingClicked()}
+              show={layers.faults}
             >
-              {'Depth\nDiagram'}
+              Faults
+            </LayerButton>
+            <LayerButton
+              onClick={() => inspectorSettingClicked()}
+              show={layers.inspector}
+            >
+              Inspector
+            </LayerButton>
+            <ImmersiveButton
+              onClick={() =>
+                diagramOptionClicked({
+                  option: diagramOption === 'depth' ? 'age' : 'depth'
+                })}
+            >
+              {diagramOption === 'depth' ? 'Wheeler\nDiagram' : 'Depth\nView'}
             </ImmersiveButton>
-
             <ImmersiveButton
               // forceDiagram button
               onClick={() => diagramOptionClicked({ option: 'force' })}

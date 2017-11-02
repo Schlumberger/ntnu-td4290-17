@@ -18,7 +18,6 @@ import {
   GridWrapper,
   PlacesBar,
   ButtonWrapper,
-  ButtonIcon,
   ButtonText
 } from './elements';
 
@@ -81,7 +80,9 @@ App.propTypes = {
   diagramOption: string,
   layerClicked: func,
   emptyClicked: func,
-  places: array
+  places: array,
+  user: object,
+  routed: func
 };
 
 // Connect the component to cerebral so that cerebral can manage it

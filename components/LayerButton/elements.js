@@ -7,18 +7,17 @@ export const Wrapper = styled(Wrapper16)`
   display: flex;
   align-items: center;
   justify-content: center;
-
   border-radius: 5px;
   height: 80px;
   width: 80px;
-
-  background-color: gray;
+  background-color: rgba(70, 70, 70, 1);
   transition: background-color 0.5;
   pointer-events: all;
+  cursor: pointer;
   &:hover {
-    cursor: pointer;
     background-color: rgba(55, 55, 55, 1);
   }
+  ${props => (props.show ? 'border: 3px solid #0d0' : null)};
 `;
 
 export const ActiveText = styled(Typ16)`
