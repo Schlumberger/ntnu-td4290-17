@@ -137,12 +137,17 @@ export const create = (el, props, state) => {
     .attr('class', 'node')
     .attr('cx', d => d.x)
     .attr('cy', d => d.y)
-    .attr('r', 5)
-    .attr('fill', '#000');
+    .attr('r', -1) // set later
+    .attr('fill', 'none')
+    .attr('stroke', '#555')
+    .attr('stroke-width', '0.5px');
 
   const simTick = e => {
     // update visualized nodes
-    node.attr('cx', d => d.x).attr('cy', d => d.y);
+    node
+      .attr('cx', d => d.x)
+      .attr('cy', d => d.y)
+      .attr('r', d => d.r); // setting radius in the createSimulation
 
     // update visualized subareas by setting the translate attribute
     enterSubareas.attr('transform', d => {
@@ -163,12 +168,39 @@ export const create = (el, props, state) => {
   };
 
   el.sim = createSimulation(nodes, links, simTick).stop();
+
+  // lock center node.
+  // const centerNode = el.sim.find(width / 2, height / 2); // finds node closest to center
+  // centerNode.fx = centerNode.x;
+  // centerNode.fy = centerNode.y;
+
+  // find and link edge sublayers to the edge
+  const edgeConnectIterations = 10;
+  const heightStep = width / edgeConnectIterations;
+  const nodesChecked = {};
+  for (let i = 0; i < edgeConnectIterations; i++) {
+    const y = heightStep * i;
+    // check nodes in left edge
+    let node = el.sim.find(0, y);
+    if (!nodesChecked.hasOwnProperty(node)) {
+      nodesChecked.node = true;
+      node.fx = node.x;
+      node.fy = node.y;
+    }
+    // check nodes on right
+    node = el.sim.find(width, y);
+    if (!nodesChecked.hasOwnProperty(node)) {
+      nodesChecked.node = true;
+      node.fx = node.x;
+      node.fy = node.y;
+    }
+  }
+
   simTick(); // visualize nodes and links
 
   setTimeout(() => {
     // legges til super elementet, kanskje ikke optimalt
     el.sim.restart();
-    // sim.restart();
   }, 2000);
 
   update(el, props, state);
@@ -197,8 +229,6 @@ export const destroy = el => {
 };
 
 const createSimulation = (nodes, links, tickFunc) => {
-  // restart simulation if it exists
-
   // find min and max area
   const minArea = nodes.reduce(
     (acc, currVal) => (acc = Math.min(acc, currVal.area)),
@@ -219,32 +249,42 @@ const createSimulation = (nodes, links, tickFunc) => {
     .domain([minArea, maxArea])
     .range([300, 1000]);
 
-  return (
-    forceSimulation(nodes)
-      .alphaDecay(0) // simulation will never stop
-      // .force('bounding', d => forceCollide().radius(d => d.r))
-      // .force('bounding', forceCollide().radius(d => d.r))
+  const areaRadiusScale = scaleLinear()
+    .domain([minArea, maxArea])
+    .range([20, 80]);
 
-      // simulate a collision force
-      .force(
-        'repulse by area size',
-        forceManyBody()
-          .strength(d => {
-            const f = areaForceScale(d.area); // negative to repel
-            // console.log(f);
-            return -f;
-          })
-          .distanceMax(d => areaForceDistScale(d))
-      )
-      .force(
-        'link',
-        forceLink(links)
-          .id(d => d.id)
-          .distance(d => d.prefDist) // to make nodes attract each other to a prefferred distance
-          .strength(d => (d.strength === -1 ? 0.3 : d.strength))
-      )
-      .on('tick', tickFunc)
-  );
+  const sim = forceSimulation(nodes)
+    .alphaDecay(0.001) // simulation will never stop
+    // .force('bounding', d => forceCollide().radius(d => d.r))
+    // .force('bounding', forceCollide().radius(d => d.r))
+    .force(
+      'collision',
+      forceCollide().radius(d => {
+        d.r = areaRadiusScale(d.area); // setting radius here, not good
+        return d.r;
+      })
+    )
+    // simulate a collision force
+    // .force(
+    //   'repulse by area size',
+    //   forceManyBody()
+    //     .strength(d => {
+    //       const f = areaForceScale(d.area); // negative to repel
+    //       // console.log(f);
+    //       return -f;
+    //     })
+    //     .distanceMax(d => areaForceDistScale(d))
+    // )
+    .force(
+      'link',
+      forceLink(links)
+        .id(d => d.id)
+        .distance(d => d.prefDist) // to make nodes attract each other to a prefferred distance
+        .strength(d => (d.strength === -1 ? 0.5 : d.strength))
+    )
+    .on('tick', tickFunc);
+
+  return sim;
 };
 
 const createNodes = (subareas, xScale, yScale) => {
@@ -270,6 +310,7 @@ const createNodes = (subareas, xScale, yScale) => {
       nodes.push(sub);
     });
   });
+
   return nodes;
 };
 
@@ -364,13 +405,7 @@ const createOntopLinksByNodes = (nodes, xScale, yScale) => {
       //   break;
       // }
 
-      // links.push({
-      //   source: srcN.id,
-      //   target: tarN.id,
-      //   prefDist: heightBetween
-      // });
-
-      const lin = createLink(n.id, l, heightBetween, 0.0);
+      const lin = createLink(n.id, l, heightBetween, 0.1);
       // console.log(lin);
       links.push(lin);
     }
