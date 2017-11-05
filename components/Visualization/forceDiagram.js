@@ -1,15 +1,8 @@
 import { select, event } from 'd3-selection';
 import {} from 'd3-transition';
-import { line, area, circle, curveBasis } from 'd3-shape';
+import { area, curveBasis } from 'd3-shape';
 import { scaleLinear } from 'd3-scale';
-import {
-  forceSimulation,
-  forceCenter,
-  forceLink,
-  forceCollide,
-  forceManyBody
-} from 'd3-force';
-import { polygonCentroid } from 'd3-polygon';
+import { forceSimulation, forceLink, forceManyBody } from 'd3-force';
 
 const margins = {
   top: 35,
@@ -37,7 +30,6 @@ export const update = (el, props, state) => {
     // intsctns = [],
     subareas = [],
     dimentions = { maxWidth: 0, maxHeight: 0 },
-    diagramOption = 'depth',
     onLayerClicked
   } = props;
 
@@ -163,7 +155,7 @@ export const update = (el, props, state) => {
       .attr('y2', d => d.target.y);
   };
 
-  const sim = createSimulation(nodes, links, simTick);
+  createSimulation(nodes, links, simTick);
 
   // ________________REMOVE TO PLAY SIMULATION
   // sim.stop();
@@ -233,7 +225,6 @@ const createNodes = (subareas, xScale, yScale) => {
       sub.category = category;
 
       // scale x and y, and add the center coords
-      const { x: x0, y0 } = sub.points[0];
       sub.x = xScale(sub.center.x);
       sub.y = yScale(sub.center.y);
 
@@ -369,6 +360,7 @@ export const destroy = el => {
 
 // got from http://bl.ocks.org/pbellon/4b875d2ab7019c0029b636523b34e074
 // inspired from http://bl.ocks.org/larsenmtl/39a028da44db9e8daf14578cb354b5cb
+/*
 function forceCollidePolygon (polygon, radius) {
   var nodes,
     n,
@@ -495,3 +487,4 @@ function forceCollidePolygon (polygon, radius) {
 //   });
 //   return nodes;
 // };
+*/

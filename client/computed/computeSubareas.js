@@ -10,10 +10,10 @@ function ColorLuminance (hex, lum) {
   lum = lum || 0;
 
   // convert to decimal and change luminosity
-  var rgb = '#',
-    c,
-    i;
-  for (i = 0; i < 3; i++) {
+  let rgb = '#';
+  let c;
+
+  for (let i = 0; i < 3; i++) {
     c = parseInt(hex.substr(i * 2, 2), 16);
     c = Math.round(Math.min(Math.max(0, c + c * lum), 255)).toString(16);
     rgb += ('00' + c).substr(c.length);
@@ -32,26 +32,28 @@ export default compute(
   // state`settings.visibility.subareas`,
   (data = [], visibility) => {
     // if (!visibility) return [];
-    return data.filter(d => d.type === 'surface' && d.hasOwnProperty('subareas')).map(layer => {
-      var lum = getColor();
-      layer.subareas = layer.subareas
-        .filter(s => s.points != undefined)
-        .map(subarea => {
-          lum = getColor(lum);
-          // console.log(lum);
+    return data
+      .filter(d => d.type === 'surface' && d.hasOwnProperty('subareas'))
+      .map(layer => {
+        var lum = getColor();
+        layer.subareas = layer.subareas
+          .filter(s => s.points !== undefined)
+          .map(subarea => {
+            lum = getColor(lum);
+            // console.log(lum);
 
-          if (subarea.points) {
-            subarea.fill = ColorLuminance(layer.fill, lum);
-            subarea.stroke = '#000000';
-            subarea.minAge = layer.minAge;
-            subarea.maxAge = layer.maxAge;
-            subarea.geometryType = 'area';
-            return subarea;
-          } else {
-            console.log('jbmnt');
-          }
-        });
-      return layer;
-    });
+            if (subarea.points) {
+              subarea.fill = ColorLuminance(layer.fill, lum);
+              subarea.stroke = '#000000';
+              subarea.minAge = layer.minAge;
+              subarea.maxAge = layer.maxAge;
+              subarea.geometryType = 'area';
+              return subarea;
+            } else {
+              console.log('jbmnt');
+            }
+          });
+        return layer;
+      });
   }
 );
