@@ -71,6 +71,21 @@ describe('<Visualization />', () => {
     wrapper.unmount();
     done();
   });
+  it('Should update and unmount with crazy diagram', done => {
+    const wrapper = mount(
+      <Container controller={Controller()}>
+        <Viz
+          layers={[]}
+          faults={[]}
+          dimentions={{ maxWidth: 5, maxHeight: 5 }}
+          diagramOption={'force'}
+        />
+      </Container>
+    );
+    wrapper.update();
+    wrapper.unmount();
+    done();
+  });
   it('Should trigger on empty layer click', done => {
     const spy = sinon.spy();
     const wrapper = mount(
@@ -79,7 +94,7 @@ describe('<Visualization />', () => {
           layers={layers}
           faults={faults}
           dimentions={{ maxWidth: 5, maxHeight: 5 }}
-          yAxisUnit={'age'}
+          diagramOption={'age'}
           onEmptyClicked={spy}
         />
       </Container>
