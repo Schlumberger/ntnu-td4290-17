@@ -75,8 +75,17 @@ describe('<Visualization />', () => {
     const wrapper = mount(
       <Container controller={Controller()}>
         <Viz
-          layers={[]}
           faults={[]}
+          layers={[]}
+          subareas={[
+            {
+              type: 'surface',
+              subareas: [
+                { center: { x: 1, y: 2 }, points: [{ x: 1, y: 1 }] },
+                { center: { x: 1, y: 2 }, points: [{ x: 1, y: 1 }] }
+              ]
+            }
+          ]}
           dimentions={{ maxWidth: 5, maxHeight: 5 }}
           diagramOption={'force'}
         />
