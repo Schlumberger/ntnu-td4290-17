@@ -1,15 +1,8 @@
 import { select, event } from 'd3-selection';
 import {} from 'd3-transition';
-import { line, area, circle, curveBasis } from 'd3-shape';
+import { area, curveBasis } from 'd3-shape';
 import { scaleLinear } from 'd3-scale';
-import {
-  forceSimulation,
-  forceCenter,
-  forceLink,
-  forceCollide,
-  forceManyBody
-} from 'd3-force';
-import { polygonCentroid } from 'd3-polygon';
+import { forceSimulation, forceLink, forceManyBody } from 'd3-force';
 
 const margins = {
   top: 35,
@@ -25,9 +18,6 @@ export const create = (el, props, state) => {
   svg.append('g').attr('id', 'subareas');
   svg.append('g').attr('id', 'nodes');
   svg.append('g').attr('id', 'links');
-
-  // console.log(props);
-  // console.log(width.toString() + '  ' + height.toString());
 
   const areaGenerator = area()
     .x(d => xScale(d.x))
@@ -56,12 +46,10 @@ export const create = (el, props, state) => {
   // create simualtion nodes
   const nodes = createNodes(subareas, xScale, yScale);
 
-  console.log('nodes', nodes);
-
   // create simulation links
   const links = createLinksByNodes(nodes, xScale, yScale);
 
-  console.log('links', links);
+  // console.log('links', links);
   // console.log(
   //   'link strengths',
   //   links.map(d => (d.strength === -1 ? 0.5 : d.strength))
@@ -228,7 +216,6 @@ const createNodes = (subareas, xScale, yScale) => {
       sub.category = category;
 
       // scale x and y, and add the center coords
-      const { x: x0, y0 } = sub.points[0];
       sub.x = xScale(sub.center.x);
       sub.y = yScale(sub.center.y);
 
@@ -302,6 +289,8 @@ const createOntopLinksByNodes = (nodes, xScale, yScale) => {
           break;
         }
       }
+
+      // calculate the preferred distance between the layers
 
       // find max height of the two nodes
       const srcHeight = srcN.points.reduce(

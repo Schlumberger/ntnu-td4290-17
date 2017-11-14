@@ -27,9 +27,6 @@ export const update = (el, props, state) => {
   const { width, height } = state;
   const { faults, layers, dimentions, diagramOption, onLayerClicked } = props;
 
-  // console.log('layers');
-  // console.log(layers);
-
   // Coverts coordinates to d-attribute
   const lineGenerator = line()
     .x(d => xScale(d.x))
