@@ -19,12 +19,7 @@ const margins = {
 };
 export const create = (el, props, state) => {
   const { width, height } = state;
-  const {
-    subareas = [],
-    dimentions = { maxWidth: 0, maxHeight: 0 },
-    diagramOption = 'depth',
-    onLayerClicked
-  } = props;
+  const { subareas, dimentions, diagramOption, onLayerClicked } = props;
 
   const svg = select(el);
   svg.append('g').attr('id', 'subareas');
@@ -56,15 +51,17 @@ export const create = (el, props, state) => {
     .attr('width', width)
     .attr('height', height);
 
+  console.log(subareas);
+
   // create simualtion nodes
   const nodes = createNodes(subareas, xScale, yScale);
 
-  // console.log('nodes', nodes);
+  console.log('nodes', nodes);
 
   // create simulation links
   const links = createLinksByNodes(nodes, xScale, yScale);
 
-  // console.log('links', links);
+  console.log('links', links);
   // console.log(
   //   'link strengths',
   //   links.map(d => (d.strength === -1 ? 0.5 : d.strength))
@@ -87,7 +84,9 @@ export const create = (el, props, state) => {
     .attr('class', 'node')
     .attr('opacity', 0)
     .on('click', (d, ...args) => {
+      /* istanbul ignore next */
       onLayerClicked({ info: d });
+      /* istanbul ignore next */
       event.stopPropagation();
     });
 
@@ -155,6 +154,8 @@ export const create = (el, props, state) => {
 
   // store a reference to the simulation to be able to stop it on destruction
   el.simulation = createSimulation(nodes, links, simTick);
+
+  simTick();
 };
 
 export const update = (el, props, state) => {};
@@ -189,6 +190,7 @@ const createSimulation = (nodes, links, tickFunc) => {
     .domain([minArea, maxArea])
     .range([300, 1000]);
 
+  /* istanbul ignore next */
   return (
     forceSimulation(nodes)
       .alphaDecay(0) // simulation will never stop
@@ -199,12 +201,8 @@ const createSimulation = (nodes, links, tickFunc) => {
       .force(
         'repulse by area size',
         forceManyBody()
-          .strength(d => {
-            const f = areaForceScale(d.area); // negative to repel
-            // console.log(f);
-            return -f;
-          })
-          .distanceMax(d => areaForceDistScale(d))
+          .distanceMax(d => areaForceDistScale(d.area))
+          .strength(d => -areaForceScale(d.area))
       )
       .force(
         'link',
@@ -259,7 +257,7 @@ const createSublayerConnectorLinksByNodes = (nodes, xScale, yScale) => {
   const links = [];
   const nodeCategories = {};
 
-  for (let i = 0; i < nodes.length - 1; i++) {
+  for (let i = 0; i < nodes.length; i++) {
     const currNode = nodes[i];
 
     // if other nodes of the same category exists, create a link between this and the last of them (neighbour).
@@ -290,7 +288,7 @@ const createOntopLinksByNodes = (nodes, xScale, yScale) => {
 
   nodes.forEach(n => {
     // only look at nodes that has links to other nodes ontop
-    if (!n.hasOwnProperty('links')) return;
+    // if (!n.hasOwnProperty('links')) return;
 
     for (let l in n.links) {
       // check if the property/key is defined in the object itself, not in parent
@@ -300,21 +298,10 @@ const createOntopLinksByNodes = (nodes, xScale, yScale) => {
       let tarN = null;
       for (let i in nodes) {
         if (nodes[i].id === l) {
-          // console.log('node to be linked');
-          // console.log(nodes[i].id);
-          // console.log(l);
-
           tarN = nodes[i];
           break;
         }
       }
-
-      // if (tarN === null) {
-      //   console.log('didnt find target node of ontop link');
-      // }
-      // console.log(tarN);
-
-      // calculate the preferred distance between the layers
 
       // find max height of the two nodes
       const srcHeight = srcN.points.reduce(
@@ -328,17 +315,6 @@ const createOntopLinksByNodes = (nodes, xScale, yScale) => {
         0
       );
       const heightBetween = xScale(Math.abs(srcHeight * 0.5 + tarHeight * 0.5));
-
-      // remove links that are between layers far apart (shouldnt be necessary if ontop layers are calculated correctly)
-      // if (Math.abs(tarN.y - srcN.y) > heightBetween * 2) {
-      //   break;
-      // }
-
-      // links.push({
-      //   source: srcN.id,
-      //   target: tarN.id,
-      //   prefDist: heightBetween
-      // });
 
       const lin = createLink(n.id, l, heightBetween, 0.0);
       // console.log(lin);

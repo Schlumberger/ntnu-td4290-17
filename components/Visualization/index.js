@@ -36,12 +36,6 @@ class Visualization extends Component {
   }
 
   componentDidUpdate () {
-    // console.log(
-    //   'forceDiagram: ' + this.wasForceDiagram
-    // );
-
-    // console.log(this.props.diagramOption);
-
     // check if the state has changed to or from forceDiagram.
     // if so, update state
     if (this.props.diagramOption !== 'force' && this.wasForceDiagram) {
