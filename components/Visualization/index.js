@@ -41,7 +41,7 @@ class Visualization extends Component {
     if (this.props.diagramOption !== 'force' && this.wasForceDiagram) {
       // go from forceDiagram to normal
       this.wasForceDiagram = false;
-      console.log('switch to normal diagram');
+      // console.log('switch to normal diagram');
 
       // destroy the last visualization
       this.destroy(this.svg);
@@ -52,7 +52,7 @@ class Visualization extends Component {
     } else if (this.props.diagramOption === 'force' && !this.wasForceDiagram) {
       // go from normal diagram to force
       this.wasForceDiagram = true;
-      console.log('switch to force diagram');
+      // console.log('switch to force diagram');
 
       this.destroy(this.svg);
       setForceDiagramState(this);

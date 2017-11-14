@@ -11,27 +11,13 @@ const margins = {
   right: 0
 };
 export const create = (el, props, state) => {
+  const { width, height } = state;
+  const { subareas, dimentions, diagramOption, onLayerClicked } = props;
+
   const svg = select(el);
-  // svg.append('g').attr('id', 'layers');
   svg.append('g').attr('id', 'subareas');
   svg.append('g').attr('id', 'nodes');
   svg.append('g').attr('id', 'links');
-  // svg.append('g').attr('id', 'faults');
-  // svg.append('g').attr('id', 'intersections');
-
-  update(el, props, state);
-};
-
-export const update = (el, props, state) => {
-  const { width, height } = state;
-  const {
-    // faults = [],
-    // layers = [],
-    // intsctns = [],
-    subareas = [],
-    dimentions = { maxWidth: 0, maxHeight: 0 },
-    onLayerClicked
-  } = props;
 
   const areaGenerator = area()
     .x(d => xScale(d.x))
@@ -51,15 +37,27 @@ export const update = (el, props, state) => {
     .range([margins.top, height - margins.bottom]);
 
   // Select the svg
-  const svg = select(el)
+  svg // = select(el)
     .attr('width', width)
     .attr('height', height);
+
+  console.log(subareas);
 
   // create simualtion nodes
   const nodes = createNodes(subareas, xScale, yScale);
 
   // create simulation links
   const links = createLinksByNodes(nodes, xScale, yScale);
+
+  // console.log('links', links);
+  // console.log(
+  //   'link strengths',
+  //   links.map(d => (d.strength === -1 ? 0.5 : d.strength))
+  // );
+
+  // console.log(
+  //   'subareas skipped: ' + (subareas.length - nodes.length).toString()
+  // );
 
   const updateSubareas = svg
     .select('g#subareas')
@@ -74,7 +72,9 @@ export const update = (el, props, state) => {
     .attr('class', 'node')
     .attr('opacity', 0)
     .on('click', (d, ...args) => {
+      /* istanbul ignore next */
       onLayerClicked({ info: d });
+      /* istanbul ignore next */
       event.stopPropagation();
     });
 
@@ -140,12 +140,21 @@ export const update = (el, props, state) => {
       .attr('y2', d => d.target.y);
   };
 
-  createSimulation(nodes, links, simTick);
+  // store a reference to the simulation to be able to stop it on destruction
+  el.simulation = createSimulation(nodes, links, simTick);
 
-  // ________________REMOVE TO PLAY SIMULATION
-  // sim.stop();
-  // simTick(null); // to actually draw links
-  // _________________
+  simTick();
+};
+
+export const update = (el, props, state) => {};
+
+export const destroy = el => {
+  // stop the running simulation
+  el.simulation.stop();
+
+  select(el)
+    .selectAll('g')
+    .remove();
 };
 
 const createSimulation = (nodes, links, tickFunc) => {
@@ -169,6 +178,7 @@ const createSimulation = (nodes, links, tickFunc) => {
     .domain([minArea, maxArea])
     .range([300, 1000]);
 
+  /* istanbul ignore next */
   return (
     forceSimulation(nodes)
       .alphaDecay(0) // simulation will never stop
@@ -179,12 +189,8 @@ const createSimulation = (nodes, links, tickFunc) => {
       .force(
         'repulse by area size',
         forceManyBody()
-          .strength(d => {
-            const f = areaForceScale(d.area); // negative to repel
-            // console.log(f);
-            return -f;
-          })
-          .distanceMax(d => areaForceDistScale(d))
+          .distanceMax(d => areaForceDistScale(d.area))
+          .strength(d => -areaForceScale(d.area))
       )
       .force(
         'link',
@@ -238,7 +244,7 @@ const createSublayerConnectorLinksByNodes = (nodes, xScale, yScale) => {
   const links = [];
   const nodeCategories = {};
 
-  for (let i = 0; i < nodes.length - 1; i++) {
+  for (let i = 0; i < nodes.length; i++) {
     const currNode = nodes[i];
 
     // if other nodes of the same category exists, create a link between this and the last of them (neighbour).
@@ -269,7 +275,7 @@ const createOntopLinksByNodes = (nodes, xScale, yScale) => {
 
   nodes.forEach(n => {
     // only look at nodes that has links to other nodes ontop
-    if (!n.hasOwnProperty('links')) return;
+    // if (!n.hasOwnProperty('links')) return;
 
     for (let l in n.links) {
       // check if the property/key is defined in the object itself, not in parent
@@ -279,10 +285,6 @@ const createOntopLinksByNodes = (nodes, xScale, yScale) => {
       let tarN = null;
       for (let i in nodes) {
         if (nodes[i].id === l) {
-          // console.log('node to be linked');
-          // console.log(nodes[i].id);
-          // console.log(l);
-
           tarN = nodes[i];
           break;
         }
@@ -303,17 +305,6 @@ const createOntopLinksByNodes = (nodes, xScale, yScale) => {
       );
       const heightBetween = xScale(Math.abs(srcHeight * 0.5 + tarHeight * 0.5));
 
-      // remove links that are between layers far apart (shouldnt be necessary if ontop layers are calculated correctly)
-      // if (Math.abs(tarN.y - srcN.y) > heightBetween * 2) {
-      //   break;
-      // }
-
-      // links.push({
-      //   source: srcN.id,
-      //   target: tarN.id,
-      //   prefDist: heightBetween
-      // });
-
       const lin = createLink(n.id, l, heightBetween, 0.0);
       // console.log(lin);
       links.push(lin);
@@ -330,10 +321,4 @@ const createLink = (src, tar, dist, strength) => {
     prefDist: dist,
     strength: strength
   };
-};
-
-export const destroy = el => {
-  select(el)
-    .selectAll('g')
-    .remove();
 };
