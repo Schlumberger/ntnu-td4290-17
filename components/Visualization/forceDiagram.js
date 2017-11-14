@@ -18,31 +18,21 @@ const margins = {
   right: 0
 };
 export const create = (el, props, state) => {
-  const svg = select(el);
-  // svg.append('g').attr('id', 'layers');
-  svg.append('g').attr('id', 'subareas');
-  svg.append('g').attr('id', 'nodes');
-  svg.append('g').attr('id', 'links');
-  // svg.append('g').attr('id', 'faults');
-  // svg.append('g').attr('id', 'intersections');
-
-  update(el, props, state);
-};
-
-export const update = (el, props, state) => {
   const { width, height } = state;
   const {
-    // faults = [],
-    // layers = [],
-    // intsctns = [],
     subareas = [],
     dimentions = { maxWidth: 0, maxHeight: 0 },
     diagramOption = 'depth',
     onLayerClicked
   } = props;
 
-  console.log(props);
-  console.log(width.toString() + '  ' + height.toString());
+  const svg = select(el);
+  svg.append('g').attr('id', 'subareas');
+  svg.append('g').attr('id', 'nodes');
+  svg.append('g').attr('id', 'links');
+
+  // console.log(props);
+  // console.log(width.toString() + '  ' + height.toString());
 
   const areaGenerator = area()
     .x(d => xScale(d.x))
@@ -62,23 +52,23 @@ export const update = (el, props, state) => {
     .range([margins.top, height - margins.bottom]);
 
   // Select the svg
-  const svg = select(el)
+  svg // = select(el)
     .attr('width', width)
     .attr('height', height);
 
   // create simualtion nodes
   const nodes = createNodes(subareas, xScale, yScale);
 
-  console.log('nodes', nodes);
+  // console.log('nodes', nodes);
 
   // create simulation links
   const links = createLinksByNodes(nodes, xScale, yScale);
 
-  console.log('links', links);
-  console.log(
-    'link strengths',
-    links.map(d => (d.strength === -1 ? 0.5 : d.strength))
-  );
+  // console.log('links', links);
+  // console.log(
+  //   'link strengths',
+  //   links.map(d => (d.strength === -1 ? 0.5 : d.strength))
+  // );
 
   // console.log(
   //   'subareas skipped: ' + (subareas.length - nodes.length).toString()
@@ -163,12 +153,19 @@ export const update = (el, props, state) => {
       .attr('y2', d => d.target.y);
   };
 
-  const sim = createSimulation(nodes, links, simTick);
+  // store a reference to the simulation to be able to stop it on destruction
+  el.simulation = createSimulation(nodes, links, simTick);
+};
 
-  // ________________REMOVE TO PLAY SIMULATION
-  // sim.stop();
-  // simTick(null); // to actually draw links
-  // _________________
+export const update = (el, props, state) => {};
+
+export const destroy = el => {
+  // stop the running simulation
+  el.simulation.stop();
+
+  select(el)
+    .selectAll('g')
+    .remove();
 };
 
 const createSimulation = (nodes, links, tickFunc) => {
@@ -360,138 +357,3 @@ const createLink = (src, tar, dist, strength) => {
     strength: strength
   };
 };
-
-export const destroy = el => {
-  select(el)
-    .selectAll('g')
-    .remove();
-};
-
-// got from http://bl.ocks.org/pbellon/4b875d2ab7019c0029b636523b34e074
-// inspired from http://bl.ocks.org/larsenmtl/39a028da44db9e8daf14578cb354b5cb
-function forceCollidePolygon (polygon, radius) {
-  var nodes,
-    n,
-    iterations = 1,
-    max = Math.max,
-    min = Math.min;
-  var absub = function (a, b) {
-    return max(a, b) - min(a, b);
-  };
-  var center = polygonCentroid(polygon);
-
-  // took from d3-force/src/collide.js
-  if (typeof radius !== 'function') {
-    radius = constant(radius == null ? 1 : +radius);
-  }
-
-  // took from d3-force/src/constant.js
-  function constant (x) {
-    return function () {
-      return x;
-    };
-  }
-  // took from d3-force/src/jiggle.js
-  function jiggle () {
-    return (Math.random() - 0.5) * 1e-6;
-  }
-
-  // adapted from http://stackoverflow.com/questions/563198/how-do-you-detect-where-two-line-segments-intersect
-  function intersection (p0, p1, p2, p3) {
-    var s1 = [p1[0] - p0[0], p1[1] - p0[1]];
-    var s2 = [p3[0] - p2[0], p3[1] - p2[1]];
-    // intersection compute
-    var s, t;
-    s = -s1[1] * (p0[0] - p2[0]) + s1[0] * (p0[1] - p3[1]);
-    t = s2[0] * (p0[1] - p2[1]) - s2[1] * (p0[0] - p3[0]);
-    s = s / (-s2[0] * s1[1] + s1[0] * s2[1]);
-    t = t / (-s2[0] * s1[1] + s1[0] * s2[1]);
-
-    if (s >= 0 && s <= 1 && t >= 0 && t <= 1) {
-      // intersection coordinates
-      return {
-        x: p0[0] + t * s1[0],
-        y: p0[1] + t * s1[1]
-      };
-    }
-    return false;
-  }
-
-  function force () {
-    for (var l = 0; l < iterations; l++) {
-      for (var k = 0; k < nodes.length; k++) {
-        var node = nodes[k];
-        var r = radius(node);
-        var px = node.x >= center[0] ? 1 : -1;
-        var py = node.y >= center[1] ? 1 : -1;
-
-        var t = [node.x + px * r, node.y + py * r];
-
-        // we loop over polygon's edges to check collisions
-        for (var j = 0; j < polygon.length; j++) {
-          var n = j + 1 < polygon.length ? j + 1 : 0;
-          var p1 = polygon[j];
-          var p2 = polygon[n];
-          var i = intersection(p1, p2, center, t);
-          if (i) {
-            // give a small velocity at the opposite of the collision point
-            // this can be tweaked
-            node.vx = -px / Math.sqrt(absub(i.x, t[0]) + jiggle());
-            node.vy = -py / Math.sqrt(absub(i.y, t[1]) + jiggle());
-            break;
-          }
-        }
-      }
-    }
-  }
-}
-
-// This is the first create node func from when we didnt use "subarea" property.
-
-// const createNodes = (subareas, xScale, yScale) => {
-//   const nodes = [];
-//   subareas.forEach(sub => {
-//     // create a polygon on the format [[x,y],[x,y],...]
-//     let pol = [];
-//     sub.points.forEach(p => pol.push([p.x, p.y0]));
-//     for (let i = sub.points.length - 1; i >= 0; i--) {
-//       pol.push([sub.points[i].x, sub.points[i].y1]);
-//     }
-//
-//     // calculate center
-//     let center = polygonCentroid(pol);
-//
-//     // if center cannot be found, skip this sublayer. Its probably too small
-//     if (!isFinite(center[0]) || !isFinite(center[1])) {
-//       return;
-//     }
-//
-//     let x = xScale(isFinite(center[0]) ? center[0] : sub.points[0].x);
-//     let y = yScale(isFinite(center[1]) ? center[1] : sub.points[0].y0);
-//
-//     // calculate width and height
-//     // assuming points are given from left to right
-//     const width = sub.points[sub.points.length - 1].x - sub.points[0].x;
-//     const height =
-//       sub.points[Math.floor(sub.points.length / 2)].y1 -
-//       sub.points[Math.floor(sub.points.length / 2)].y0; // jalla
-//
-//     // console.log(width.toString() + '    ' + height.toString());
-//
-//     // let radius be half of the largest of width and height
-//     let r = Math.max(width, height) / 2;
-//
-//     nodes.push({
-//       id: sub.id,
-//       x: x,
-//       y: y,
-//       startX: x,
-//       startY: y,
-//       points: sub.points,
-//       fill: sub.fill,
-//       r: r,
-//       pol: pol
-//     });
-//   });
-//   return nodes;
-// };
