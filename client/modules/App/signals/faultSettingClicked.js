@@ -5,7 +5,7 @@ import { state } from 'cerebral/tags';
 export default sequence('Layer Setting Clicked', [
   when(state`settings.diagramOption`, d => d === 'depth'),
   {
-    true: [toggle(state`settings.visibility.layers`)],
+    true: [toggle(state`settings.visibility.faults`)],
     false: []
   }
 ]);

@@ -13,19 +13,19 @@ export const create = (el, props, state) => {
   const svg = select(el);
   svg.append('g').attr('id', 'layers');
   svg.append('g').attr('id', 'faults');
+  svg
+    .append('text')
+    .attr('id', 'logo')
+    .text('SubSee')
+    .attr('text-anchor', 'end')
+    .attr('font-family', 'Roboto');
 
   update(el, props, state);
 };
 
 export const update = (el, props, state) => {
   const { width, height } = state;
-  const {
-    faults = [],
-    layers = [],
-    dimentions = { maxWidth: 0, maxHeight: 0 },
-    yAxisUnit = 'depth',
-    onLayerClicked
-  } = props;
+  const { faults, layers, dimentions, diagramOption, onLayerClicked } = props;
 
   // Coverts coordinates to d-attribute
   const lineGenerator = line()
@@ -34,8 +34,8 @@ export const update = (el, props, state) => {
 
   const areaGenerator = area()
     .x(d => xScale(d.x))
-    .y0(d => yScale(yAxisUnit === 'depth' ? d.y0 : d.age0))
-    .y1(d => yScale(yAxisUnit === 'depth' ? d.y1 : d.age1))
+    .y0(d => yScale(diagramOption === 'depth' ? d.y0 : d.age0))
+    .y1(d => yScale(diagramOption === 'depth' ? d.y1 : d.age1))
     // makes interpolate of the form curveCardinal
     .curve(curveBasis);
 
@@ -80,10 +80,16 @@ export const update = (el, props, state) => {
     .enter()
     .append('path')
     .attr('opacity', 0)
-    .on('click', (d, ...args) => {
+    .on('click', d => {
+      /* istanbul ignore next */
       onLayerClicked({ info: d });
+      /* istanbul ignore next */
       event.stopPropagation();
     });
+
+  select('text')
+    .attr('x', width - 5)
+    .attr('y', height - 5);
 
   // Remove if too many
   updateFaults
@@ -123,7 +129,14 @@ export const update = (el, props, state) => {
 };
 
 export const destroy = el => {
+  // select(el)
+  //   .selectAll('path')
+  //   .remove();
+  // select(el)
+  //   .selectAll('circle')
+  //   .remove();
+
   select(el)
-    .selectAll('path')
+    .selectAll('g')
     .remove();
 };

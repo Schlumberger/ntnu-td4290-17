@@ -36,7 +36,7 @@ class PlacesBar extends Component {
 
       for (let p of this.props.places) {
         let left = p.x * coef;
-        let leftCorr = left - 10 * coef < 0 ? 0 : left - 10 * coef;
+        let leftCorr = Math.max(0, left - 10 * coef);
         placeNames.push(
           <Note key={p.id} left={leftCorr}>
             {p.text}

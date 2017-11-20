@@ -11,25 +11,74 @@ describe('InfoBox', () => {
     const emptyInfo = [];
     const wrapper = mount(
       <Container controller={Controller()}>
-        <InfoBox info={emptyInfo} />
+        <InfoBox />
       </Container>
     );
     expect(wrapper).to.exist;
   });
   it('Should update', done => {
-    const testInfo = [
-      {
-        id: 'Test',
-        minAge: 2,
-        maxAge: 3
-      }
-    ];
     const wrapper = mount(
       <Container controller={Controller()}>
-        <InfoBox info={testInfo} color="black" visible="true" />
+        <InfoBox />
       </Container>
     );
     wrapper.update();
+    done();
+  });
+  it('Should show info', done => {
+    const testInfo = {
+      id: 'Test',
+      minAge: 2,
+      maxAge: 3
+    };
+    const wrapper = mount(
+      <Container
+        controller={Controller({
+          state: {
+            app: {
+              info: {
+                id: 'foooo',
+                minAge: 3,
+                maxAge: 4
+              }
+            }
+          }
+        })}
+      >
+        <InfoBox />
+      </Container>
+    );
+    wrapper.update();
+    done();
+  });
+  it('Should show with inspector', done => {
+    const testInfo = {
+      id: 'Test',
+      minAge: 2,
+      maxAge: 3
+    };
+    const wrapper = mount(
+      <Container
+        controller={Controller({
+          state: {
+            app: {
+              info: {
+                id: 'foooo',
+                minAge: 3,
+                maxAge: 4
+              }
+            },
+            settings: {
+              visibility: {
+                inspector: true
+              }
+            }
+          }
+        })}
+      >
+        <InfoBox />
+      </Container>
+    );
     done();
   });
 });

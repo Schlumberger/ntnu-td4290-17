@@ -7,6 +7,9 @@ import computeFaults from 'computed/computeFaults';
 import computeLayers from 'computed/computeLayers';
 import computeMaxDimentions from 'computed/computeMaxDimentions';
 
+import computeSubareas from 'computed/computeSubareas';
+import computeIntersections from 'computed/computeIntersections';
+
 import {
   Wrapper,
   Visualization,
@@ -15,7 +18,6 @@ import {
   GridWrapper,
   PlacesBar,
   ButtonWrapper,
-  ButtonIcon,
   ButtonText
 } from './elements';
 
@@ -23,10 +25,12 @@ const dependencies = {
   user: state`app.user`,
   faults: computeFaults,
   layers: computeLayers,
+  subareas: computeSubareas,
+  intersections: computeIntersections,
   dimentions: computeMaxDimentions,
-  yAxisUnit: state`settings.yAxisUnit`,
   layerClicked: signal`app.layerClicked`,
   emptyClicked: signal`app.emptyClicked`,
+  diagramOption: state`settings.diagramOption`,
   routed: signal`app.routed`,
   places: state`places`
 };
@@ -49,8 +53,10 @@ class App extends React.Component {
             <Visualization
               faults={this.props.faults}
               layers={this.props.layers}
+              subareas={this.props.subareas}
+              intsctns={this.props.intersections}
               dimentions={this.props.dimentions}
-              yAxisUnit={this.props.yAxisUnit}
+              diagramOption={this.props.diagramOption}
               onLayerClicked={this.props.layerClicked}
               onEmptyClicked={this.props.emptyClicked}
             />
@@ -68,11 +74,15 @@ class App extends React.Component {
 App.propTypes = {
   faults: array,
   layers: array,
+  subareas: array,
+  intersections: array,
   dimentions: object,
-  yAxisUnit: string,
+  diagramOption: string,
   layerClicked: func,
   emptyClicked: func,
-  places: array
+  places: array,
+  user: object,
+  routed: func
 };
 
 // Connect the component to cerebral so that cerebral can manage it

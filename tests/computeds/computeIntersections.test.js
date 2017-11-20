@@ -2,7 +2,7 @@ import { props, state } from 'cerebral/tags';
 import { runCompute } from 'cerebral/test';
 import { assert } from 'chai';
 
-import computed from 'computed/computeLayers';
+import computed from 'computed/computeIntersections';
 
 describe('Compute correct values', function () {
   it('Should compute empty object if no data', function () {
@@ -14,9 +14,8 @@ describe('Compute correct values', function () {
       state: {
         settings: {
           visibility: {
-            layers: false
-          },
-          diagramOption: 'age'
+            intersects: false
+          }
         },
         formattedData: [{ foo: 'bar' }]
       }
@@ -28,13 +27,28 @@ describe('Compute correct values', function () {
       state: {
         settings: {
           visibility: {
-            layers: true
-          },
-          diagramOption: 'depth'
+            intersects: true
+          }
+        },
+        formattedData: [
+          { type: 'surface', intersections: [{ foo: 'bar' }] },
+          { type: 'notsurface' }
+        ]
+      }
+    });
+    assert.deepEqual(result, [{ foo: 'bar' }]);
+  });
+  it('Should filter layers without intersections', function () {
+    const result = runCompute(computed, {
+      state: {
+        settings: {
+          visibility: {
+            intersects: true
+          }
         },
         formattedData: [{ type: 'surface' }, { type: 'notsurface' }]
       }
     });
-    assert.deepEqual(result, [{ type: 'surface' }]);
+    assert.deepEqual(result, []);
   });
 });

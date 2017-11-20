@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 import Button from 'components/ImmersiveButton';
+import ToggleButton from 'components/LayerButton';
 
 export const Wrapper = styled.div`
   padding: 10px;
@@ -18,6 +19,10 @@ export const Handle = styled.div`
 `;
 
 export const ImmersiveButton = styled(Button)`
+  text-transform: capitalize;
+  margin: 8px;
+`;
+export const LayerButton = styled(ToggleButton)`
   text-transform: capitalize;
   margin: 8px;
 `;
